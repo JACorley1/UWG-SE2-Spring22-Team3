@@ -1,0 +1,12 @@
+Context - None
+
+Primary Flow:
+1 - User inputs credentials
+2 - The system finds that the user credentials are valid
+3 - The system retrieves employee data from the server based on credentials
+4 - The landing page is displayed with features based on employee credentials
+
+Alternative Flow:
+a2 - The system finds that the user credentials are invalid
+a3 - The user is informed that incorrect credentials were entered and to try
+     again
