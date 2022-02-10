@@ -1,0 +1,14 @@
+Context - User is logged in and is viewing landing page
+
+Primary Flow
+1 - user selects clock out button
+2 - system displays current time in clock out section of landing page
+
+Alternative Flow(s)
+NO Previous CLOCK IN
+a1 - system informs user that clock in is required for clock out
+
+BAD CONNECTION
+a2 - system fails to connect to server
+a3 - system informs user of error
+
