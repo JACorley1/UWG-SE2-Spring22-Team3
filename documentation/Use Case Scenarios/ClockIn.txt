@@ -1,0 +1,10 @@
+Context - User is logged in and is viewing landing page
+
+Primary Flow
+1 - user selects clock in button
+2 - system displays current time in clock in section of landing page
+
+Alternative Flow(s)
+BAD CONNECTION
+a2 - system fails to connect to server
+a3 - system informs user of error
