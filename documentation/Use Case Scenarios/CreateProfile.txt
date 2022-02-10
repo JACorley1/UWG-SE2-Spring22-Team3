@@ -4,7 +4,7 @@ Primary Flow
 1 - HR user selects button to create profile
 2 - System displays Profile Creation page
 3 - HR user enter employee info (name, title, work email, work phone, date started)
-4 - User presses button to add profile
+4 - User presses button to confirm add profile
 5 - System adds profile data 
 6 - System gives confirmation of addition
 7 - HR user will now see employee in HR employee view list
@@ -12,7 +12,7 @@ Primary Flow
 Alternate Flows
 Cancel
 a3 - HR user can choose to hit the cancel button
-a4 - Profile creation page close and returns use to HR view page
+a4 - Profile creation page closes and returns use to HR view page
 
 Bad Connection
 a5 - System fails to connect to server
