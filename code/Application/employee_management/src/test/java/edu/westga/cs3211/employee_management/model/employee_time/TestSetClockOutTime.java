@@ -13,8 +13,10 @@ class TestSetClockOutTime {
 
 	@Test
 	void testNullClockOutTime() {
+		LocalDateTime clockInDate = LocalDateTime.of(2022, 2, 14, 9, 20);
+		EmployeeTime time = new EmployeeTime(clockInDate);
 		assertThrows(IllegalArgumentException.class, () -> {
-			new EmployeeTime(null);
+			time.setClockOutTime(null);
 		});
 	}
 
@@ -22,10 +24,21 @@ class TestSetClockOutTime {
 	void testValidDate() {
 		LocalDateTime clockInDate = LocalDateTime.of(2022, 2, 14, 9, 20);
 		LocalDateTime clockOutDate = LocalDateTime.of(2022, 2, 14, 9, 40);
-		EmployeeTime time = new EmployeeTime(clockOutDate);
+		EmployeeTime time = new EmployeeTime(clockInDate);
 		time.setClockOutTime(clockOutDate);
 
-		assertEquals(LocalDateTime.of(2022, 2, 14, 9, 40), time.getClockInTime());
+		assertEquals(LocalDateTime.of(2022, 2, 14, 9, 40), time.getClockOutTime());
 
+	}
+
+	@Test
+	void testInvalidDateBeforeClockIn() {
+		LocalDateTime clockInDate = LocalDateTime.of(2022, 2, 14, 9, 20);
+		LocalDateTime clockOutDate = LocalDateTime.of(2022, 2, 14, 9, 10);
+		EmployeeTime time = new EmployeeTime(clockInDate);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			time.setClockOutTime(clockOutDate);
+		});
 	}
 }
