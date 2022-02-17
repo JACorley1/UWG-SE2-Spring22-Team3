@@ -30,6 +30,11 @@
         	<artifactId>checkstyle</artifactId>
         	<version>9.3</version>
         </dependency>
+        <dependency>
+        	<groupId>org.junit.platform</groupId>
+        	<artifactId>junit-platform-commons</artifactId>
+        	<version>1.8.2</version>
+        </dependency>
     </dependencies>
 
     <build>
