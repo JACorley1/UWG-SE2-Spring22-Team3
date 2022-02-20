@@ -7,12 +7,10 @@ import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
-    private static Stage stage;
 	private static final String APPLICATION_TITLE = "Employee Management Application";
 
     @Override
-	public void start(@SuppressWarnings("exports") Stage arg) throws IOException {
-		stage = arg;
+	public void start(Stage arg) throws IOException {
 		setRoot(Scenes.LOGIN, APPLICATION_TITLE);
     }
 

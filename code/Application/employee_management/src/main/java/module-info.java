@@ -5,5 +5,7 @@ module edu.westga.edu {
 	requires transitive javafx.graphics;
 	requires javafx.base;
     opens edu.westga.edu.employee_management to javafx.fxml;
+	opens edu.westga.edu.employee_management.controller to javafx.fxml;
+
     exports edu.westga.edu.employee_management;
 }
