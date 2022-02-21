@@ -5,26 +5,29 @@ Put header here
 
  */
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-public class FXMLController implements Initializable {
+public class FXMLController {
     
     @FXML
     private Label lblOut;
     
     @FXML
     private void btnClickAction(ActionEvent event) {
-		this.lblOut.setText("Hello World!");
+		this.openLandingPage();
     }
     
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-		// TODO
-    }    
+	private void openLandingPage() {
+		try {
+			SceneController.changeScene(Scenes.LANDINGPAGE, (Stage) this.lblOut.getScene().getWindow());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

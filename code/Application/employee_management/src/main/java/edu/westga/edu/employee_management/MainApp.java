@@ -1,40 +1,32 @@
 package edu.westga.edu.employee_management;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
 import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 
 public class MainApp extends Application {
-    private static Stage stage;
+	private static final String APPLICATION_TITLE = "Employee Management Application";
 
     @Override
-    public void start(@SuppressWarnings("exports") Stage s) throws IOException {
-        stage=s;
-        setRoot("primary","");
+	public void start(Stage arg) throws IOException {
+		setRoot(Scenes.LOGIN, APPLICATION_TITLE);
     }
 
-    static void setRoot(String fxml) throws IOException {
-        setRoot(fxml,stage.getTitle());
-    }
-
-    static void setRoot(String fxml, String title) throws IOException {
-        Scene scene = new Scene(loadFXML(fxml));
-        stage.setTitle(title);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/fxml/"+fxml + ".fxml"));
-        return fxmlLoader.load();
+	static void setRoot(Scenes fxml, String title) throws IOException {
+		SceneController.openWindow(fxml, title);
     }
 
 
+	/**
+	 * Entry Point into the application
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param args
+	 */
     public static void main(String[] args) {
         launch(args);
     }
