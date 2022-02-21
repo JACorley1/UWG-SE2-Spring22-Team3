@@ -7,84 +7,53 @@ package edu.westga.edu.employee_management.model;
  * @version 2/16/22
  */
 public class EmployeeProfile {
-	
+
 	private static final String FIRST_NAME_CAN_NOT_BE_NULL = "first name can not be null";
 	private static final String MIDDLE_NAME_CAN_NOT_BE_NULL = "middle name can not be null";
 	private static final String LAST_NAME_CAN_NOT_BE_NULL = "last name can not be null";
 	private static final String EMAIL_CAN_NOT_BE_NULL = "email  can not be null";
 	private static final String PHONE_CAN_NOT_BE_NULL = "phone number can not be null";
-	private static final String TITLE_CAN_NOT_BE_NULL = "title can not be null";
-	private static final String TITLE_CAN_NOT_BE_EMPTY = "title can not be empty";
 	private static final String FIRST_NAME_CAN_NOT_BE_EMPTY = "first name can not be empty";
 	private static final String LAST_NAME_CAN_NOT_BE_EMPTY = "last name can not be empty";
 	private static final String EMAIL_CAN_NOT_BE_EMPTY = "email can not be empty";
-	
-	
-	private String title;
+	private static final String ID_CAN_NOT_BE_NEGATIVE = "id can not be negative";
+
+	private int id;
 	private String firstName;
 	private String middleName;
 	private String lastName;
 	private String email;
 	private String phone;
-	
+
 	/**
 	 * The Employee Profile constructor
 	 * 
-	 * @precondition title != null && firstName != null && lastName != null && 
-	 * 		email != null && phone != null && !title.isEmpty() && !firstName.isEmpty() &&
-	 * 		!lastName.isEmpty() && !email.isEmpty()
+	 * @precondition firstName != null && lastName != null && email
+	 *               != null && phone != null && !firstName.isEmpty() 
+	 *               && !lastName.isEmpty() && !email.isEmpty()
 	 * 
-	 * @postcondition getTitle() == title && getFirstName() == firstName && getMiddleName == midName &&
-	 * 		getLastName() == lastName && getEmail() == email && getPhone() == phone
+	 * @postcondition getTitle() == title && getFirstName() == firstName &&
+	 *                getMiddleName == midName && getLastName() == lastName &&
+	 *                getEmail() == email && getPhone() == phone
 	 * 
-	 * @param title the employee's title
+	 * @param id 		the employee's id
 	 * @param firstName the employee's first name
-	 * @param midName the employee's middle name
-	 * @param lastName the employee's last name
-	 * @param email the employee's email
-	 * @param phone the employee's phone
+	 * @param midName   the employee's middle name
+	 * @param lastName  the employee's last name
+	 * @param email     the employee's email
+	 * @param phone     the employee's phone
 	 */
-	public EmployeeProfile(String title, String firstName, String midName, String lastName, String email, String phone) {
-		this.setTitle(title);
+	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email,
+			String phone) {
+		this.setID(id);
 		this.setFirstName(firstName);
 		this.setMiddleName(midName);
 		this.setLastName(lastName);
 		this.setEmail(email);
 		this.setPhone(phone);
 	}
-	
-	/**
-	 * Returns Title
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return employee's title
-	 */
-	
-	public String getTitle() {
-		return this.title;
-	}
-	
-	/**
-	 * Sets Employee's title
-	 * 
-	 * @precondition title != null && !title.isEmpty()
-	 * @postcondition getTitle() == title
-	 * 
-	 * @param title the Employee's title
-	 */
-	public void setTitle(String title) {
-		if (title == null) {
-			throw new NullPointerException(EmployeeProfile.TITLE_CAN_NOT_BE_NULL);
-		}
-		if (title.isEmpty()) {
-			throw new IllegalArgumentException(EmployeeProfile.TITLE_CAN_NOT_BE_EMPTY);
-		}
-		this.title = title;
-	}
-	
-	
+
+
 	/**
 	 * Returns First Name
 	 * 
@@ -93,11 +62,11 @@ public class EmployeeProfile {
 	 * 
 	 * @return employee's First Name
 	 */
-	
+
 	public String getFirstName() {
 		return this.firstName;
 	}
-	
+
 	/**
 	 * Sets Employee's first Name
 	 * 
@@ -115,7 +84,7 @@ public class EmployeeProfile {
 		}
 		this.firstName = firstName;
 	}
-	
+
 	/**
 	 * Returns Middle Name
 	 * 
@@ -127,7 +96,7 @@ public class EmployeeProfile {
 	public String getMiddleName() {
 		return this.middleName;
 	}
-	
+
 	/**
 	 * Sets Employee's middle name
 	 * 
@@ -142,7 +111,7 @@ public class EmployeeProfile {
 		}
 		this.middleName = middleName;
 	}
-	
+
 	/**
 	 * Returns Last Name
 	 * 
@@ -154,7 +123,7 @@ public class EmployeeProfile {
 	public String getLastName() {
 		return this.lastName;
 	}
-	
+
 	/**
 	 * Sets Employee's last name
 	 * 
@@ -172,7 +141,7 @@ public class EmployeeProfile {
 		}
 		this.lastName = lastName;
 	}
-	
+
 	/**
 	 * Returns Email
 	 * 
@@ -184,7 +153,7 @@ public class EmployeeProfile {
 	public String getEmail() {
 		return this.email;
 	}
-	
+
 	/**
 	 * Sets Employee's email
 	 * 
@@ -202,7 +171,7 @@ public class EmployeeProfile {
 		}
 		this.email = email;
 	}
-	
+
 	/**
 	 * Returns Phone
 	 * 
@@ -214,7 +183,7 @@ public class EmployeeProfile {
 	public String getPhone() {
 		return this.phone;
 	}
-	
+
 	/**
 	 * Sets Employee's phone
 	 * 
@@ -228,5 +197,33 @@ public class EmployeeProfile {
 			throw new NullPointerException(EmployeeProfile.PHONE_CAN_NOT_BE_NULL);
 		}
 		this.phone = phone;
+	}
+	
+	/**
+	 * Returns Title
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return employee's title
+	 */
+	
+	public int getID() {
+		return this.id;
+	}
+	
+	/**
+	 * Sets Employee's id
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param id employee's id
+	 */
+	public void setID(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException(EmployeeProfile.ID_CAN_NOT_BE_NEGATIVE);
+		}
+		this.id = id;
 	}
 }
