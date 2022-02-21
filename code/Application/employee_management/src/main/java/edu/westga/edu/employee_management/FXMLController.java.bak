@@ -39,7 +39,7 @@ public class FXMLController {
 	private void btnClickAction(ActionEvent event) {
 		this.newLogin = new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText());
 		
-		if (this.newLogin.verifyLoginCredentials()) {
+		if (this.newLogin.verifyLogin()) {
 			this.openLandingPage();
 		} else if (this.usernameTxt.getText().equals("") || this.passwordTxt.getText().equals("")) {
 			this.incorrectCredentialsMessage.setText("Please Input All Credentials And Try Again");
