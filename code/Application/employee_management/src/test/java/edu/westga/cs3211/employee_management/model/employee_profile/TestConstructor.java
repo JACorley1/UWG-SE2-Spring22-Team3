@@ -13,63 +13,64 @@ class TestConstructor {
 	@Test
 	void testNullFirstName() {
 		
-		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, null, "d", "smith", "email", "phone"));
+		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, null, "d", "smith", "email", "phone", false));
 	}
 	
 	@Test
 	void testNullMiddleName() {
 		
-		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", null, "smith", "email", "phone"));
+		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", null, "smith", "email", "phone", false));
 	}
 	
 	@Test
 	void testNullLastName() {
 		
-		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", null, "email", "phone"));
+		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", null, "email", "phone", false));
 	}
 	
 	@Test
 	void testNullEmail() {
 		
-		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", null, "phone"));
+		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", null, "phone", false));
 	}
 	
 	@Test
 	void testNullPhone() {
 		
-		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", "email", null));
+		assertThrows(NullPointerException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", "email", null, false));
 	}
 	
 	@Test
 	void testEmptyFirstName() {
 		
-		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "", "d", "smith", "email", "phone"));
+		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "", "d", "smith", "email", "phone", false));
 	}
 	
 	@Test
 	void testEmptyLastName() {
 		
-		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "john", "d", "", "email", "phone"));
+		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "john", "d", "", "email", "phone", false));
 	}
 	
 	@Test
 	void testEmptyEmail() {
 		
-		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", "", "phone"));
+		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(1234, "john", "d", "smith", "", "phone", false));
 	}
 	
 	@Test
 	void testNegativeID() {
 		
-		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(-11234, "john", "d", "smith", "email", "phone"));
+		assertThrows(IllegalArgumentException.class, () -> new EmployeeProfile(-11234, "john", "d", "smith", "email", "phone", false));
 	
 	}
 	
 	@Test
 	void testValidConstructor() {
-		EmployeeProfile profile = new EmployeeProfile(1234, "john", "d", "smith", "email", "phone");
+		EmployeeProfile profile = new EmployeeProfile(1234, "john", "d", "smith", "email", "phone", true);
 		assertAll(() -> assertEquals(1234, profile.getID()), () -> assertEquals("john", profile.getFirstName()),
 				() -> assertEquals("d", profile.getMiddleName()), () -> assertEquals("smith", profile.getLastName()),
-						() -> assertEquals("email", profile.getEmail()), () -> assertEquals("phone", profile.getPhone()));
+						() -> assertEquals("email", profile.getEmail()), () -> assertEquals("phone", profile.getPhone()),
+								() -> assertTrue(profile.isHR()));
 	}
 }

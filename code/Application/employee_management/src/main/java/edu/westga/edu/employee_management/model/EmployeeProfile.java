@@ -24,6 +24,7 @@ public class EmployeeProfile {
 	private String lastName;
 	private String email;
 	private String phone;
+	private boolean hr;
 
 	/**
 	 * The Employee Profile constructor
@@ -42,15 +43,17 @@ public class EmployeeProfile {
 	 * @param lastName  the employee's last name
 	 * @param email     the employee's email
 	 * @param phone     the employee's phone
+	 * @param isHR     	is employee an HR member
 	 */
 	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email,
-			String phone) {
+			String phone, boolean isHR) {
 		this.setID(id);
 		this.setFirstName(firstName);
 		this.setMiddleName(midName);
 		this.setLastName(lastName);
 		this.setEmail(email);
 		this.setPhone(phone);
+		this.setHR(isHR);
 	}
 
 
@@ -226,4 +229,29 @@ public class EmployeeProfile {
 		}
 		this.id = id;
 	}
+
+	/**
+	 * Returns HR status
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return employee hr status
+	 */
+	public boolean isHR() {
+		return this.hr;
+	}
+
+	/**
+	 * Sets HR status
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param hr the hr status
+	 */
+	public void setHR(boolean hr) {
+		this.hr = hr;
+	}
+
 }
