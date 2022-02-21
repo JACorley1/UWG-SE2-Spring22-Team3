@@ -1,7 +1,7 @@
 package edu.westga.edu.employee_management;
 
 public enum Scenes {
-	LOGIN("primary"), LANDINGPAGE("LandingPage");
+	LOGIN("LoginPage"), LANDINGPAGE("LandingPage");
 
 	private String filename;
 
