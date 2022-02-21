@@ -26,5 +26,10 @@
             <Font size="18.0" />
          </font>
       </Text>
+      <Text fx:id="incorrectCredentialsMessage" fill="#eb100c" layoutX="88.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="323.13671875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>
