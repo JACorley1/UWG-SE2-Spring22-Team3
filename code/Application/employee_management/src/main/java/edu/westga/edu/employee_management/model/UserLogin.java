@@ -19,6 +19,13 @@ public class UserLogin {
 	}
 	
 	public UserLogin(String username, String password) {
+		if (username == null) {
+			throw new IllegalArgumentException("Username cannot be null.");
+		}
+		if (password == null) {
+			throw new IllegalArgumentException("Username cannot be null.");
+		}
+		
 		this.username = username;
 		this.password = password;
 		
@@ -29,7 +36,7 @@ public class UserLogin {
         this.employeeCredentials.put("fernando", "dominguez");
 	}
 	
-	public boolean verifyLogin() {
+	public boolean verifyLoginCredentials() {
 		
 		if (this.employeeCredentials.containsKey(this.username)) {
 			String correctPassword = this.employeeCredentials.get(this.username);
@@ -39,6 +46,18 @@ public class UserLogin {
 		}
 		
 		return false;
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public String getPassword() {
+		return this.password;
+	}
+
+	public HashMap<String, String> getEmployeeCredentials() {
+		return this.employeeCredentials;
 	}
 
 }
