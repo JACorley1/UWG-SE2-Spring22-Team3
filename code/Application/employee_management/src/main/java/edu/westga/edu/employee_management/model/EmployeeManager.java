@@ -58,8 +58,8 @@ import java.util.List;
 	 * @return true  if employee added successfully
 	 * 		   false if employee not added successfully
 	 */
-	 public boolean addNewEmployee(String title, String firstName, String midName, String lastName, String email, String phone) {
-		 if (title == null || title.isEmpty()) {
+	 public boolean addNewEmployee(int id, String firstName, String midName, String lastName, String email, String phone , boolean hrEmployee) {
+		 if (id < 0) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
 		if (firstName == null || firstName.isEmpty()) {
@@ -78,7 +78,7 @@ import java.util.List;
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
 		//Check for duplicate
-		return this.profiles.add(new EmployeeProfile(title, firstName, midName, lastName, email, phone));
+		return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee));
 	 }
 	 
 	 /** Update an existing profile with the specified credentials to the system
@@ -102,8 +102,8 @@ import java.util.List;
 	 * @return true  if profile updated successfully
 	 * 		   false if profile not updated successfully
 	 */
-	 public boolean updateProfile(String title, String firstName, String midName, String lastName, String email, String phone) {
-		 if (title == null || title.isEmpty()) {
+	 public boolean updateProfile(int id, String firstName, String midName, String lastName, String email, String phone, boolean hrEmployee) {
+		 if (id < 0) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
 		if (firstName == null || firstName.isEmpty()) {
@@ -128,7 +128,7 @@ import java.util.List;
 		} else if(!this.profiles.remove(newProfile)) {
 			return false;
 		} else {
-			return this.profiles.add(new EmployeeProfile(title, firstName, midName, lastName, email, phone));
+			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee));
 		}
 	 }
 	 
