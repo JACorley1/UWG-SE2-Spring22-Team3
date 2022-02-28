@@ -253,5 +253,14 @@ public class EmployeeProfile {
 	public void setHR(boolean hr) {
 		this.hr = hr;
 	}
+	
+	@Override
+	public String toString() {
+		String type = "No";
+		if(this.hr) {
+			type = "Yes";
+		}
+		return this.lastName + " ID: " + this.id + " HR: " + type;
+	}
 
 }
