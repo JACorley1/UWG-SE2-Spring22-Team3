@@ -12,52 +12,47 @@ import java.util.List;
  public class EmployeeManager {
 	 private List<EmployeeProfile> profiles;
 	 
-	 /** Create a new instance of EmployeeManager
-	 * 
-	 * @precondition none
-	 * @postcondition this.profiles != null
-	 * 
-	 */
+	 /** 
+	  * Create a new instance of EmployeeManager
+	  * 
+	  * @precondition none
+	  * @postcondition this.profiles != null
+	  * 
+	  */
 	 public EmployeeManager() {
 		 this.profiles = new ArrayList<EmployeeProfile>();
 	 }
 	 
-	 /** Returns a list of the names for all the employees
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return list of the names for employees
-	 */
-	 public List<String> getEmployeesName() {
-		 List<String> names = new ArrayList<String>();
-		 
-		 for (EmployeeProfile current : this.profiles) {
-			 names.add(current.getFirstName() + " " + current.getLastName());
-		 }
-		 return names;
-	 }
-	 
-	 /** Add a new system with the specified credentials to the system
-	 * 
-	 * @precondition title != null && !title.isEmpty() &&
-	 * 				 firstName != null && !firstName.isEmpty() &&
-	 * 				 midName != null && !midName.isEmpty() &&
-	 * 				 lasName != null && !lasName.isEmpty() &&
-	 * 				 email != null && !email.isEmpty() &&
-	 * 				 phone != null && !phone.isEmpty()
-	 * @postcondition getSystemNames().contains(firstName + " " + lasName)
-	 * 
-	 * @param title the employee's title
-	 * @param firstName the employee's first name
-	 * @param midName the employee's middle name
-	 * @param lastName the employee's last name
-	 * @param email the employee's email
-	 * @param phone the employee's phone
-	 * 
-	 * @return true  if employee added successfully
-	 * 		   false if employee not added successfully
-	 */
+	 /**
+	  * Get the profile
+	  * 
+	  * @return the profiles on the list
+	  */
+	public List<EmployeeProfile> getProfiles() {
+		return this.profiles;
+	}
+
+	/** 
+	  * Add a new system with the specified credentials to the system
+	  * 
+	  * @precondition title != null && !title.isEmpty() &&
+	  * 				 firstName != null && !firstName.isEmpty() &&
+	  * 				 midName != null && !midName.isEmpty() &&
+	  * 				 lasName != null && !lasName.isEmpty() &&
+	  * 				 email != null && !email.isEmpty() &&
+	  * 				 phone != null && !phone.isEmpty()
+	  * @postcondition getSystemNames().contains(firstName + " " + lasName)
+	  * 
+	  * @param title the employee's title
+	  * @param firstName the employee's first name
+	  * @param midName the employee's middle name
+	  * @param lastName the employee's last name
+	  * @param email the employee's email
+	  * @param phone the employee's phone
+	  * 
+	  * @return true  if employee added successfully
+	  * 		   false if employee not added successfully
+	  */
 	 public boolean addNewEmployee(int id, String firstName, String midName, String lastName, String email, String phone , boolean hrEmployee) {
 		 if (id < 0) {
 			throw new IllegalArgumentException("cannot be null or empty");
@@ -77,8 +72,13 @@ import java.util.List;
 		if (phone == null || phone.isEmpty()) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
-		//Check for duplicate
-		return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee));
+		EmployeeProfile profile = this.getProfile(id);
+		if (profile == null) {
+			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee));
+		} else {
+			throw new IllegalStateException("This profile already exists.");
+		}
+		
 	 }
 	 
 	 /** Update an existing profile with the specified credentials to the system
@@ -121,7 +121,7 @@ import java.util.List;
 		if (phone == null || phone.isEmpty()) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
-		EmployeeProfile newProfile = this.getProfile(firstName, lastName);
+		EmployeeProfile newProfile = this.getProfile(id);
 		
 		if(newProfile == null) {
 			throw new IllegalStateException("That profile does not exist");
@@ -145,15 +145,15 @@ import java.util.List;
 	 * @return true  if profile removed successfully
 	 * 		   false if profile not removed successfully
 	 */
-	 public boolean removeProfile(String firstName, String lastName) {
-		 if (firstName == null || firstName.isEmpty()) {
+	 public boolean removeProfile(int id, String lastName) {
+		 if (id < 0) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
 		if (lastName == null || lastName.isEmpty()) {
 			throw new IllegalArgumentException("cannot be null or empty");
 		}
 		
-		EmployeeProfile newProfile = this.getProfile(firstName, lastName);
+		EmployeeProfile newProfile = this.getProfile(id);
 		if(newProfile == null) {
 			throw new IllegalStateException("That profile does not exist");
 		} else {
@@ -161,15 +161,14 @@ import java.util.List;
 		}
 	 }
 	 	
-	 private EmployeeProfile getProfile(String firstName, String lasName) {
+	 private EmployeeProfile getProfile(int id) {
 		 EmployeeProfile profile = null;
 		 
 		 for (EmployeeProfile current : this.profiles) {
-			 if (current.getFirstName().equals(firstName) && current.getLastName().equals(lasName)) {
+			 if (current.getID() == id) {
 				 profile = current;
 			 }
 		 }
 		 return profile;
 	 }
-	 
  }	

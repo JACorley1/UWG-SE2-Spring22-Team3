@@ -80,7 +80,7 @@ public class LandingPageController {
 	@FXML
 	void openHRView(ActionEvent event) {
 		try {
-			SceneController.changeScene(Scenes.HRLANDINGPAGE, (Stage) this.hrViewButton.getScene().getWindow());
+			SceneController.openWindow(Scenes.HRLANDINGPAGE, "HR Landing Page");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
