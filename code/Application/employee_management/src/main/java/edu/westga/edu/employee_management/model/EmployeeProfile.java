@@ -29,24 +29,24 @@ public class EmployeeProfile {
 	/**
 	 * The Employee Profile constructor
 	 * 
-	 * @precondition firstName != null && lastName != null && email
-	 *               != null && phone != null && !firstName.isEmpty() 
-	 *               && !lastName.isEmpty() && !email.isEmpty()
+	 * @precondition firstName != null && lastName != null && email != null && phone
+	 *               != null && !firstName.isEmpty() && !lastName.isEmpty() &&
+	 *               !email.isEmpty()
 	 * 
 	 * @postcondition getTitle() == title && getFirstName() == firstName &&
 	 *                getMiddleName == midName && getLastName() == lastName &&
 	 *                getEmail() == email && getPhone() == phone
 	 * 
-	 * @param id 		the employee's id
+	 * @param id        the employee's id
 	 * @param firstName the employee's first name
 	 * @param midName   the employee's middle name
 	 * @param lastName  the employee's last name
 	 * @param email     the employee's email
 	 * @param phone     the employee's phone
-	 * @param isHR     	is employee an HR member
+	 * @param isHR      is employee an HR member
 	 */
-	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email,
-			String phone, boolean isHR) {
+	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email, String phone,
+			boolean isHR) {
 		this.setID(id);
 		this.setFirstName(firstName);
 		this.setMiddleName(midName);
@@ -55,7 +55,6 @@ public class EmployeeProfile {
 		this.setPhone(phone);
 		this.setHR(isHR);
 	}
-
 
 	/**
 	 * Returns First Name
@@ -201,7 +200,7 @@ public class EmployeeProfile {
 		}
 		this.phone = phone;
 	}
-	
+
 	/**
 	 * Returns Title
 	 * 
@@ -210,11 +209,11 @@ public class EmployeeProfile {
 	 * 
 	 * @return employee's title
 	 */
-	
+
 	public int getID() {
 		return this.id;
 	}
-	
+
 	/**
 	 * Sets Employee's id
 	 * 
@@ -244,7 +243,7 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets HR status
-	 * 
+	 *  
 	 * @precondition none
 	 * @postcondition none
 	 * 

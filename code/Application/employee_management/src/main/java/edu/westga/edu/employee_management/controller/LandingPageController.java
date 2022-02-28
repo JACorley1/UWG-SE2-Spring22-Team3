@@ -1,5 +1,6 @@
 package edu.westga.edu.employee_management.controller;
 
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ public class LandingPageController {
 	private Button hrViewButton;
 
 	@FXML
-	private TextField titleField;
+	private TextField idField;
 
 	@FXML
 	private TextField firstNameField;
@@ -56,7 +57,18 @@ public class LandingPageController {
 
 	@FXML
 	private GridPane secondWeekGrid;
-
+	
+	public LandingPageController() {
+		
+		
+	}
+	
+	@FXML
+	private void initialize() {
+		EmployeeProfile profile = new EmployeeProfile(21333, "f", "m", "l", "example@gmail.com", "123-456-7890", false);
+		this.setUpLandingPageProfileFields(profile);
+		
+	}
 	@FXML
 	void payPeriodBack(ActionEvent event) {
 
@@ -81,6 +93,16 @@ public class LandingPageController {
 	void payPeriodForward(ActionEvent event) {
 
 	}
-
+	
+	private void setUpLandingPageProfileFields(EmployeeProfile profile) {
+		if (profile != null) {
+			this.idField.setText(String.valueOf(profile.getID()));
+			this.firstNameField.setText(profile.getFirstName());
+			this.middleNameField.setText(profile.getMiddleName());
+			this.lastNameField.setText(profile.getLastName());
+			this.emailField.setText(profile.getEmail());
+			this.phoneField.setText(profile.getPhone());
+		}
+	}
 }
 
