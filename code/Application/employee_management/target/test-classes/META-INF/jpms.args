@@ -1,4 +1,0 @@
---patch-module
-edu.westga.edu=_
---add-reads
-edu.westga.edu=ALL-UNNAMED
