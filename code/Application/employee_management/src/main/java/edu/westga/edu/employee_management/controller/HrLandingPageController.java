@@ -38,6 +38,12 @@ public class HrLandingPageController {
 	private TextField phoneTextField;
 
 	@FXML
+	private TextField usernameTextField;
+
+	@FXML
+	private TextField passwordTextField;
+
+	@FXML
 	private RadioButton hrEmployeeRadioBtn;
 
 	@FXML
@@ -163,7 +169,8 @@ public class HrLandingPageController {
 		try {
 			result = this.manager.updateProfile(idValue, this.firstNameTextField.getText(),
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
-					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged());
+					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
+					this.usernameTextField.getText(), this.passwordTextField.getText());
 		} catch (Exception e) {
 			result = false;
 		}
@@ -180,7 +187,8 @@ public class HrLandingPageController {
 		try {
 			result = this.manager.addNewEmployee(idValue, this.firstNameTextField.getText(),
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
-					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged());
+					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
+					this.usernameTextField.getText(), this.passwordTextField.getText());
 		} catch (Exception e) {
 			result = false;
 		}
@@ -213,6 +221,8 @@ public class HrLandingPageController {
 						this.lastNameTextField.setText(newValue.getLastName());
 						this.emaiilTextField.setText(newValue.getEmail());
 						this.phoneTextField.setText(newValue.getPhone());
+						this.usernameTextField.setText(newValue.getUserName());
+						this.passwordTextField.setText(newValue.getPassword());
 						if (newValue.isHR()) {
 							this.Type.selectToggle(this.hrEmployeeRadioBtn);
 						} else {
@@ -250,13 +260,18 @@ public class HrLandingPageController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	private void setOfEmployeessSample() {
-		this.manager.addNewEmployee(1213, "Javier", "A", "JWulen", "gomitagodoz666@hotmail.com", "7778542369", false);
-		this.manager.addNewEmployee(1312, "Jordi", "S", "Salvaje", "CarjotXX777@hotmail.com", "6678954563", false);
-		this.manager.addNewEmployee(1112, "Elver", "J", "Galarda", "elverGaXXX89@hotmail.com", "8975462147", true);
+		this.manager.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true,
+				"destiny", "harper");
+		this.manager.addNewEmployee(1312, "Brianna", "S", "Irie", "CarjotXX777@hotmail.com", "6678954563", true,
+				"brianna", "irie");
+		this.manager.addNewEmployee(1112, "Fernando", "J", "Dominguez", "elverGaXXX89@hotmail.com", "8975462147", true,
+				"fernando", "dominguez");
+		this.manager.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false,
+				"miguel", "campos");
 	}
-	
+
 	private void setAllFieldsEmpty() {
 		this.idTextField.setText("");
 		this.firstNameTextField.setText("");
@@ -264,8 +279,10 @@ public class HrLandingPageController {
 		this.lastNameTextField.setText("");
 		this.emaiilTextField.setText("");
 		this.phoneTextField.setText("");
+		this.idTextField.setText("");
+		this.passwordTextField.setText("");
 	}
-	
+
 	private void changeEditableState(boolean state) {
 		this.idTextField.setEditable(state);
 		this.firstNameTextField.setEditable(state);
@@ -273,6 +290,8 @@ public class HrLandingPageController {
 		this.lastNameTextField.setEditable(state);
 		this.emaiilTextField.setEditable(state);
 		this.phoneTextField.setEditable(state);
+		this.idTextField.setEditable(state);
+		this.passwordTextField.setEditable(state);
 		this.PaymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);
 		this.monStartTimeField.setEditable(state);

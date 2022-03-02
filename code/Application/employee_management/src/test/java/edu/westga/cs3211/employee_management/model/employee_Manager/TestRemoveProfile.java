@@ -44,9 +44,9 @@ class TestRemoveProfile {
 	@Test
 	public void testRemovingEmployee() {
 		EmployeeManager manager = new EmployeeManager();
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
-		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false);
-		manager.addNewEmployee(11, "juan", "A", "Jwulen", "@xd", "12345", false);
+		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(11, "juan", "A", "Jwulen", "@xd", "12345", false, "gatita", "hotxxx");
 		manager.removeProfile(11, "Jwulen");
 		
 		int result = manager.getProfiles().size();
@@ -57,9 +57,9 @@ class TestRemoveProfile {
 	@Test
 	public void testRemovingMultipleEmployees() {
 		EmployeeManager manager = new EmployeeManager();
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
-		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false);
-		manager.addNewEmployee(11, "juan", "A", "Jwulen", "@xd", "12345", false);
+		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(11, "juan", "A", "Jwulen", "@xd", "12345", false, "gatita", "hotxxx");
 		manager.removeProfile(11, "Jwulen");
 		manager.removeProfile(12, "Jo");
 		
