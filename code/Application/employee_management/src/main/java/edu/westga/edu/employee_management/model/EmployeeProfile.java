@@ -29,7 +29,6 @@ public class EmployeeProfile {
 	private String userName;
 	private String password;
 	private boolean hr;
-	
 
 	/**
 	 * The Employee Profile constructor
@@ -250,7 +249,7 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets HR status
-	 *  
+	 * 
 	 * @precondition none
 	 * @postcondition none
 	 * 
@@ -259,14 +258,15 @@ public class EmployeeProfile {
 	public void setHR(boolean hr) {
 		this.hr = hr;
 	}
-	
+
 	@Override
 	public String toString() {
 		String type = "No";
-		if(this.hr) {
+		if (this.hr) {
 			type = "Yes";
 		}
 		return this.lastName + " ID: " + this.id + " HR: " + type;
+	}
 
 	/**
 	 * Returns employee's password
@@ -279,12 +279,12 @@ public class EmployeeProfile {
 	public String getPassword() {
 		return this.password;
 	}
-	
+
 	/**
 	 * Sets password
-	 *  
+	 * 
 	 * @precondition password != null
-	 * @postcondition this.getPassword()  == password
+	 * @postcondition this.getPassword() == password
 	 * 
 	 * @param password the employee's password
 	 */
@@ -294,7 +294,7 @@ public class EmployeeProfile {
 		}
 		this.password = password;
 	}
-	
+
 	/**
 	 * Returns employee's user name
 	 * 
@@ -306,12 +306,12 @@ public class EmployeeProfile {
 	public String getUserName() {
 		return this.userName;
 	}
-	
+
 	/**
 	 * Sets User Name
-	 *  
+	 * 
 	 * @precondition userName != null
-	 * @postcondition this.getUserName  == userName
+	 * @postcondition this.getUserName == userName
 	 * 
 	 * @param password the employee's password
 	 */
