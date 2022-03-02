@@ -260,6 +260,14 @@ public class EmployeeProfile {
 		this.hr = hr;
 	}
 	
+	@Override
+	public String toString() {
+		String type = "No";
+		if(this.hr) {
+			type = "Yes";
+		}
+		return this.lastName + " ID: " + this.id + " HR: " + type;
+
 	/**
 	 * Returns employee's password
 	 * 
@@ -312,6 +320,7 @@ public class EmployeeProfile {
 			throw new NullPointerException(EmployeeProfile.USERNAME_CAN_NOT_BE_NULL);
 		}
 		this.userName = userName;
+
 	}
 
 }

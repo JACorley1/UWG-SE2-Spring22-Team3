@@ -1,12 +1,19 @@
 package edu.westga.edu.employee_management.controller;
 
-import edu.westga.edu.employee_management.model.EmployeeProfile;
+import java.io.IOException;
+
+import edu.westga.edu.employee_management.SceneController;
+import edu.westga.edu.employee_management.Scenes;
+
+import edu.westga.edu.employee_management.model.EmployeeProfile;  
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LandingPageController {
 
@@ -86,7 +93,11 @@ public class LandingPageController {
 
 	@FXML
 	void openHRView(ActionEvent event) {
-
+		try {
+			SceneController.openWindow(Scenes.HRLANDINGPAGE, "HR Landing Page");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
