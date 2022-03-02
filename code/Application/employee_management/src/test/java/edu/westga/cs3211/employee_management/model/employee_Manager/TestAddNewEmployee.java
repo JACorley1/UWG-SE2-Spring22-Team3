@@ -13,7 +13,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(-1, "Juan", "A", "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(-1, "Juan", "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -22,7 +22,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "", "A", "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, "", "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -31,7 +31,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, null, "A", "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, null, "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -40,7 +40,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -49,7 +49,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "Juan", null, "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, "Juan", null, "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -58,7 +58,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -67,7 +67,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", null, "Jo", "@xd", "1234", false);
+			manager.addNewEmployee(12, "juan", null, "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -76,7 +76,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", "A", "Jo", "", "1234", false);
+			manager.addNewEmployee(12, "juan", "A", "Jo", "", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -85,7 +85,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", "A", "Jo", null, "1234", false);
+			manager.addNewEmployee(12, "juan", "A", "Jo", null, "1234", false, "gatita", "hotxxx");
 		});	
 	}
 	
@@ -94,7 +94,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "", false);
+			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -103,7 +103,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", null, false);
+			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", null, false, "gatita", "hotxxx");
 		});	
 	}
 	
@@ -111,7 +111,7 @@ class TestAddNewEmployee {
 	void testAddingOneEmployee() {
 		EmployeeManager manager = new EmployeeManager();
 		
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
+		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
 		
 		int result = manager.getProfiles().size();
 		
@@ -122,9 +122,9 @@ class TestAddNewEmployee {
 	void testAddingMultipleEmployees() {
 		EmployeeManager manager = new EmployeeManager();
 		
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
-		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false);
-		manager.addNewEmployee(11, "juan", "A", "J", "@xd", "12345", true);
+		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(11, "juan", "A", "J", "@xd", "12345", true, "gatita", "hotxxx");
 		
 		int result = manager.getProfiles().size();
 		
@@ -135,14 +135,14 @@ class TestAddNewEmployee {
 	void testAddinRepeatedEmployee() {
 		EmployeeManager manager = new EmployeeManager();
 		
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
-		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false);
+		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
 		
 		int result = manager.getProfiles().size();
 		
 		assertAll(() -> {
 			assertThrows(IllegalStateException.class, () -> { 
-				manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false);
+				manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
 			});
 			assertEquals(2, result, "it works!");
 		});	
