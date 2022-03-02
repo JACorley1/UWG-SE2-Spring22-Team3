@@ -65,7 +65,7 @@ public class LandingPageController {
 	
 	@FXML
 	private void initialize() {
-		EmployeeProfile profile = new EmployeeProfile(21333, "f", "m", "l", "example@gmail.com", "123-456-7890", false);
+		EmployeeProfile profile = new EmployeeProfile(21333, "f", "m", "l", "example@gmail.com", "123-456-7890", false, "user name", "password");
 		this.setUpLandingPageProfileFields(profile);
 		
 	}
