@@ -21,6 +21,8 @@ public class EmployeeProfile {
 	private static final String LAST_NAME_CAN_NOT_BE_EMPTY = "last name can not be empty";
 	private static final String EMAIL_CAN_NOT_BE_EMPTY = "email can not be empty";
 	private static final String ID_CAN_NOT_BE_NEGATIVE = "id can not be negative";
+	private static final String USERNAME_CAN_NOT_BE_NULL = "user name  can not be null";
+	private static final String PASSWORD_CAN_NOT_BE_NULL = "password number can not be null";
 
 	private int id;
 	private String firstName;
@@ -28,30 +30,32 @@ public class EmployeeProfile {
 	private String lastName;
 	private String email;
 	private String phone;
+	private String userName;
+	private String password;
 	private boolean hr;
 	private Map<LocalDate, TimeSheet> timesheets;
 
 	/**
 	 * The Employee Profile constructor
 	 * 
-	 * @precondition firstName != null && lastName != null && email
-	 *               != null && phone != null && !firstName.isEmpty() 
-	 *               && !lastName.isEmpty() && !email.isEmpty()
+	 * @precondition firstName != null && lastName != null && email != null && phone
+	 *               != null && !firstName.isEmpty() && !lastName.isEmpty() &&
+	 *               !email.isEmpty() && userName != null && password != null
 	 * 
 	 * @postcondition getTitle() == title && getFirstName() == firstName &&
 	 *                getMiddleName == midName && getLastName() == lastName &&
 	 *                getEmail() == email && getPhone() == phone
 	 * 
-	 * @param id 		the employee's id
+	 * @param id        the employee's id
 	 * @param firstName the employee's first name
 	 * @param midName   the employee's middle name
 	 * @param lastName  the employee's last name
 	 * @param email     the employee's email
 	 * @param phone     the employee's phone
-	 * @param isHR     	is employee an HR member
+	 * @param isHR      is employee an HR member
 	 */
-	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email,
-			String phone, boolean isHR) {
+	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email, String phone,
+			boolean isHR, String userName, String password) {
 		this.setID(id);
 		this.setFirstName(firstName);
 		this.setMiddleName(midName);
@@ -59,9 +63,10 @@ public class EmployeeProfile {
 		this.setEmail(email);
 		this.setPhone(phone);
 		this.setHR(isHR);
+		this.setPassword(password);
+		this.setUserName(userName);
 		this.timesheets = new HashMap<LocalDate, TimeSheet>();
 	}
-
 
 	/**
 	 * Returns First Name
@@ -207,7 +212,7 @@ public class EmployeeProfile {
 		}
 		this.phone = phone;
 	}
-	
+
 	/**
 	 * Returns Title
 	 * 
@@ -216,7 +221,7 @@ public class EmployeeProfile {
 	 * 
 	 * @return employee's title
 	 */
-	
+
 	public int getID() {
 		return this.id;
 	}
@@ -262,7 +267,7 @@ public class EmployeeProfile {
 
 	/**
 	 * Gets the time sheet for the given date
-	 * 
+	 *
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
@@ -283,6 +288,70 @@ public class EmployeeProfile {
 		TimeSheet timeSheet = new TimeSheet(currentPeriod);
 		this.timesheets.put(currentPeriod, timeSheet);
 		return timeSheet;
+	}
+
+	@Override
+	public String toString() {
+		String type = "No";
+		if (this.hr) {
+			type = "Yes";
+		}
+		return this.lastName + " ID: " + this.id + " HR: " + type;
+	}
+
+	/**
+	 * Returns employee's password
+	 *
+	 * @precondition none
+	 * @postcondition none
+	 *
+	 * @return employee password
+	 */
+	public String getPassword() {
+		return this.password;
+	}
+
+	/**
+	 * Sets password
+	 *
+	 * @precondition password != null
+	 * @postcondition this.getPassword() == password
+	 *
+	 * @param password the employee's password
+	 */
+	public void setPassword(String password) {
+		if (password == null) {
+			throw new NullPointerException(EmployeeProfile.PASSWORD_CAN_NOT_BE_NULL);
+		}
+		this.password = password;
+	}
+
+	/**
+	 * Returns employee's user name
+	 *
+	 * @precondition none
+	 * @postcondition none
+	 *
+	 * @return employee user name
+	 */
+	public String getUserName() {
+		return this.userName;
+	}
+
+	/**
+	 * Sets User Name
+	 *
+	 * @precondition userName != null
+	 * @postcondition this.getUserName == userName
+	 *
+	 * @param password the employee's password
+	 */
+	public void setUserName(String userName) {
+		if (userName == null) {
+			throw new NullPointerException(EmployeeProfile.USERNAME_CAN_NOT_BE_NULL);
+		}
+		this.userName = userName;
+
 	}
 
 }
