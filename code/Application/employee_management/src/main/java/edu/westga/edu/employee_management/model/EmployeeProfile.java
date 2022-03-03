@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.model;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Employee Profile Class
  * 
@@ -25,6 +29,7 @@ public class EmployeeProfile {
 	private String email;
 	private String phone;
 	private boolean hr;
+	private Map<LocalDate, TimeSheet> timesheets;
 
 	/**
 	 * The Employee Profile constructor
@@ -54,6 +59,7 @@ public class EmployeeProfile {
 		this.setEmail(email);
 		this.setPhone(phone);
 		this.setHR(isHR);
+		this.timesheets = new HashMap<LocalDate, TimeSheet>();
 	}
 
 
@@ -252,6 +258,31 @@ public class EmployeeProfile {
 	 */
 	public void setHR(boolean hr) {
 		this.hr = hr;
+	}
+
+	/**
+	 * Gets the time sheet for the given date
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param date
+	 * @return the time sheet if it exists
+	 */
+	public TimeSheet getTimeSheet(LocalDate date) {
+		LocalDate currentPeriod = PayPeriod.getStartDate(date);
+
+		if (this.timesheets.containsKey(currentPeriod)) {
+			return this.timesheets.get(currentPeriod);
+		} else {
+			return this.createTimesheet(currentPeriod);
+		}
+	}
+
+	private TimeSheet createTimesheet(LocalDate currentPeriod) {
+		TimeSheet timeSheet = new TimeSheet(currentPeriod);
+		this.timesheets.put(currentPeriod, timeSheet);
+		return timeSheet;
 	}
 
 }
