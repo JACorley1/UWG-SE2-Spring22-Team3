@@ -1,22 +1,18 @@
 package edu.westga.edu.employee_management.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.List;
 
+import edu.westga.edu.employee_management.SceneController;
+import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeTime;
 import edu.westga.edu.employee_management.model.PayPeriod;
 import edu.westga.edu.employee_management.model.TimeSheet;
-import java.io.IOException;
-
-import edu.westga.edu.employee_management.SceneController;
-import edu.westga.edu.employee_management.Scenes;
-
-import edu.westga.edu.employee_management.model.EmployeeProfile;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class LandingPageController {
 
@@ -89,12 +84,6 @@ public class LandingPageController {
 	}
 
 	@FXML
-	private void initialize() {
-		EmployeeProfile profile = new EmployeeProfile(21333, "f", "m", "l", "example@gmail.com", "123-456-7890", false, "user name", "password");
-		this.setUpLandingPageProfileFields(profile);
-
-	}
-	@FXML
 	void payPeriodBack(ActionEvent event) {
 
 	}
@@ -133,13 +122,28 @@ public class LandingPageController {
 	 *
 	 */
 	public void initialize() {
-		this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "email", "phone", false);
+		this.setUser();
+
+		if (this.user == null) {
+			return;
+		}
+
+		if (this.user.isHR()) {
+			this.hrViewButton.visibleProperty().set(true);
+		}
+
 		LocalDate today = LocalDate.now();
 		this.currentPayPeriod = new PayPeriod(today);
 		this.currentTimeSheet = this.user.getTimeSheet(today);
 
+		this.setUpLandingPageProfileFields();
 		this.updatePage();
 		this.updateGridPeriod();
+	}
+
+	private void setUser() {
+		this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
+				"user name", "password");
 	}
 
 	private void updateClockButtons() {
@@ -193,6 +197,7 @@ public class LandingPageController {
 	}
 
 	private void updateGridPeriod() {
+		this.payPeriodLabel.textProperty().set(this.currentPayPeriod.toString());
 		List<LocalDate> dates = this.currentPayPeriod.toList();
 		for (int i = 0; i < dates.size(); i++) {
 			Node node = this.getNodeFromGridPane(0, i);
@@ -217,15 +222,13 @@ public class LandingPageController {
 	}
 
 
-	private void setUpLandingPageProfileFields(EmployeeProfile profile) {
-		if (profile != null) {
-			this.idField.setText(String.valueOf(profile.getID()));
-			this.firstNameField.setText(profile.getFirstName());
-			this.middleNameField.setText(profile.getMiddleName());
-			this.lastNameField.setText(profile.getLastName());
-			this.emailField.setText(profile.getEmail());
-			this.phoneField.setText(profile.getPhone());
-		}
+	private void setUpLandingPageProfileFields() {
+		this.idField.setText(String.valueOf(this.user.getID()));
+		this.firstNameField.setText(this.user.getFirstName());
+		this.middleNameField.setText(this.user.getMiddleName());
+		this.lastNameField.setText(this.user.getLastName());
+		this.emailField.setText(this.user.getEmail());
+		this.phoneField.setText(this.user.getPhone());
 	}
 }
 

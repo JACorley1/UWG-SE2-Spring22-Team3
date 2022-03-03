@@ -13,6 +13,8 @@ import java.util.List;
  * @version Spring 2022
  */
 public class TimeSheet {
+	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
+	private static final String TIME_CANNOT_BE_NULL = "Time cannot be null";
 	private List<EmployeeTime> timeData;
 	private EmployeeTime openTime;
 	private LocalDate payPeriodStart;
@@ -28,6 +30,9 @@ public class TimeSheet {
 	 * @param payPeriodDate a date with in pay period
 	 */
 	public TimeSheet(LocalDate payPeriodDate) {
+		if (payPeriodDate == null) {
+			throw new IllegalArgumentException(DATE_CANNOT_BE_NULL);
+		}
 		this.timeData = new ArrayList<EmployeeTime>();
 		this.setPayPeriodRange(payPeriodDate);
 	}
@@ -102,27 +107,6 @@ public class TimeSheet {
 	}
 
 	/**
-	 * Gets Employee time for the day of the index
-	 * 
-	 * Preconditions: none
-	 * Postconditions: none
-	 *
-	 * @param dayIndex
-	 * @return the matching employee time or null if one is not found
-	 */
-	public EmployeeTime getTime(int dayIndex) {
-		for (EmployeeTime currTime : this.timeData) {
-			Period periodBetween = Period.between(this.payPeriodStart, currTime.getClockInTime().toLocalDate());
-			int currIndex = Math.abs(periodBetween.getDays());
-			if (currIndex == dayIndex) {
-				return currTime;
-			}
-		}
-
-		return null;
-	}
-
-	/**
 	 * Checks if there is a current clock in without a clock out
 	 * 
 	 * Preconditions: none
@@ -132,5 +116,20 @@ public class TimeSheet {
 	 */
 	public boolean hasOpenTime() {
 		return this.openTime != null;
+	}
+
+	/**
+	 * Add time to time sheet
+	 * 
+	 * Preconditions: time != null
+	 * Postconditions: getTime().size() += 1
+	 *
+	 * @param time the employee time
+	 */
+	public void addTime(EmployeeTime time) {
+		if (time == null) {
+			throw new IllegalArgumentException(TIME_CANNOT_BE_NULL);
+		}
+		this.timeData.add(time);
 	}
 }
