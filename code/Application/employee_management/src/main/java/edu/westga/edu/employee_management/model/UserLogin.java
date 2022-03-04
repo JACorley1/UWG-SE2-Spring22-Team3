@@ -3,6 +3,7 @@ package edu.westga.edu.employee_management.model;
 import java.util.HashMap;
 
 public class UserLogin {
+	private static final String PASSWORD_CANNOT_BE_NULL = "Password cannot be null.";
 	private static final String USERNAME_CANNOT_BE_NULL = "Username cannot be null.";
 	private String username;
 	private String password;
@@ -40,7 +41,7 @@ public class UserLogin {
 			throw new IllegalArgumentException(USERNAME_CANNOT_BE_NULL);
 		}
 		if (password == null) {
-			throw new IllegalArgumentException("Password cannot be null.");
+			throw new IllegalArgumentException(PASSWORD_CANNOT_BE_NULL);
 		}
 		
 		this.username = username;

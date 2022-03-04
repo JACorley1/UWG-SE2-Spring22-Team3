@@ -136,9 +136,11 @@ class TestUpdateProfile {
 		for (EmployeeProfile current : manager.getProfiles()) {
 			result = result + current.toString() + System.lineSeparator();
 		}
-		String expected = "Harper ID: 1213 HR: Yes" + System.lineSeparator() + "Irie ID: 1312 HR: Yes" + System.lineSeparator() + 
-				"Dominguez ID: 1112 HR: Yes" + System.lineSeparator() + "Campos ID: 1115 HR: No" + System.lineSeparator() +
-				"Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator() + "Jer ID: 11 HR: Yes" + System.lineSeparator();
+		String expected = "Harper ID: 1213 HR: Yes" + System.lineSeparator() + "Irie ID: 1312 HR: Yes"
+				+ System.lineSeparator() + "Dominguez ID: 1112 HR: Yes" + System.lineSeparator()
+				+ "Campos ID: 1115 HR: No" + System.lineSeparator()
+				+ "Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator()
+				+ "Jer ID: 11 HR: Yes" + System.lineSeparator();
 		
 		assertEquals(expected, result, "It works!");
 	}

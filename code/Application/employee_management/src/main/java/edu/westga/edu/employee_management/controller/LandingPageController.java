@@ -9,14 +9,12 @@ import java.util.List;
 
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.UserLogin;
 import edu.westga.edu.employee_management.model.EmployeeTime;
 import edu.westga.edu.employee_management.model.PayPeriod;
 import edu.westga.edu.employee_management.model.TimeSheet;
-
+import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -88,10 +86,6 @@ public class LandingPageController {
 	private EmployeeManager manager;
 
 	private UserLogin login;
-
-	public LandingPageController() {
-
-	}
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
@@ -244,6 +238,8 @@ public class LandingPageController {
 	 *
 	 * @Preconditions: login != null
 	 * @Postconditions: none
+	 * 
+	 * @param login the user login
 	 */
 	public void setLogin(UserLogin login) {
 		if (login != null) {
