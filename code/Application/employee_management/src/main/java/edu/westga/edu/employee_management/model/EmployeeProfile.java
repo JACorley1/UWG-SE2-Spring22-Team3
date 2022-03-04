@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class EmployeeProfile {
 
+	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
 	private static final String FIRST_NAME_CAN_NOT_BE_NULL = "first name can not be null";
 	private static final String MIDDLE_NAME_CAN_NOT_BE_NULL = "middle name can not be null";
 	private static final String LAST_NAME_CAN_NOT_BE_NULL = "last name can not be null";
@@ -275,6 +276,9 @@ public class EmployeeProfile {
 	 * @return the time sheet if it exists
 	 */
 	public TimeSheet getTimeSheet(LocalDate date) {
+		if (date == null) {
+			throw new IllegalArgumentException(DATE_CANNOT_BE_NULL);
+		}
 		LocalDate currentPeriod = PayPeriod.getStartDate(date);
 
 		if (this.timesheets.containsKey(currentPeriod)) {

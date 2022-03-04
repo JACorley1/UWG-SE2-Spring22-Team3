@@ -19,12 +19,21 @@ class TestConstrutor {
 	}
 
 	@Test
+	void testValidDateAndDayIndex() {
+		LocalDateTime date = LocalDateTime.of(2022, 2, 14, 9, 20);
+		EmployeeTime time = new EmployeeTime(0, date);
+
+		assertEquals(LocalDateTime.of(2022, 2, 14, 9, 20), time.getClockInTime());
+		assertEquals(0, time.getDayIndex());
+
+	}
+
+	@Test
 	void testValidDate() {
 		LocalDateTime date = LocalDateTime.of(2022, 2, 14, 9, 20);
 		EmployeeTime time = new EmployeeTime(date);
 
 		assertEquals(LocalDateTime.of(2022, 2, 14, 9, 20), time.getClockInTime());
-		
 	}
 
 }
