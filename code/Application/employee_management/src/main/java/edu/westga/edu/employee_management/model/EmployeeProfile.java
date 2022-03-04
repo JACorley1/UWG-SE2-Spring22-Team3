@@ -54,6 +54,8 @@ public class EmployeeProfile {
 	 * @param email     the employee's email
 	 * @param phone     the employee's phone
 	 * @param isHR      is employee an HR member
+	 * @param userName  the employee's user name
+	 * @param password  the employee's password
 	 */
 	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email, String phone,
 			boolean isHR, String userName, String password) {
@@ -348,7 +350,7 @@ public class EmployeeProfile {
 	 * @precondition userName != null
 	 * @postcondition this.getUserName == userName
 	 *
-	 * @param password the employee's password
+	 * @param userName the employee's username
 	 */
 	public void setUserName(String userName) {
 		if (userName == null) {

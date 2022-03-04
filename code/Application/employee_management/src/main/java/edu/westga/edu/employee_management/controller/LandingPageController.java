@@ -78,11 +78,6 @@ public class LandingPageController {
 	@FXML
 	private GridPane secondWeekGrid;
 
-	public LandingPageController() {
-
-
-	}
-
 	@FXML
 	void payPeriodBack(ActionEvent event) {
 

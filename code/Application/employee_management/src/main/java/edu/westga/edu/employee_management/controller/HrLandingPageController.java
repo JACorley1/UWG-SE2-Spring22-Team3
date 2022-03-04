@@ -47,7 +47,7 @@ public class HrLandingPageController {
 	private RadioButton hrEmployeeRadioBtn;
 
 	@FXML
-	private ToggleGroup Type;
+	private ToggleGroup type;
 
 	@FXML
 	private RadioButton normalEmployeeRadioBtn;
@@ -110,7 +110,7 @@ public class HrLandingPageController {
 	private TextField hrsWorkedTextField;
 
 	@FXML
-	private TextField PaymentTextField;
+	private TextField paymentTextField;
 
 	@FXML
 	private Button editEmployeesInfBtn;
@@ -126,7 +126,7 @@ public class HrLandingPageController {
 	@FXML
 	void handleDiisplayList(ActionEvent event) {
 		if (!this.manager.getProfiles().isEmpty()) {
-			this.listOfEmployeesView.setItems(FXCollections.observableList(manager.getProfiles()));
+			this.listOfEmployeesView.setItems(FXCollections.observableList(this.manager.getProfiles()));
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information");
@@ -224,9 +224,9 @@ public class HrLandingPageController {
 						this.usernameTextField.setText(newValue.getUserName());
 						this.passwordTextField.setText(newValue.getPassword());
 						if (newValue.isHR()) {
-							this.Type.selectToggle(this.hrEmployeeRadioBtn);
+							this.type.selectToggle(this.hrEmployeeRadioBtn);
 						} else {
-							this.Type.selectToggle(this.normalEmployeeRadioBtn);
+							this.type.selectToggle(this.normalEmployeeRadioBtn);
 						}
 					}
 
@@ -236,7 +236,7 @@ public class HrLandingPageController {
 	private boolean radioButtonChanged() {
 		boolean result = false;
 
-		if (this.Type.getSelectedToggle().equals(this.hrEmployeeRadioBtn)) {
+		if (this.type.getSelectedToggle().equals(this.hrEmployeeRadioBtn)) {
 			result = true;
 		}
 
@@ -292,7 +292,7 @@ public class HrLandingPageController {
 		this.phoneTextField.setEditable(state);
 		this.idTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
-		this.PaymentTextField.setEditable(state);
+		this.paymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);
 		this.monStartTimeField.setEditable(state);
 		this.tueStartTimeField.setEditable(state);
