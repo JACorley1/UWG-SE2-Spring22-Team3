@@ -21,6 +21,14 @@ public class EmployeeManager {
 	 */
 	public EmployeeManager() {
 		this.profiles = new ArrayList<EmployeeProfile>();
+		this.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true, "destiny",
+				"harper");
+		this.addNewEmployee(1312, "Brianna", "S", "Irie", "CarjotXX777@hotmail.com", "6678954563", true, "brianna",
+				"irie");
+		this.addNewEmployee(1112, "Fernando", "J", "Dominguez", "elverGaXXX89@hotmail.com", "8975462147", true,
+				"fernando", "dominguez");
+		this.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false, "miguel",
+				"campos");
 	}
 
 	/**

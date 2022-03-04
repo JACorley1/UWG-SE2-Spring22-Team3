@@ -14,7 +14,7 @@
    <children>
       <Button fx:id="clockInButton" layoutX="55.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockIn" text="Clock In" />
       <Button fx:id="clockOutButton" layoutX="160.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockOut" text="Clock Out" />
-      <Text fx:id="employeeNameLabel" layoutX="17.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name" wrappingWidth="286.57568359375">
+      <Text fx:id="employeeNameLabel" layoutX="17.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name" wrappingWidth="470.57568359375">
          <font>
             <Font name="System Bold" size="35.0" />
          </font>
@@ -41,12 +41,6 @@
                </font>
             </Text>
             <TextField fx:id="phoneField" disable="true" layoutX="125.0" layoutY="247.0" />
-            <Text layoutX="15.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Started:">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <TextField fx:id="dateStartedField" disable="true" layoutX="125.0" layoutY="282.0" />
             <Text layoutX="15.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work Phone">
                <font>
                   <Font size="15.0" />
@@ -64,11 +58,12 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <Text layoutX="62.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Profile">
+            <Text fx:id="profileLabel" layoutX="62.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Profile">
                <font>
                   <Font size="22.0" />
                </font>
             </Text>
+            <Text fx:id="profileErrorText" fill="RED" layoutX="12.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" visible="false" />
          </children>
       </Pane>
       <Pane layoutX="317.0" layoutY="114.0" prefHeight="461.0" prefWidth="287.0">
