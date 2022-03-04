@@ -22,6 +22,7 @@ class TestClockOut {
 		assertAll(() -> {
 			assertTrue(sheet.clockOut());
 			assertEquals(1, sheet.getTimeSheet().size());
+			assertFalse(sheet.hasOpenTime());
 		});
 	}
 

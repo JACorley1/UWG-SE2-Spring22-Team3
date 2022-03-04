@@ -1,6 +1,7 @@
 package edu.westga.cs3211.employee_management.model.employee_Manager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class TestUpdateProfile {
 		EmployeeManager manager = new EmployeeManager();
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			manager.removeProfile(-1, "Ja");
+			manager.updateProfile(-1, null, "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -130,14 +131,16 @@ class TestUpdateProfile {
 		manager.updateProfile(13, "jose", "A", "As", "@xd", "12345", true, "gatita", "hotxxx");
 		manager.updateProfile(11, "jordi", "A", "Jer", "@xd", "7777", true, "gatita", "hotxxx");
 		
-		String result ="";
+		String result = "";
 		
 		for (EmployeeProfile current : manager.getProfiles()) {
 			result = result + current.toString() + System.lineSeparator();
 		}
-		String expected = "Harper ID: 1213 HR: Yes" + System.lineSeparator() + "Irie ID: 1312 HR: Yes" + System.lineSeparator() + 
-				"Dominguez ID: 1112 HR: Yes" + System.lineSeparator() + "Campos ID: 1115 HR: No" + System.lineSeparator() +
-				"Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator() + "Jer ID: 11 HR: Yes" + System.lineSeparator();
+		String expected = "Harper ID: 1213 HR: Yes" + System.lineSeparator() + "Irie ID: 1312 HR: Yes"
+				+ System.lineSeparator() + "Dominguez ID: 1112 HR: Yes" + System.lineSeparator()
+				+ "Campos ID: 1115 HR: No" + System.lineSeparator()
+				+ "Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator()
+				+ "Jer ID: 11 HR: Yes" + System.lineSeparator();
 		
 		assertEquals(expected, result, "It works!");
 	}

@@ -31,7 +31,7 @@
       <Text layoutX="321.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="69.13671875" />
       <RadioButton fx:id="hrEmployeeRadioBtn" layoutX="323.0" layoutY="553.0" mnemonicParsing="false" text="HR Employee">
          <toggleGroup>
-            <ToggleGroup fx:id="Type" />
+            <ToggleGroup fx:id="type" />
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="normalEmployeeRadioBtn" layoutX="434.0" layoutY="553.0" mnemonicParsing="false" text="Normal Employee" toggleGroup="$Type" />
@@ -85,7 +85,7 @@
          </children>
       </GridPane>
       <TextField fx:id="hrsWorkedTextField" layoutX="996.0" layoutY="160.0" prefHeight="25.0" prefWidth="124.0" />
-      <TextField fx:id="PaymentTextField" layoutX="996.0" layoutY="267.0" prefHeight="25.0" prefWidth="116.0" />
+      <TextField fx:id="paymentTextField" layoutX="996.0" layoutY="267.0" prefHeight="25.0" prefWidth="116.0" />
       <Button fx:id="editEmployeesInfBtn" layoutX="760.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleEditEmployeesInfo" prefHeight="25.0" prefWidth="130.0" text="Edit Employee Info." />
       <Button fx:id="saveChangesBtn" layoutX="926.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleSaveChanges" text="Save Info Changes" />
       <Text fx:id="welcomeLabel" layoutX="476.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Name" wrappingWidth="149.0">

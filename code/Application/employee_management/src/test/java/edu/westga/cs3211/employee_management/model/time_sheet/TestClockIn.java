@@ -21,6 +21,7 @@ class TestClockIn {
 		assertAll(() -> {
 			assertTrue(sheet.clockIn());
 			assertEquals(1, sheet.getTimeSheet().size());
+			assertTrue(sheet.hasOpenTime());
 		});
 	}
 

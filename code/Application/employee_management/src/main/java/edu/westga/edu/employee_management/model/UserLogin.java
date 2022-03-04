@@ -3,13 +3,15 @@ package edu.westga.edu.employee_management.model;
 import java.util.HashMap;
 
 public class UserLogin {
+	private static final String PASSWORD_CANNOT_BE_NULL = "Password cannot be null.";
+	private static final String USERNAME_CANNOT_BE_NULL = "Username cannot be null.";
 	private String username;
 	private String password;
 	private HashMap<String, String> employeeCredentials;
 	
 	/**
 	* Manages the data of a User Login object
-	* 
+	*
 	* @author Destiny Harper
 	* @version Spring 2022
 	*/
@@ -25,9 +27,9 @@ public class UserLogin {
 	}
 	
 	/**
-	 * 
+	 *
 	 * Creates a new instance of UserLogin
-	 * 
+	 *
 	 * Preconditions: username != null && password != null
 	 * Postconditions: none
 	 *
@@ -36,10 +38,10 @@ public class UserLogin {
 	 */
 	public UserLogin(String username, String password) {
 		if (username == null) {
-			throw new IllegalArgumentException("Username cannot be null.");
+			throw new IllegalArgumentException(USERNAME_CANNOT_BE_NULL);
 		}
 		if (password == null) {
-			throw new IllegalArgumentException("Password cannot be null.");
+			throw new IllegalArgumentException(PASSWORD_CANNOT_BE_NULL);
 		}
 		
 		this.username = username;
@@ -53,9 +55,9 @@ public class UserLogin {
 	}
 	
 	/**
-	 * 
+	 *
 	 * Checks if the credentials entered at login are valid
-	 * 
+	 *
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
@@ -74,9 +76,9 @@ public class UserLogin {
 	}
 
 	/**
-	 * 
+	 *
 	 * Gets the username associated with the employee credentials
-	 * 
+	 *
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
@@ -87,9 +89,9 @@ public class UserLogin {
 	}
 
 	/**
-	 * 
+	 *
 	 * Gets the password associated with the employee credentials
-	 * 
+	 *
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
@@ -100,9 +102,9 @@ public class UserLogin {
 	}
 
 	/**
-	 * 
+	 *
 	 * Gets the collection of employee credentials
-	 * 
+	 *
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
