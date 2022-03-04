@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Period;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ class TestClockOut {
 
 	@Test
 	void testValidClockOut() {
-		LocalDateTime period = LocalDateTime.now();
+		LocalDate period = LocalDate.now();
 		TimeSheet sheet = new TimeSheet(period);
 		sheet.clockIn();
 		assertAll(() -> {
@@ -27,7 +27,7 @@ class TestClockOut {
 
 	@Test
 	void testInvalidClockOutNoOpenTime() {
-		LocalDateTime period = LocalDateTime.now();
+		LocalDate period = LocalDate.now();
 		TimeSheet sheet = new TimeSheet(period);
 		assertAll(() -> {
 			assertFalse(sheet.clockOut());
@@ -37,7 +37,7 @@ class TestClockOut {
 
 	@Test
 	void testInvalidClockOutAfterPeriodEnd() {
-		LocalDateTime period = LocalDateTime.now().minus(Period.ofWeeks(3));
+		LocalDate period = LocalDate.now().minus(Period.ofWeeks(3));
 		TimeSheet sheet = new TimeSheet(period);
 		assertAll(() -> {
 			assertFalse(sheet.clockIn());
@@ -47,7 +47,7 @@ class TestClockOut {
 
 	@Test
 	void testInvalidClockOutBeforePeriodStart() {
-		LocalDateTime period = LocalDateTime.now().plus(Period.ofWeeks(3));
+		LocalDate period = LocalDate.now().plus(Period.ofWeeks(3));
 		TimeSheet sheet = new TimeSheet(period);
 		assertAll(() -> {
 			assertFalse(sheet.clockIn());

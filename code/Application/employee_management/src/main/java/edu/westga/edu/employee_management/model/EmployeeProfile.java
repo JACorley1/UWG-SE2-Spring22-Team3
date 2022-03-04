@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.model;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Employee Profile Class
  * 
@@ -29,6 +33,7 @@ public class EmployeeProfile {
 	private String userName;
 	private String password;
 	private boolean hr;
+	private Map<LocalDate, TimeSheet> timesheets;
 
 	/**
 	 * The Employee Profile constructor
@@ -60,6 +65,7 @@ public class EmployeeProfile {
 		this.setHR(isHR);
 		this.setPassword(password);
 		this.setUserName(userName);
+		this.timesheets = new HashMap<LocalDate, TimeSheet>();
 	}
 
 	/**
@@ -219,7 +225,7 @@ public class EmployeeProfile {
 	public int getID() {
 		return this.id;
 	}
-
+	
 	/**
 	 * Sets Employee's id
 	 * 
@@ -259,6 +265,31 @@ public class EmployeeProfile {
 		this.hr = hr;
 	}
 
+	/**
+	 * Gets the time sheet for the given date
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param date
+	 * @return the time sheet if it exists
+	 */
+	public TimeSheet getTimeSheet(LocalDate date) {
+		LocalDate currentPeriod = PayPeriod.getStartDate(date);
+
+		if (this.timesheets.containsKey(currentPeriod)) {
+			return this.timesheets.get(currentPeriod);
+		} else {
+			return this.createTimesheet(currentPeriod);
+		}
+	}
+
+	private TimeSheet createTimesheet(LocalDate currentPeriod) {
+		TimeSheet timeSheet = new TimeSheet(currentPeriod);
+		this.timesheets.put(currentPeriod, timeSheet);
+		return timeSheet;
+	}
+
 	@Override
 	public String toString() {
 		String type = "No";
@@ -270,10 +301,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Returns employee's password
-	 * 
+	 *
 	 * @precondition none
 	 * @postcondition none
-	 * 
+	 *
 	 * @return employee password
 	 */
 	public String getPassword() {
@@ -282,10 +313,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets password
-	 * 
+	 *
 	 * @precondition password != null
 	 * @postcondition this.getPassword() == password
-	 * 
+	 *
 	 * @param password the employee's password
 	 */
 	public void setPassword(String password) {
@@ -297,10 +328,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Returns employee's user name
-	 * 
+	 *
 	 * @precondition none
 	 * @postcondition none
-	 * 
+	 *
 	 * @return employee user name
 	 */
 	public String getUserName() {
@@ -309,10 +340,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets User Name
-	 * 
+	 *
 	 * @precondition userName != null
 	 * @postcondition this.getUserName == userName
-	 * 
+	 *
 	 * @param password the employee's password
 	 */
 	public void setUserName(String userName) {
