@@ -51,7 +51,7 @@ class TestRemoveProfile {
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(2, result, "It works!");
+		assertEquals(6, result, "It works!");
 	}
 	
 	@Test
@@ -65,7 +65,7 @@ class TestRemoveProfile {
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(1, result, "It works!");
+		assertEquals(5, result, "It works!");
 	}
 
 }

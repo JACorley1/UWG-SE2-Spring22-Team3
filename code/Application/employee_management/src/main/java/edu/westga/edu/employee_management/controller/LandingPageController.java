@@ -4,16 +4,15 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-
-import edu.westga.edu.employee_management.model.EmployeeProfile;  
-
+import edu.westga.edu.employee_management.model.EmployeeManager;
+import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class LandingPageController {
 
@@ -65,16 +64,21 @@ public class LandingPageController {
 	@FXML
 	private GridPane secondWeekGrid;
 	
+	@FXML
+	private Text profileErrorText;
+	
+	private EmployeeManager manager;
+	
+	private UserLogin login;
+	
 	public LandingPageController() {
-		
 		
 	}
 	
 	@FXML
 	private void initialize() {
-		EmployeeProfile profile = new EmployeeProfile(21333, "f", "m", "l", "example@gmail.com", "123-456-7890", false, "user name", "password");
-		this.setUpLandingPageProfileFields(profile);
-		
+		this.manager = new EmployeeManager();
+		this.login = new UserLogin();	
 	}
 	@FXML
 	void payPeriodBack(ActionEvent event) {
@@ -113,7 +117,31 @@ public class LandingPageController {
 			this.lastNameField.setText(profile.getLastName());
 			this.emailField.setText(profile.getEmail());
 			this.phoneField.setText(profile.getPhone());
+			this.employeeNameLabel.setText(profile.getFirstName() + " " + profile.getLastName());
+		} else {
+			EmployeeProfile sampleProfile = new EmployeeProfile(12345, "first name", "middle name", "last name", "example@gmail.com", "123-456-7890", false, "username", "password");
+			this.profileErrorText.setText("Profile could not be found," + System.lineSeparator() + "showing sample profile.");
+			this.profileErrorText.setVisible(true);
+			this.setUpLandingPageProfileFields(sampleProfile);
 		}
+	}
+	
+	
+	
+	public void setLogin(UserLogin login) {
+			this.login = login;
+			this.setUpLandingPageProfileFields(this.getProfile());
+	}
+	
+	private EmployeeProfile getProfile() {
+		String userName = this.login.getUsername();
+		String pass = this.login.getPassword();
+		for (EmployeeProfile currProfile : this.manager.getProfiles()) {
+			if (currProfile.getUserName().equalsIgnoreCase(userName) || currProfile.getPassword().equalsIgnoreCase(pass)) {
+				return currProfile;
+			}
+		}
+		return null;	
 	}
 }
 

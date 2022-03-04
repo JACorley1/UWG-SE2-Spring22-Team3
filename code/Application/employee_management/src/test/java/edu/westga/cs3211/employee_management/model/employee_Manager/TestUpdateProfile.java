@@ -114,7 +114,7 @@ class TestUpdateProfile {
 		manager.addNewEmployee(11, "jordi", "A", "Jwulen", "@xd", "12345", false, "gatita", "hotxxx");
 		manager.updateProfile(12, "Jojo", "A", "Jo", "@xd", "12345", true, "gatita", "hotxxx");
 		
-		String result = manager.getProfiles().get(2).toString();
+		String result = manager.getProfiles().get(6).toString();
 		String expected = "Jo ID: 12 HR: Yes";
 		
 		assertEquals(expected, result, "It works!");
@@ -135,7 +135,9 @@ class TestUpdateProfile {
 		for (EmployeeProfile current : manager.getProfiles()) {
 			result = result + current.toString() + System.lineSeparator();
 		}
-		String expected = "Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator() + "Jer ID: 11 HR: Yes" + System.lineSeparator();
+		String expected = "Harper ID: 1213 HR: Yes" + System.lineSeparator() + "Irie ID: 1312 HR: Yes" + System.lineSeparator() + 
+				"Dominguez ID: 1112 HR: Yes" + System.lineSeparator() + "Campos ID: 1115 HR: No" + System.lineSeparator() +
+				"Jer ID: 12 HR: Yes" + System.lineSeparator() + "As ID: 13 HR: Yes" + System.lineSeparator() + "Jer ID: 11 HR: Yes" + System.lineSeparator();
 		
 		assertEquals(expected, result, "It works!");
 	}
@@ -150,7 +152,7 @@ class TestUpdateProfile {
 		manager.updateProfile(12, "Maria", "A", "HYw", "@xd", "12345", true, "gatita", "hotxxx");
 		manager.updateProfile(12, "George", "A", "Killer", "@xd", "12345", true, "gatita", "hotxxx");
 		
-		String result = manager.getProfiles().get(2).toString();
+		String result = manager.getProfiles().get(6).toString();
 		String expected = "Killer ID: 12 HR: Yes";
 		
 		assertEquals(expected, result, "It works!");

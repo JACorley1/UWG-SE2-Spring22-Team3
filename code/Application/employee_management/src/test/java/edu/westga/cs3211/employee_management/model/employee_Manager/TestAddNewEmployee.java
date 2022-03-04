@@ -115,7 +115,7 @@ class TestAddNewEmployee {
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(1, result, "it works!");
+		assertEquals(5, result, "it works!");
 	}
 	
 	@Test
@@ -128,7 +128,7 @@ class TestAddNewEmployee {
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(3, result, "it works!");
+		assertEquals(7, result, "it works!");
 	}
 	
 	@Test
@@ -144,7 +144,7 @@ class TestAddNewEmployee {
 			assertThrows(IllegalStateException.class, () -> { 
 				manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
 			});
-			assertEquals(2, result, "it works!");
+			assertEquals(6, result, "it works!");
 		});	
 	}
 	
