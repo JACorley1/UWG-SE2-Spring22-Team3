@@ -2,9 +2,13 @@ package edu.westga.edu.employee_management;
 
 import java.io.IOException;
 
+import edu.westga.edu.employee_management.controller.LandingPageController;
 import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -51,7 +55,18 @@ public class FXMLController {
 
 	private void openLandingPage() {
 		try {
-			SceneController.changeScene(Scenes.LANDINGPAGE, (Stage) this.loginButton.getScene().getWindow());
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.LANDINGPAGE + ".fxml"));
+			Parent parent = loader.load();
+
+			Scene landingPageScene = new Scene(parent);
+
+			LandingPageController controller = loader.getController();
+			controller.setLogin(new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText()));
+
+			Stage window = (Stage) this.loginButton.getScene().getWindow();
+			window.setScene(landingPageScene);
+			window.show();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
