@@ -82,18 +82,16 @@ public class LandingPageController {
 	@FXML
 	private GridPane secondWeekGrid;
 
-	
 	@FXML
 	private Text profileErrorText;
-	
-	private EmployeeManager manager;
-	
-	private UserLogin login;
-	
-	public LandingPageController() {
-		
-	}
 
+	private EmployeeManager manager;
+
+	private UserLogin login;
+
+	public LandingPageController() {
+
+	}
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
@@ -126,39 +124,25 @@ public class LandingPageController {
 
 	}
 
-
 	/**
 	 * Initializes Landing Page
 	 *
-	 * Preconditions: none
-	 * Postconditions: none
+	 * Preconditions: none Postconditions: none
 	 *
 	 */
 	public void initialize() {
 		this.manager = new EmployeeManager();
-		this.login = new UserLogin();	
-		this.setUser();
-
-		if (this.user == null) {
-			return;
-		}
-
-		if (this.user.isHR()) {
-			this.hrViewButton.visibleProperty().set(true);
-		}
-
-		LocalDate today = LocalDate.now();
-		this.currentPayPeriod = new PayPeriod(today);
-		this.currentTimeSheet = this.user.getTimeSheet(today);
-
-		this.setUpLandingPageProfileFields();
-		this.updatePage();
-		this.updateGridPeriod();
+		this.login = new UserLogin();
+		
 	}
 
 	private void setUser() {
-		this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
-				"user name", "password");
+		if (this.getProfile() != null) {
+			this.user = this.getProfile();
+		} else {
+			this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
+					"user name", "password");
+		}
 	}
 
 	private void updateClockButtons() {
@@ -223,7 +207,7 @@ public class LandingPageController {
 
 			text.textProperty().set(formattedDate);
 		}
-	}	
+	}
 
 	private String formatDate(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, MMM d");
@@ -236,16 +220,6 @@ public class LandingPageController {
 		this.updateGrid();
 	}
 
-
-	private void setUpLandingPageProfileFields() {
-		this.idField.setText(String.valueOf(this.user.getID()));
-		this.firstNameField.setText(this.user.getFirstName());
-		this.middleNameField.setText(this.user.getMiddleName());
-		this.lastNameField.setText(this.user.getLastName());
-		this.emailField.setText(this.user.getEmail());
-		this.phoneField.setText(this.user.getPhone());
-	}
-	
 	private void setUpLandingPageProfileFields(EmployeeProfile profile) {
 		if (profile != null) {
 			this.idField.setText(String.valueOf(profile.getID()));
@@ -256,29 +230,54 @@ public class LandingPageController {
 			this.phoneField.setText(profile.getPhone());
 			this.employeeNameLabel.setText(profile.getFirstName() + " " + profile.getLastName());
 		} else {
-			EmployeeProfile sampleProfile = new EmployeeProfile(12345, "first name", "middle name", "last name", "example@gmail.com", "123-456-7890", false, "username", "password");
-			this.profileErrorText.setText("Profile could not be found," + System.lineSeparator() + "showing sample profile.");
+			EmployeeProfile sampleProfile = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com",
+					"123-456-7890", true, "user name", "password");
+			this.profileErrorText
+					.setText("Profile could not be found," + System.lineSeparator() + "showing sample profile.");
 			this.profileErrorText.setVisible(true);
 			this.setUpLandingPageProfileFields(sampleProfile);
 		}
 	}
-	
-	
-	
+
+	/**
+	 * Sets the login field and updates the user alongside 
+	 *
+	 * @Preconditions: login != null
+	 * @Postconditions: none
+	 */
 	public void setLogin(UserLogin login) {
+		if (login != null) {
 			this.login = login;
 			this.setUpLandingPageProfileFields(this.getProfile());
+			this.setUser();
+
+			if (this.user == null) {
+				return;
+			}
+
+			if (this.user.isHR()) {
+				this.hrViewButton.visibleProperty().set(true);
+			}
+
+			LocalDate today = LocalDate.now();
+			this.currentPayPeriod = new PayPeriod(today);
+			this.currentTimeSheet = this.user.getTimeSheet(today);
+
+			this.updatePage();
+			this.updateGridPeriod();
+		}
 	}
-	
+
 	private EmployeeProfile getProfile() {
 		String userName = this.login.getUsername();
 		String pass = this.login.getPassword();
 		for (EmployeeProfile currProfile : this.manager.getProfiles()) {
-			if (currProfile.getUserName().equalsIgnoreCase(userName) || currProfile.getPassword().equalsIgnoreCase(pass)) {
+			if (currProfile.getUserName().equalsIgnoreCase(userName)
+					|| currProfile.getPassword().equalsIgnoreCase(pass)) {
 				return currProfile;
 			}
 		}
-		return null;	
+		return null;
 	}
 }
 
