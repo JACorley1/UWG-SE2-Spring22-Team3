@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
+<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
    <children>
       <Button fx:id="clockInButton" layoutX="55.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockIn" text="Clock In" />
       <Button fx:id="clockOutButton" layoutX="160.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockOut" text="Clock Out" />
@@ -157,5 +157,6 @@
             </GridPane>
          </children>
       </Pane>
+      <Button fx:id="logOutButton" layoutX="17.0" layoutY="521.0" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="113.0" text="Log Out" />
    </children>
 </AnchorPane>

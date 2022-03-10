@@ -24,6 +24,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LandingPageController {
 
@@ -33,6 +34,9 @@ public class LandingPageController {
 	private EmployeeProfile user;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
+	
+	@FXML
+	private Button logOutButton;
 
 	@FXML
 	private Button clockInButton;
@@ -109,7 +113,15 @@ public class LandingPageController {
 		this.user.getTimeSheet(LocalDate.now()).clockOut();
 		this.updatePage();
 	}
-
+	
+	@FXML
+	void logOut(ActionEvent event) {
+		try {
+			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	void openHRView(ActionEvent event) {
 		try {
@@ -121,7 +133,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
-
+		
 	}
 
 	/**
