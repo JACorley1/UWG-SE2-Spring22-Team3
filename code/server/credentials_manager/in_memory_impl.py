@@ -3,11 +3,11 @@ from credentials_manager.base import CredentialsManager
 
 ''' Stores a single set of credentials.
 
- @author CS3212
+ @author Team Three
  @version Spring 2022
 '''
-class _CredentialsSet:
-    ''' Creates a new CredentialsSet with the specified username and password
+class _User:
+    ''' Creates a new User with the specified username and password
      
      @precondition isinstance(username, str) &&
                    isinstance(password, str)
@@ -22,153 +22,136 @@ class _CredentialsSet:
         self._username: str = username
         self._password: str = password
     
-    ''' Returns the username in the CredentialsSet
+    ''' Returns the username of the User
      
      @precondition none
      @postcondition none
      
-     @return the username in the CredentialsSet
+     @return the username of the User
     '''
     def getUsername(self) -> str:
         return self._username
     
-    ''' Returns the password in the CredentialsSet
+    ''' Returns the password of the User
      
      @precondition none
      @postcondition none
      
-     @return the password in the CredentialsSet
+     @return the password of the User
     '''
     def getPassword(self) -> str:
         return self._password
 
-''' Manages the set of system credentials for a single user.
+''' Manages the set of user credentials for all users in the system.
 
- @author CS3212
+ @author Team Three
  @version Spring 2022
 '''
-class InMemoryCredentialsManager (CredentialsManager):
+class LocalCredentialsManager (CredentialsManager):
     
-    ''' Create a new credential manager with no systems
+    ''' Create a new credential manager with default user credentials
     
      @precondition none
-     @postcondition no systems exist
+     @postcondition default credentials exist
     '''
     def __init__(self):
-        self._systemCredentials: dict[str, _CredentialsSet] = {}
+       self._systemCredentials: dict[str, _User] = {}
+	   self.addUser(self, “destiny”, “harper”)
+	   self._addUser(self, “brianna”, “irie”)
+	   self._addUser(self, “miguel”, “campos”)
+	   self._addUser(self, “fernando”, “dominguez”)
 
-    ''' Add a new system with the specified credentials to the system
+    ''' Add a new user with the specified credentials to the system
      
-     @precondition systemName != null && !systemName.isEmpty() &&
-                     username != null &&
-                     password != null &&
-                     !getSystemNames().contains(systemName)
-     @postcondition getSystemNames().contains(systemName) &&
-                      getUsername(systemName).equals(username) &&
-                      getPassword(systemName).equals(password)
+     @precondition username != null && password != null
+     @postcondition
      
-     @param systemName name of the system
-     @param username username for the system
-     @param password password for the system
+     @param username username of the user
+     @param password password of the user
      
-     @return true  if system added successfully
-               false if system not added successfully
+     @return true  if user added successfully
+               false otherwise
     '''
-    def addSystem(self, systemName: str, username: str, password: str) -> bool:
-        if (systemName in self._systemCredentials) :
+    def addUser(self, username: str, password: str) -> bool:
+        if (username in self._systemCredentials) :
             return False
-        credentialsSet = _CredentialsSet(username, password)
-        self._systemCredentials[systemName] = credentialsSet
+        credentialsSet = _User(username, password)
+        self._systemCredentials[username] = credentialsSet
         return True
     
-    ''' Retrieves a list of the names for all systems with credentials in the password manager
+        
+    ''' Return the password for a specified user
      
-     @precondition none
+     @precondition userName != null &&
+                     getUserNames().contains(userName)
      @postcondition none
      
-     @return list of the names for all systems with credentials in the password manager
+     @param userName username of the user
+     
+     @return password of the user if getUserNames().contains(userName)
+               null                   if !getUserNames().contains(userName)
     '''
-    def getSystemNames(self) -> typing.List[str]:
-        systemNames = []
-        
-        for systemName in self._systemCredentials:
-            systemNames.append(systemName)
-        
-        return systemNames
-    
-    ''' Return the password for a specified system
-     
-     @precondition systemName != null &&
-                     getSystemNames().contains(systemName)
-     @postcondition none
-     
-     @param systemName name of the system
-     
-     @return password of the system if getSystemNames().contains(systemName)
-               null                   if !getSystemNames().contains(systemName)
-    '''
-    def getSystemPassword(self, systemName: str) -> str:
-        if (systemName not in self._systemCredentials) :
+    def getUserPassword(self, userName: str) -> str:
+        if (userName not in self._systemCredentials) :
             raise Exception("System with specified name not found")
         return self._systemCredentials[systemName].getPassword()
 
-    ''' Return the username for a specified system
+       
+    ''' Remove a user with the specified username
      
-     @precondition systemName != null &&
-                     getSystemNames().contains(systemName)
-     @postcondition none
+     @precondition userName != null &&
+                     getUserNames().contains(userName)
+     @postcondition !getUserNames().contains(userName) &&
+                      getUsername(userName) == null &&
+                      getPassword(userName) == null
      
-     @param systemName name of the system
+     @param userName Username associated with User
      
-     @return username of the system if getSystemNames().contains(systemName)
-               null                   if !getSystemNames().contains(systemName)
+     @return true  if user is removed successfully
+               false if user is not removed successfully
     '''
-    def getSystemUsername(self, systemName: str) -> str:
-        if (systemName not in self._systemCredentials) :
-            raise Exception("System with specified name not found")
-        return self._systemCredentials[systemName].getUsername()
-    
-    ''' Remove a system with the specified name
-     
-     @precondition systemName != null &&
-                     getSystemNames().contains(systemName)
-     @postcondition !getSystemNames().contains(systemName) &&
-                      getUsername(systemName) == null &&
-                      getPassword(systemName) == null
-     
-     @param systemName name of the system
-     
-     @return true  if system removed successfully
-               false if system not removed successfully
-    '''
-    def removeSystem(self, systemName: str) -> bool:
-        if (systemName not in self._systemCredentials) :
+    def removeUser(self, userName: str) -> bool:
+        if (userName not in self._systemCredentials) :
             return False
-        self._systemCredentials.pop(systemName)
+        self._systemCredentials.pop(userName)
         return True
 
-    ''' Update an existing system with the specified credentials to the system
+    ''' Update an existing user with the specified credentials in the system
      
-     @precondition systemName != null && !systemName.isEmpty() &&
-                     username != null &&
-                     password != null &&
-                     getSystemNames().contains(systemName)
-     @postcondition getSystemNames().contains(systemName) &&
-                      getUsername(systemName).equals(username) &&
-                      getPassword(systemName).equals(password)
+     @precondition username != null && password != null &&
+                     getUserNames().contains(username)
+     @postcondition getUserNames().contains(systemName) &&
+                      getUsername(username).equals(username) &&
+                      getPassword(username).equals(password)
      
-     @param systemName name of the system
-     @param username username for the system
-     @param password password for the system
+     @param username username for the user
+     @param password password for the user
      
-     @return true  if system updated successfully
-               false if system not updated successfully
+     @return true  if user’s password updated successfully
+               false otherwise
     '''
-    def updateSystem(self, systemName: str, username: str, password: str) -> bool:
-        if (systemName not in self._systemCredentials) :
+    def updateUserPassword(self, username: str, password: str) -> bool:
+        if (username not in self._systemCredentials) :
             return False
-        credentialsSet = _CredentialsSet(username, password)
-        self._systemCredentials[systemName] = credentialsSet
+        credentialsSet = _User(username, password)
+        self._systemCredentials[username] = credentialsSet
         return True
+
+    
+    ''' Retrieves a list of the names for all users with credentials in the password manager
+     
+     @precondition none
+     @postcondition none
+     
+     @return list of the names for all users with credentials in the password manager
+    '''
+    def getUserNames(self) -> typing.List[str]:
+        userNames = []
+        
+        for userName in self._systemCredentials:
+            userNames.append(userName)
+        
+        return userNames
+
     
     
