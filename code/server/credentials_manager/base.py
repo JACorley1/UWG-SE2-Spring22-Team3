@@ -1,4 +1,4 @@
- import typing
+import typing
 
 ''' Manages the set of credentials for all system users.
 
@@ -61,7 +61,7 @@ class CredentialsManager:
     def updateUserPassword(self, username: str, password: str) -> bool:
         raise NotImplementedError()
     
-''' Retrieves a list of the names for all users with credentials in the password manager
+    ''' Retrieves a list of the names for all users with credentials in the password manager
      
      @precondition none
      @postcondition none

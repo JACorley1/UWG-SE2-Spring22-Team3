@@ -15,10 +15,7 @@ class _User:
                     getPassword() == password
     '''
     def __init__(self, username: str, password: str):
-        if (isinstance(username, str)) :
-            raise Exception("username must be a str") 
-        if (isinstance(password, str)) :
-            raise Exception("password must be a str") 
+
         self._username: str = username
         self._password: str = password
     
@@ -56,10 +53,10 @@ class LocalCredentialsManager (CredentialsManager):
     '''
     def __init__(self):
        self._systemCredentials: dict[str, _User] = {}
-	   self.addUser(self, “destiny”, “harper”)
-	   self._addUser(self, “brianna”, “irie”)
-	   self._addUser(self, “miguel”, “campos”)
-	   self._addUser(self, “fernando”, “dominguez”)
+       self.addUser("destiny", "harper")
+       self.addUser("brianna", "irie")
+       self.addUser("miguel", "campos")
+       self.addUser("fernando", "dominguez")
 
     ''' Add a new user with the specified credentials to the system
      

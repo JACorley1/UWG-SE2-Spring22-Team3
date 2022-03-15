@@ -1,4 +1,4 @@
-from credentials_manager.in_memory_impl import InMemoryCredentialsManager as CredentialsManager
+from credentials_manager.in_memory_impl import LocalCredentialsManager as CredentialsManager
 from server import Server
 
 ''' Launches Server with appropriate CredentialsManager
@@ -7,7 +7,7 @@ from server import Server
  @version Spring 2022
 '''
 def main():
-    server.run(CredentialsManager())
+    Server.run(Server, CredentialsManager())
 
 
 if (__name__ == "__main__"):
