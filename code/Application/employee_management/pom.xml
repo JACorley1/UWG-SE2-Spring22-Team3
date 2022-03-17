@@ -41,6 +41,16 @@
         	<artifactId>javafx-controls</artifactId>
         	<version>19-ea+2</version>
         </dependency>
+        <dependency>
+        	<groupId>org.zeromq</groupId>
+        	<artifactId>jeromq</artifactId>
+        	<version>0.5.2</version>
+        </dependency>
+        <dependency>
+        	<groupId>org.json</groupId>
+        	<artifactId>json</artifactId>
+        	<version>20180130</version>
+        </dependency>
     </dependencies>
 
     <build>

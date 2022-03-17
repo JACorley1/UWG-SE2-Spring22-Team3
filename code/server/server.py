@@ -31,7 +31,7 @@ class _RequestHandler:
      @return response string using appropriate format (see description for details)
     '''
     def _getPassword(self, userName: str) -> MutableMapping[str, Any]:
-        password = self._credentialsManager.getUserPassword(self, username )
+        password = self._credentialsManager.getUserPassword(userName)
         response = {"successCode": 1, "password": password}
         return response
         
@@ -40,7 +40,9 @@ class _RequestHandler:
         if ("requestType" not in request) :
             response = {"successCode": -1, "errorMessage": "Malformed Request, missing Request Type"}
         if (request["requestType"] == "getPassword") :
-            response = self._getPassword()
+            userName = request["request"]
+            print(userName)
+            response = self._getPassword(userName)
         else :
             errorMessage = "Unsupported Request Type ({requestType})".format(requestType = request['requestType'])
             response = {"successCode": -1, "errorMessage": errorMessage}

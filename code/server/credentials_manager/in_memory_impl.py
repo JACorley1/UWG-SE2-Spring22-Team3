@@ -91,7 +91,7 @@ class LocalCredentialsManager (CredentialsManager):
     def getUserPassword(self, userName: str) -> str:
         if (userName not in self._systemCredentials) :
             raise Exception("System with specified name not found")
-        return self._systemCredentials[systemName].getPassword()
+        return self._systemCredentials[userName].getPassword()
 
        
     ''' Remove a user with the specified username
