@@ -20,6 +20,7 @@ public class MainApp extends Application {
 		client.start();
 
 		System.out.println(ZMQ.CHARSET);
+
     }
 
 	static void setRoot(Scenes fxml, String title) throws IOException {
