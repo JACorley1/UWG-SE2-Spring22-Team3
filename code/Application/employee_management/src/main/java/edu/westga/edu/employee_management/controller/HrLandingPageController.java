@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.controller;
 
+import java.io.IOException;
+
+import edu.westga.edu.employee_management.SceneController;
+import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import javafx.collections.FXCollections;
@@ -20,111 +24,105 @@ public class HrLandingPageController {
 	private ListView<EmployeeProfile> listOfEmployeesView;
 
 	@FXML
-	private TextField idTextField;
+    private TextField idTextField;
 
-	@FXML
-	private TextField firstNameTextField;
+    @FXML
+    private TextField firstNameTextField;
 
-	@FXML
-	private TextField middleNameTextField;
+    @FXML
+    private TextField middleNameTextField;
 
-	@FXML
-	private TextField lastNameTextField;
+    @FXML
+    private TextField lastNameTextField;
 
-	@FXML
-	private TextField emaiilTextField;
+    @FXML
+    private TextField emaiilTextField;
 
-	@FXML
-	private TextField phoneTextField;
+    @FXML
+    private TextField phoneTextField;
 
-	@FXML
-	private TextField usernameTextField;
+    @FXML
+    private TextField usernameTextField;
 
-	@FXML
-	private TextField passwordTextField;
+    @FXML
+    private TextField passwordTextField;
 
-	@FXML
-	private RadioButton hrEmployeeRadioBtn;
+    @FXML
+    private RadioButton hrEmployeeRadioBtn;
 
-	@FXML
-	private ToggleGroup Type;
+    @FXML
+    private ToggleGroup Type;
 
-	@FXML
-	private RadioButton normalEmployeeRadioBtn;
+    @FXML
+    private RadioButton normalEmployeeRadioBtn;
 
-	@FXML
-	private Button displayListBtn;
+    @FXML
+    private Button newEmployeeBtn;
 
-	@FXML
-	private Button newEmployeeBtn;
+    @FXML
+    private Button removeEmployeeBtn;
 
-	@FXML
-	private Button saveNewEmployeeBtn;
+    @FXML
+    private TextField monStartTimeField;
 
-	@FXML
-	private Button removeEmployeeBtn;
+    @FXML
+    private TextField tueStartTimeField;
 
-	@FXML
-	private TextField monStartTimeField;
+    @FXML
+    private TextField wedStartTimeField;
 
-	@FXML
-	private TextField tueStartTimeField;
+    @FXML
+    private TextField thuStartTimeField;
 
-	@FXML
-	private TextField wedStartTimeField;
+    @FXML
+    private TextField friStartTimeField;
 
-	@FXML
-	private TextField thuStartTimeField;
+    @FXML
+    private TextField satStartTimeField;
 
-	@FXML
-	private TextField friStartTimeField;
+    @FXML
+    private TextField sunStartTimeField;
 
-	@FXML
-	private TextField satStartTimeField;
+    @FXML
+    private TextField monEndTimeField;
 
-	@FXML
-	private TextField sunStartTimeField;
+    @FXML
+    private TextField tueEndTimeField;
 
-	@FXML
-	private TextField monEndTimeField;
+    @FXML
+    private TextField wedEndTimeField;
 
-	@FXML
-	private TextField tueEndTimeField;
+    @FXML
+    private TextField thuEndTimeField;
 
-	@FXML
-	private TextField wedEndTimeField;
+    @FXML
+    private TextField friEndtimeField;
 
-	@FXML
-	private TextField thuEndTimeField;
+    @FXML
+    private TextField satEndTimeField;
 
-	@FXML
-	private TextField friEndtimeField;
+    @FXML
+    private TextField sunEndTimeField;
 
-	@FXML
-	private TextField satEndTimeField;
+    @FXML
+    private TextField hrsWorkedTextField;
 
-	@FXML
-	private TextField sunEndTimeField;
+    @FXML
+    private TextField PaymentTextField;
 
-	@FXML
-	private TextField hrsWorkedTextField;
+    @FXML
+    private Button editEmployeesInfBtn;
 
-	@FXML
-	private TextField PaymentTextField;
+    @FXML
+    private Button saveChangesBtn;
 
-	@FXML
-	private Button editEmployeesInfBtn;
-
-	@FXML
-	private Button saveChangesBtn;
-
-	@FXML
-	private Text welcomeLabel;
+    @FXML
+    private Text welcomeLabel;
 
 	private EmployeeManager manager;
 
-	@FXML
-	void handleDiisplayList(ActionEvent event) {
+	
+	private void handleDiisplayList() {
 		if (!this.manager.getProfiles().isEmpty()) {
 			this.listOfEmployeesView.setItems(FXCollections.observableList(manager.getProfiles()));
 		} else {
@@ -136,7 +134,7 @@ public class HrLandingPageController {
 			alert.showAndWait();
 		}
 	}
-
+	
 	@FXML
 	void handleEditEmployeesInfo(ActionEvent event) {
 		this.changeEditableState(true);
@@ -158,6 +156,7 @@ public class HrLandingPageController {
 
 		this.getAlert(result, positiveMessage, negativeMessage);
 		this.setAllFieldsEmpty();
+		this.refreshSystemNames();
 	}
 
 	@FXML
@@ -199,18 +198,31 @@ public class HrLandingPageController {
 
 	@FXML
 	void hnadleNewEmployee(ActionEvent event) {
-		this.setAllFieldsEmpty();
-		this.changeEditableState(true);
+		try {
+			SceneController.openMiniWindow(Scenes.ADDNEWPROFILE, "Add Profile Page", event);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		this.refreshSystemNames();
 	}
 
 	@FXML
 	void initialize() {
-		this.manager = new EmployeeManager();
+		this.manager = EmployeeManager.getInstance();
 		this.changeEditableState(false);
 		this.getInfoFromProfile();
 		this.setOfEmployeessSample();
-	}
+		this.handleDiisplayList();
+		this.refreshSystemNames();
 
+	}
+	
+	private void refreshSystemNames() {
+		this.listOfEmployeesView.setItems(FXCollections.observableList(manager.getProfiles()));
+    }
+	
 	private void getInfoFromProfile() {
 		this.listOfEmployeesView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
@@ -262,13 +274,14 @@ public class HrLandingPageController {
 	}
 
 	private void setOfEmployeessSample() {
-		this.manager.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true,
+
+		manager.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true,
 				"destiny", "harper");
-		this.manager.addNewEmployee(1312, "Brianna", "S", "Irie", "CarjotXX777@hotmail.com", "6678954563", true,
+		manager.addNewEmployee(1312, "Brianna", "S", "Irie", "CarjotXX777@hotmail.com", "6678954563", true,
 				"brianna", "irie");
-		this.manager.addNewEmployee(1112, "Fernando", "J", "Dominguez", "elverGaXXX89@hotmail.com", "8975462147", true,
+		manager.addNewEmployee(1112, "Fernando", "J", "Dominguez", "elverGaXXX89@hotmail.com", "8975462147", true,
 				"fernando", "dominguez");
-		this.manager.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false,
+		manager.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false,
 				"miguel", "campos");
 	}
 
@@ -280,6 +293,7 @@ public class HrLandingPageController {
 		this.emaiilTextField.setText("");
 		this.phoneTextField.setText("");
 		this.idTextField.setText("");
+		this.usernameTextField.setText("");
 		this.passwordTextField.setText("");
 	}
 
@@ -291,6 +305,7 @@ public class HrLandingPageController {
 		this.emaiilTextField.setEditable(state);
 		this.phoneTextField.setEditable(state);
 		this.idTextField.setEditable(state);
+		this.usernameTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
 		this.PaymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);

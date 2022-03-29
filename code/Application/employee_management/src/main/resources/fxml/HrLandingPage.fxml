@@ -35,9 +35,7 @@
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="normalEmployeeRadioBtn" layoutX="434.0" layoutY="553.0" mnemonicParsing="false" text="Normal Employee" toggleGroup="$Type" />
-      <Button fx:id="displayListBtn" layoutX="90.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleDiisplayList" text="Display List" />
-      <Button fx:id="newEmployeeBtn" layoutX="295.0" layoutY="585.0" mnemonicParsing="false" onAction="#hnadleNewEmployee" prefHeight="25.0" prefWidth="107.0" text="Create Employee" />
-      <Button fx:id="saveNewEmployeeBtn" layoutX="419.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleSaveNewEmployee" text="Save Employee" />
+      <Button fx:id="newEmployeeBtn" layoutX="398.0" layoutY="585.0" mnemonicParsing="false" onAction="#hnadleNewEmployee" prefHeight="25.0" prefWidth="107.0" text="Create Employee" />
       <Button fx:id="removeEmployeeBtn" layoutX="534.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleRemoveEmpoyee" prefHeight="25.0" prefWidth="116.0" text="Remove Employee" />
       <Text layoutX="670.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule" wrappingWidth="77.13671875" />
       <Text layoutX="996.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours Worked" wrappingWidth="77.13671875" />
@@ -86,9 +84,9 @@
       </GridPane>
       <TextField fx:id="hrsWorkedTextField" layoutX="996.0" layoutY="160.0" prefHeight="25.0" prefWidth="124.0" />
       <TextField fx:id="PaymentTextField" layoutX="996.0" layoutY="267.0" prefHeight="25.0" prefWidth="116.0" />
-      <Button fx:id="editEmployeesInfBtn" layoutX="760.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleEditEmployeesInfo" prefHeight="25.0" prefWidth="130.0" text="Edit Employee Info." />
-      <Button fx:id="saveChangesBtn" layoutX="926.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleSaveChanges" text="Save Info Changes" />
-      <Text fx:id="welcomeLabel" layoutX="476.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome Name" wrappingWidth="149.0">
+      <Button fx:id="editEmployeesInfBtn" layoutX="682.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleEditEmployeesInfo" prefHeight="25.0" prefWidth="130.0" text="Edit Employee Info." />
+      <Button fx:id="saveChangesBtn" layoutX="830.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleSaveChanges" text="Save Info Changes" />
+      <Text fx:id="welcomeLabel" layoutX="521.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome" wrappingWidth="114.0">
          <font>
             <Font size="18.0" />
          </font>

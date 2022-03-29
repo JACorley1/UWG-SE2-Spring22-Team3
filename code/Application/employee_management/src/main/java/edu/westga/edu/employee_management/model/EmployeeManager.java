@@ -10,6 +10,7 @@ import java.util.List;
  * @version 2/17/22
  */
 public class EmployeeManager {
+	private static EmployeeManager single_instance = null;
 	private List<EmployeeProfile> profiles;
 
 	/**
@@ -22,6 +23,18 @@ public class EmployeeManager {
 	public EmployeeManager() {
 		this.profiles = new ArrayList<EmployeeProfile>();
 	}
+	
+	/**
+	 * Creates an instance of the EmployeeManager
+	 * 
+	 * @return an instance of the EmployeeManager
+	 */
+	public static EmployeeManager getInstance() {
+		if (single_instance == null) {
+			single_instance = new EmployeeManager();
+		}
+		 return single_instance;
+	}
 
 	/**
 	 * Get the profile
@@ -29,7 +42,7 @@ public class EmployeeManager {
 	 * @return the profiles on the list
 	 */
 	public List<EmployeeProfile> getProfiles() {
-		return this.profiles;
+		return getInstance().profiles;
 	}
 
 	/**

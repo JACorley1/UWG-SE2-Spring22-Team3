@@ -2,8 +2,11 @@ package edu.westga.edu.employee_management;
 
 import java.io.IOException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -47,6 +50,27 @@ public class SceneController {
 		newWindow.setScene(scene);
 
 		newWindow.show();
+	}
+	
+	/**
+	 * Opens window for given fxml file, title, and event
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param fxml the file
+	 * @param title the title of the file
+	 * @param event the event 
+	 * @throws IOException
+	 */
+	public static void openMiniWindow(Scenes fxml, String title, ActionEvent event) throws IOException {
+		Scene scene = SceneController.loadFXML(fxml);
+		Stage newWindow = new Stage();
+		newWindow.setTitle(title);
+		newWindow.setScene(scene);
+		newWindow.initModality(Modality.WINDOW_MODAL);
+		newWindow.initOwner(((Node) event.getSource()).getScene().getWindow());
+		newWindow.showAndWait();
 	}
 
 	/**
