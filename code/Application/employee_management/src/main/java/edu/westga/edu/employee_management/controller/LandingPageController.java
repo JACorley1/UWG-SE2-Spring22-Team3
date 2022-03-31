@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -79,6 +80,15 @@ public class LandingPageController {
 
 	@FXML
 	private GridPane secondWeekGrid;
+	
+	@FXML
+    private Button viewCurrentRequestsButton;
+
+	@FXML
+    private Text currentRequestsText;
+
+    @FXML
+    private Text numberOfRequestsText;
 
 	@FXML
 	private Text profileErrorText;
@@ -86,6 +96,15 @@ public class LandingPageController {
 	private EmployeeManager manager;
 
 	private UserLogin login;
+	
+	@FXML
+    void onViewRequestsButtonClick(ActionEvent event) {
+		try {
+			SceneController.openWindow(Scenes.REQUESTSPAGE, "EmployeeRequestsPage");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
