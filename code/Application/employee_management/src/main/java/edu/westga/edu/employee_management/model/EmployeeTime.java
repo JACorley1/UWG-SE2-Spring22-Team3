@@ -14,7 +14,27 @@ public class EmployeeTime {
 
 	private LocalDateTime clockInTime;
 	private LocalDateTime clockOutTime;
+	private int dayIndex;
 	
+	/**
+	 * 
+	 * Creates new instance of EmployeeTime
+	 * 
+	 * Preconditions: clockInTime != null
+	 * Postconditions: none
+	 *
+	 * @param clockInTime the time of clock in
+	 * @param dayIndex    the index of the day
+	 */
+	public EmployeeTime(int dayIndex, LocalDateTime clockInTime) {
+		if (clockInTime == null) {
+			throw new IllegalArgumentException(CLOCK_IN_TIME_CANNOT_BE_NULL);
+		}
+
+		this.clockInTime = clockInTime;
+		this.dayIndex = dayIndex;
+	}
+
 	/**
 	 * 
 	 * Creates new instance of EmployeeTime
@@ -90,6 +110,18 @@ public class EmployeeTime {
 		}
 
 		this.clockOutTime = clockOutTime;
+	}
+
+	/**
+	 * Gets the day
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the day
+	 */
+	public int getDayIndex() {
+		return this.dayIndex;
 	}
 
 }

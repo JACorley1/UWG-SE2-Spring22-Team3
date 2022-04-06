@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.model;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Employee Profile Class
  * 
@@ -8,6 +12,7 @@ package edu.westga.edu.employee_management.model;
  */
 public class EmployeeProfile {
 
+	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
 	private static final String FIRST_NAME_CAN_NOT_BE_NULL = "first name can not be null";
 	private static final String MIDDLE_NAME_CAN_NOT_BE_NULL = "middle name can not be null";
 	private static final String LAST_NAME_CAN_NOT_BE_NULL = "last name can not be null";
@@ -29,6 +34,7 @@ public class EmployeeProfile {
 	private String userName;
 	private String password;
 	private boolean hr;
+	private Map<LocalDate, TimeSheet> timesheets;
 
 	/**
 	 * The Employee Profile constructor
@@ -48,6 +54,8 @@ public class EmployeeProfile {
 	 * @param email     the employee's email
 	 * @param phone     the employee's phone
 	 * @param isHR      is employee an HR member
+	 * @param userName  the employee's user name
+	 * @param password  the employee's password
 	 */
 	public EmployeeProfile(int id, String firstName, String midName, String lastName, String email, String phone,
 			boolean isHR, String userName, String password) {
@@ -60,6 +68,7 @@ public class EmployeeProfile {
 		this.setHR(isHR);
 		this.setPassword(password);
 		this.setUserName(userName);
+		this.timesheets = new HashMap<LocalDate, TimeSheet>();
 	}
 
 	/**
@@ -219,7 +228,7 @@ public class EmployeeProfile {
 	public int getID() {
 		return this.id;
 	}
-
+	
 	/**
 	 * Sets Employee's id
 	 * 
@@ -259,6 +268,34 @@ public class EmployeeProfile {
 		this.hr = hr;
 	}
 
+	/**
+	 * Gets the time sheet for the given date
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param date
+	 * @return the time sheet if it exists
+	 */
+	public TimeSheet getTimeSheet(LocalDate date) {
+		if (date == null) {
+			throw new IllegalArgumentException(DATE_CANNOT_BE_NULL);
+		}
+		LocalDate currentPeriod = PayPeriod.getStartDate(date);
+
+		if (this.timesheets.containsKey(currentPeriod)) {
+			return this.timesheets.get(currentPeriod);
+		} else {
+			return this.createTimesheet(currentPeriod);
+		}
+	}
+
+	private TimeSheet createTimesheet(LocalDate currentPeriod) {
+		TimeSheet timeSheet = new TimeSheet(currentPeriod);
+		this.timesheets.put(currentPeriod, timeSheet);
+		return timeSheet;
+	}
+
 	@Override
 	public String toString() {
 		String type = "No";
@@ -270,10 +307,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Returns employee's password
-	 * 
+	 *
 	 * @precondition none
 	 * @postcondition none
-	 * 
+	 *
 	 * @return employee password
 	 */
 	public String getPassword() {
@@ -282,10 +319,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets password
-	 * 
+	 *
 	 * @precondition password != null
 	 * @postcondition this.getPassword() == password
-	 * 
+	 *
 	 * @param password the employee's password
 	 */
 	public void setPassword(String password) {
@@ -297,10 +334,10 @@ public class EmployeeProfile {
 
 	/**
 	 * Returns employee's user name
-	 * 
+	 *
 	 * @precondition none
 	 * @postcondition none
-	 * 
+	 *
 	 * @return employee user name
 	 */
 	public String getUserName() {
@@ -309,11 +346,11 @@ public class EmployeeProfile {
 
 	/**
 	 * Sets User Name
-	 * 
+	 *
 	 * @precondition userName != null
 	 * @postcondition this.getUserName == userName
-	 * 
-	 * @param password the employee's password
+	 *
+	 * @param userName the employee's username
 	 */
 	public void setUserName(String userName) {
 		if (userName == null) {

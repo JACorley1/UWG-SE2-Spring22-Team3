@@ -31,7 +31,7 @@
       <Text layoutX="321.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone" wrappingWidth="69.13671875" />
       <RadioButton fx:id="hrEmployeeRadioBtn" layoutX="323.0" layoutY="553.0" mnemonicParsing="false" text="HR Employee">
          <toggleGroup>
-            <ToggleGroup fx:id="Type" />
+            <ToggleGroup fx:id="type" />
          </toggleGroup>
       </RadioButton>
       <RadioButton fx:id="normalEmployeeRadioBtn" layoutX="434.0" layoutY="553.0" mnemonicParsing="false" text="Normal Employee" toggleGroup="$Type" />

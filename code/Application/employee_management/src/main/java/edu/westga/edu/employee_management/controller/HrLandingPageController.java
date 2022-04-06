@@ -50,8 +50,13 @@ public class HrLandingPageController {
     @FXML
     private RadioButton hrEmployeeRadioBtn;
 
+
     @FXML
     private ToggleGroup Type;
+
+	  @FXML
+	  private ToggleGroup type;
+
 
     @FXML
     private RadioButton normalEmployeeRadioBtn;
@@ -112,9 +117,15 @@ public class HrLandingPageController {
 
     @FXML
     private Button editEmployeesInfBtn;
+  
+	  @FXML
+	  private TextField paymentTextField;
 
-    @FXML
-    private Button saveChangesBtn;
+	  @FXML
+	  private Button editEmployeesInfBtn;
+
+	  @FXML
+	  private Button saveChangesBtn;
 
     @FXML
     private Text welcomeLabel;
@@ -124,7 +135,7 @@ public class HrLandingPageController {
 	
 	private void handleDiisplayList() {
 		if (!this.manager.getProfiles().isEmpty()) {
-			this.listOfEmployeesView.setItems(FXCollections.observableList(manager.getProfiles()));
+			this.listOfEmployeesView.setItems(FXCollections.observableList(this.manager.getProfiles()));
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Information");
@@ -194,6 +205,7 @@ public class HrLandingPageController {
 		this.manager = EmployeeManager.getInstance();
 		this.changeEditableState(false);
 		this.getInfoFromProfile();
+
 		this.setOfEmployeessSample();
 		this.handleDiisplayList();
 		this.refreshSystemNames();
@@ -217,9 +229,9 @@ public class HrLandingPageController {
 						this.usernameTextField.setText(newValue.getUserName());
 						this.passwordTextField.setText(newValue.getPassword());
 						if (newValue.isHR()) {
-							this.Type.selectToggle(this.hrEmployeeRadioBtn);
+							this.type.selectToggle(this.hrEmployeeRadioBtn);
 						} else {
-							this.Type.selectToggle(this.normalEmployeeRadioBtn);
+							this.type.selectToggle(this.normalEmployeeRadioBtn);
 						}
 					}
 
@@ -229,7 +241,7 @@ public class HrLandingPageController {
 	private boolean radioButtonChanged() {
 		boolean result = false;
 
-		if (this.Type.getSelectedToggle().equals(this.hrEmployeeRadioBtn)) {
+		if (this.type.getSelectedToggle().equals(this.hrEmployeeRadioBtn)) {
 			result = true;
 		}
 
@@ -288,7 +300,7 @@ public class HrLandingPageController {
 		this.idTextField.setEditable(state);
 		this.usernameTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
-		this.PaymentTextField.setEditable(state);
+		this.paymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);
 		this.monStartTimeField.setEditable(state);
 		this.tueStartTimeField.setEditable(state);

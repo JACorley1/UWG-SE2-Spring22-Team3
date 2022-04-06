@@ -1,6 +1,7 @@
 package edu.westga.cs3211.employee_management.model.employee_Manager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ class TestRemoveProfile {
 	public void testNullLastName() {
 		EmployeeManager manager = EmployeeManager.getInstance();
 		assertThrows(IllegalArgumentException.class, () -> {
-			manager.removeProfile(-1, null);
+			manager.removeProfile(1, null);
 		});
 	}
 	
@@ -29,7 +30,7 @@ class TestRemoveProfile {
 	public void testEmptyLastName() {
 		EmployeeManager manager = EmployeeManager.getInstance();
 		assertThrows(IllegalArgumentException.class, () -> {
-			manager.removeProfile(-1, "");
+			manager.removeProfile(1, "");
 		});
 	}
 	
@@ -51,7 +52,7 @@ class TestRemoveProfile {
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(2, result, "It works!");
+		assertEquals(6, result, "It works!");
 	}
 	
 	@Test

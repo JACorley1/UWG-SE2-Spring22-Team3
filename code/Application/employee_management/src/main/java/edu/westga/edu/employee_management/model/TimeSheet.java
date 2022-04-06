@@ -1,13 +1,10 @@
 package edu.westga.edu.employee_management.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.time.temporal.ChronoField;
-import java.time.temporal.TemporalField;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Time Sheet Class
@@ -16,10 +13,12 @@ import java.util.Locale;
  * @version Spring 2022
  */
 public class TimeSheet {
-	private Collection<EmployeeTime> timeData;
+	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
+	private static final String TIME_CANNOT_BE_NULL = "Time cannot be null";
+	private List<EmployeeTime> timeData;
 	private EmployeeTime openTime;
-	private LocalDateTime payPeriodStart;
-	private LocalDateTime payPeriodEnd;
+	private LocalDate payPeriodStart;
+	private LocalDate payPeriodEnd;
 
 	/**
 	 * 
@@ -30,22 +29,17 @@ public class TimeSheet {
 	 *
 	 * @param payPeriodDate a date with in pay period
 	 */
-	public TimeSheet(LocalDateTime payPeriodDate) {
+	public TimeSheet(LocalDate payPeriodDate) {
+		if (payPeriodDate == null) {
+			throw new IllegalArgumentException(DATE_CANNOT_BE_NULL);
+		}
 		this.timeData = new ArrayList<EmployeeTime>();
 		this.setPayPeriodRange(payPeriodDate);
 	}
 
-	private void setPayPeriodRange(LocalDateTime payPeriodDate) {
-		int weekOfYear = payPeriodDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-		TemporalField defaultField = WeekFields.of(Locale.getDefault()).dayOfWeek();
-		LocalDateTime startOfWeek = payPeriodDate.with(defaultField, 1);
-		if (weekOfYear % 2 == 0) {
-			startOfWeek.minus(Period.ofWeeks(1));
-		}
-
-		this.payPeriodStart = startOfWeek;
-		this.payPeriodEnd = startOfWeek.plus(Period.ofWeeks(1));
-		this.payPeriodEnd = this.payPeriodEnd.with(defaultField, 7);
+	private void setPayPeriodRange(LocalDate payPeriodDate) {
+		this.payPeriodStart = PayPeriod.getStartDate(payPeriodDate);
+		this.payPeriodEnd = PayPeriod.getEndDate(payPeriodDate);
 	}
 
 	/**
@@ -60,7 +54,8 @@ public class TimeSheet {
 		LocalDateTime time = LocalDateTime.now();
 
 		if (this.openTime == null && this.withinTimeSheet(time)) {
-			EmployeeTime newTime = new EmployeeTime(time);
+			int dayIndex = this.getDayIndex(time);
+			EmployeeTime newTime = new EmployeeTime(dayIndex, time);
 			this.openTime = newTime;
 			this.timeData.add(newTime);
 			return true;
@@ -69,8 +64,14 @@ public class TimeSheet {
 		}
 	}
 
+	private int getDayIndex(LocalDateTime time) {
+		Period periodBetween = Period.between(this.payPeriodStart, time.toLocalDate());
+		int dayIndex = Math.abs(periodBetween.getDays());
+		return dayIndex;
+	}
+
 	private boolean withinTimeSheet(LocalDateTime time) {
-		return time.isBefore(this.payPeriodEnd) && time.isAfter(this.payPeriodStart);
+		return time.toLocalDate().isBefore(this.payPeriodEnd) && time.toLocalDate().isAfter(this.payPeriodStart);
 	}
 
 	/**
@@ -101,7 +102,34 @@ public class TimeSheet {
 	 *
 	 * @return the time sheet
 	 */
-	public Collection<EmployeeTime> getTimeSheet() {
+	public List<EmployeeTime> getTimeSheet() {
 		return this.timeData;
+	}
+
+	/**
+	 * Checks if there is a current clock in without a clock out
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return if there is open time;
+	 */
+	public boolean hasOpenTime() {
+		return this.openTime != null;
+	}
+
+	/**
+	 * Add time to time sheet
+	 * 
+	 * Preconditions: time != null
+	 * Postconditions: getTime().size() += 1
+	 *
+	 * @param time the employee time
+	 */
+	public void addTime(EmployeeTime time) {
+		if (time == null) {
+			throw new IllegalArgumentException(TIME_CANNOT_BE_NULL);
+		}
+		this.timeData.add(time);
 	}
 }
