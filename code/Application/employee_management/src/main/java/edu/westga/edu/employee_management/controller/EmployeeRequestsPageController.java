@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.controller;
 
+import java.io.IOException;
+
+import edu.westga.edu.employee_management.SceneController;
+import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import javafx.collections.FXCollections;
@@ -7,9 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -78,7 +80,11 @@ public class EmployeeRequestsPageController {
     
     @FXML
     void onClickRequestCreation(ActionEvent event) {
-
+    	try {
+			SceneController.openWindow(Scenes.ADDREQUESTPAGE, "AddRequestPage");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 }

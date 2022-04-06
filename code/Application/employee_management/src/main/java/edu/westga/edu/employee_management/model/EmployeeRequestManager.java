@@ -13,7 +13,7 @@ public class EmployeeRequestManager {
 		this.currentRequests.add(new EmployeeRequest("Personal Time", "04/21/2022", "04/26/2022", "PENDING"));
 		this.currentRequests.add(new EmployeeRequest("Sick Leave", "02/04/2022", "02/05/2022", "APPROVED"));
 		
-		this.numberOfRequests = 0;
+		this.numberOfRequests = 2;
 	}
 
 	public List<EmployeeRequest> getCurrentRequests() {
