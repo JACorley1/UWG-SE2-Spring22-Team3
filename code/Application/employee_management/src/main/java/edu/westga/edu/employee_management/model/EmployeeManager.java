@@ -10,8 +10,12 @@ import java.util.List;
  * @version 2/17/22
  */
 public class EmployeeManager {
+
+	private static EmployeeManager single_instance = null;
+
 	private static final String CANNOT_BE_NULL_OR_EMPTY = "cannot be null or empty";
 	private static final String THAT_PROFILE_DOES_NOT_EXIST = "That profile does not exist";
+
 	private List<EmployeeProfile> profiles;
 
 	/**
@@ -21,7 +25,7 @@ public class EmployeeManager {
 	 * @postcondition this.profiles != null
 	 * 
 	 */
-	public EmployeeManager() {
+	private EmployeeManager() {
 		this.profiles = new ArrayList<EmployeeProfile>();
 		this.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true, "destiny",
 				"harper");
@@ -32,6 +36,18 @@ public class EmployeeManager {
 		this.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false, "miguel",
 				"campos");
 	}
+	
+	/**
+	 * Creates an instance of the EmployeeManager
+	 * 
+	 * @return an instance of the EmployeeManager
+	 */
+	public static EmployeeManager getInstance() {
+		if (single_instance == null) {
+			single_instance = new EmployeeManager();
+		}
+		 return single_instance;
+	}
 
 	/**
 	 * Get the profile
@@ -39,7 +55,7 @@ public class EmployeeManager {
 	 * @return the profiles on the list
 	 */
 	public List<EmployeeProfile> getProfiles() {
-		return this.profiles;
+		return getInstance().profiles;
 	}
 
 	/**
