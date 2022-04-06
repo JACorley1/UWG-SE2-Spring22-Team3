@@ -10,7 +10,7 @@ class TestAddNewEmployee {
 
 	@Test
 	void testInvalidId() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(-1, "Juan", "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -19,7 +19,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testEmptyName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "", "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -28,7 +28,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testNullName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, null, "A", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -37,7 +37,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testEmptyMidName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -46,7 +46,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testNullMidName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "Juan", null, "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -55,7 +55,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testEmptyLastName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -64,7 +64,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testNullLastName() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "juan", null, "Jo", "@xd", "1234", false, "gatita", "hotxxx");
@@ -73,7 +73,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testEmptyEmail() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "juan", "A", "Jo", "", "1234", false, "gatita", "hotxxx");
@@ -82,7 +82,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testNullEmail() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "juan", "A", "Jo", null, "1234", false, "gatita", "hotxxx");
@@ -91,7 +91,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testEmptyPhone() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "", false, "gatita", "hotxxx");
@@ -100,7 +100,7 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testNullPhone() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
 			manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", null, false, "gatita", "hotxxx");
@@ -109,31 +109,31 @@ class TestAddNewEmployee {
 	
 	@Test
 	void testAddingOneEmployee() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(14, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(1, result, "it works!");
+		assertEquals(6, result, "it works!");
 	}
 	
 	@Test
 	void testAddingMultipleEmployees() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
-		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
-		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
-		manager.addNewEmployee(11, "juan", "A", "J", "@xd", "12345", true, "gatita", "hotxxx");
+		manager.addNewEmployee(16, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(166, "jose", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");
+		manager.addNewEmployee(190, "lucas", "A", "J", "@xd", "12345", true, "gatita", "hotxxx");
 		
 		int result = manager.getProfiles().size();
 		
-		assertEquals(3, result, "it works!");
+		assertEquals(5, result, "it works!");
 	}
 	
 	@Test
 	void testAddinRepeatedEmployee() {
-		EmployeeManager manager = new EmployeeManager();
+		EmployeeManager manager = EmployeeManager.getInstance();
 		
 		manager.addNewEmployee(12, "juan", "A", "Jo", "@xd", "12345", false, "gatita", "hotxxx");
 		manager.addNewEmployee(13, "juan", "A", "Joa", "@xd", "12345", false, "gatita", "hotxxx");

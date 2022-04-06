@@ -176,26 +176,7 @@ public class HrLandingPageController {
 
 		this.getAlert(result, positiveMessage, negativeMessage);
 	}
-
-	@FXML
-	void handleSaveNewEmployee(ActionEvent event) {
-		int idValue = Integer.valueOf(this.idTextField.getText());
-		String positiveMessage = "The profile was added to the system!, refresh the list!";
-		String negativeMessage = "The profile was not added to the system, Try later";
-		boolean result;
-		try {
-			result = this.manager.addNewEmployee(idValue, this.firstNameTextField.getText(),
-					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
-					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
-					this.usernameTextField.getText(), this.passwordTextField.getText());
-		} catch (Exception e) {
-			result = false;
-		}
-
-		this.getAlert(result, positiveMessage, negativeMessage);
-
-	}
-
+	
 	@FXML
 	void hnadleNewEmployee(ActionEvent event) {
 		try {

@@ -20,7 +20,7 @@ public class EmployeeManager {
 	 * @postcondition this.profiles != null
 	 * 
 	 */
-	public EmployeeManager() {
+	private EmployeeManager() {
 		this.profiles = new ArrayList<EmployeeProfile>();
 	}
 	
