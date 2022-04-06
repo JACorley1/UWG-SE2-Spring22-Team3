@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+
+<AnchorPane minHeight="100.0" minWidth="100.0" prefHeight="300.0" prefWidth="246.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.DailyTimePageController">
+   <children>
+      <Label fx:id="totalHoursLabel" layoutX="14.0" layoutY="14.0" text="Hours: 0.00" />
+      <GridPane fx:id="clockinGrid" layoutX="23.0" layoutY="32.0" vgap="10.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
