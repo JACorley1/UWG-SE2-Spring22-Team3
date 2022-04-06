@@ -2,6 +2,7 @@ package edu.westga.edu.employee_management.controller;
 
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.Singleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class AddRequestPageController {
 
@@ -37,10 +39,13 @@ public class AddRequestPageController {
     @FXML
     private Button addRequestBtn;
     
+    private Singleton singleton;
+    
     private EmployeeRequestManager requestManager;
     
     public AddRequestPageController() {
-    	this.requestManager = new EmployeeRequestManager();
+    	this.singleton = Singleton.getInstance();
+    	this.requestManager = singleton.getRequestManager();
     }
     
     @FXML
@@ -61,8 +66,11 @@ public class AddRequestPageController {
     	
     	EmployeeRequest newRequest = new EmployeeRequest(type, startDate, endDate, "PENDING");
     	
-    	
     	this.requestManager.addEmployeeRequest(newRequest);
+    	
+    	Stage stage = (Stage) this.addRequestBtn.getScene().getWindow();
+        stage.close();
+    	
     }
 
 }

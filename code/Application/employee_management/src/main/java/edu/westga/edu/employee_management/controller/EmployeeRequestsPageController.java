@@ -6,6 +6,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.Singleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -52,10 +53,13 @@ public class EmployeeRequestsPageController {
     @FXML
     private TextField endDateTextBox;
     
+    private Singleton singleton;
+    
     private EmployeeRequestManager requestManager;
     
     public EmployeeRequestsPageController() {
-    	this.requestManager = new EmployeeRequestManager();
+    	this.singleton = Singleton.getInstance();
+    	this.requestManager = singleton.getRequestManager();
     }
     
     @FXML
@@ -66,9 +70,7 @@ public class EmployeeRequestsPageController {
     	ObservableList<String> requestStatusOptions = FXCollections.observableArrayList("APPROVED", "DENIED", "PENDING");
     	this.statusCombobox.getItems().addAll(requestStatusOptions);
     	
-    	for (EmployeeRequest currRequest : this.requestManager.getCurrentRequests()) {
-    		this.currentRequestsListview.getItems().add(currRequest);
-    	}
+    	this.currentRequestsListview.getItems().addAll(this.requestManager.getCurrentRequests());
     	
     	this.currentRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             this.startDateTextBox.textProperty().setValue(newSelection.getStartDate());
