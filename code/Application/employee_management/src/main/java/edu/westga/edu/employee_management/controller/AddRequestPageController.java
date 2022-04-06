@@ -2,7 +2,6 @@ package edu.westga.edu.employee_management.controller;
 
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.Singleton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,13 +38,11 @@ public class AddRequestPageController {
     @FXML
     private Button addRequestBtn;
     
-    private Singleton singleton;
     
     private EmployeeRequestManager requestManager;
     
     public AddRequestPageController() {
-    	this.singleton = Singleton.getInstance();
-    	this.requestManager = singleton.getRequestManager();
+    	this.requestManager = EmployeeRequestManager.getInstance();
     }
     
     @FXML

@@ -1,7 +1,5 @@
 package edu.westga.edu.employee_management.model;
 
-import java.util.Date;
-
 public class EmployeeRequest {
 	private EmployeeProfile employee;
 	

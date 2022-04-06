@@ -115,17 +115,15 @@ public class HrLandingPageController {
     @FXML
     private TextField PaymentTextField;
 
-    @FXML
-    private Button editEmployeesInfBtn;
   
-	  @FXML
-	  private TextField paymentTextField;
+	@FXML
+	private TextField paymentTextField;
 
-	  @FXML
-	  private Button editEmployeesInfBtn;
+	@FXML
+	private Button editEmployeesInfBtn;
 
-	  @FXML
-	  private Button saveChangesBtn;
+	@FXML
+	private Button saveChangesBtn;
 
     @FXML
     private Text welcomeLabel;
@@ -300,7 +298,7 @@ public class HrLandingPageController {
 		this.idTextField.setEditable(state);
 		this.usernameTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
-		this.paymentTextField.setEditable(state);
+		this.PaymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);
 		this.monStartTimeField.setEditable(state);
 		this.tueStartTimeField.setEditable(state);

@@ -7,11 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class EmployeeRequestManager {
+	private static EmployeeRequestManager single_instance = null;
+	
 	private List<EmployeeRequest> currentRequests;
 	private ObservableList<EmployeeRequest> observableList;
 	private int numberOfRequests;
 	
-	public EmployeeRequestManager() {
+	private EmployeeRequestManager() {
 		
 		this.currentRequests = new ArrayList<EmployeeRequest>();
 		this.currentRequests.add(new EmployeeRequest("Personal Time", "04/21/2022", "04/26/2022", "PENDING"));
@@ -21,9 +23,20 @@ public class EmployeeRequestManager {
 		
 		this.numberOfRequests = 2;
 	}
+	
+	public static EmployeeRequestManager getInstance() {
+		if (single_instance == null)
+			single_instance = new EmployeeRequestManager();
 
-	public ObservableList<EmployeeRequest> getCurrentRequests() {
+		return single_instance;
+	}
+
+	public ObservableList<EmployeeRequest> getCurrentRequestsObservable() {
 		return this.observableList;
+	}
+	
+	public List<EmployeeRequest> getCurrentRequests() {
+		return this.currentRequests;
 	}
 	
 	public int getNumberOfRequests() {

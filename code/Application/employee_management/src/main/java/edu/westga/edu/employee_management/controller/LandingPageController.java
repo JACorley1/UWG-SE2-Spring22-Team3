@@ -11,6 +11,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.model.EmployeeTime;
 import edu.westga.edu.employee_management.model.PayPeriod;
 import edu.westga.edu.employee_management.model.TimeSheet;
@@ -19,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -94,6 +94,8 @@ public class LandingPageController {
 	private Text profileErrorText;
 
 	private EmployeeManager manager;
+	
+	private EmployeeRequestManager requestManager;
 
 	private UserLogin login;
 	
@@ -144,8 +146,11 @@ public class LandingPageController {
 	 *
 	 */
 	public void initialize() {
-		this.manager = new EmployeeManager();
+		this.manager = EmployeeManager.getInstance();
+		this.requestManager = EmployeeRequestManager.getInstance();
 		this.login = new UserLogin();
+		
+		this.numberOfRequestsText.setText(Integer.toString(this.requestManager.getNumberOfRequests()));
 
 	}
 

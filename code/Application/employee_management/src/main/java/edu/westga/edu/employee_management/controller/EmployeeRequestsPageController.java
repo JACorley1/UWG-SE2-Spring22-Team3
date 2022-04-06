@@ -6,7 +6,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.Singleton;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,13 +53,10 @@ public class EmployeeRequestsPageController {
     @FXML
     private TextField endDateTextBox;
     
-    private Singleton singleton;
-    
     private EmployeeRequestManager requestManager;
     
     public EmployeeRequestsPageController() {
-    	this.singleton = Singleton.getInstance();
-    	this.requestManager = singleton.getRequestManager();
+    	this.requestManager = EmployeeRequestManager.getInstance();
     }
     
     @FXML
@@ -83,10 +80,15 @@ public class EmployeeRequestsPageController {
     @FXML
     void onClickRequestCreation(ActionEvent event) {
     	try {
-			SceneController.openWindow(Scenes.ADDREQUESTPAGE, "AddRequestPage");
+			SceneController.openMiniWindow(Scenes.ADDREQUESTPAGE, "AddRequestPage", event);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    	
+    	this.currentRequestsListview.setItems(FXCollections.observableList(this.requestManager.getCurrentRequestsObservable()));
+    	for (EmployeeRequest currRequest : this.requestManager.getCurrentRequests()) {
+    		this.currentRequestsListview.getSelectionModel().select(currRequest);
+    	}
     }
 
 }
