@@ -1,6 +1,8 @@
 package edu.westga.cs3211.employee_management.model.employee_Manager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +60,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "Juan", "", "Jo", "@xd", "1234", false, "gatita", "hotxxx");
+			manager.addNewEmployee(12, "Juan", "A", "", "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
@@ -67,7 +69,7 @@ class TestAddNewEmployee {
 		EmployeeManager manager = new EmployeeManager();
 		
 		assertThrows(IllegalArgumentException.class, () -> { 
-			manager.addNewEmployee(12, "juan", null, "Jo", "@xd", "1234", false, "gatita", "hotxxx");
+			manager.addNewEmployee(12, "juan", "A", null, "@xd", "1234", false, "gatita", "hotxxx");
 		});
 	}
 	
