@@ -50,13 +50,8 @@ public class HrLandingPageController {
     @FXML
     private RadioButton hrEmployeeRadioBtn;
 
-
-    @FXML
-    private ToggleGroup Type;
-
-	  @FXML
-	  private ToggleGroup type;
-
+	@FXML
+	private ToggleGroup type;
 
     @FXML
     private RadioButton normalEmployeeRadioBtn;
@@ -115,20 +110,20 @@ public class HrLandingPageController {
     @FXML
     private TextField PaymentTextField;
 
-    @FXML
-    private Button editEmployeesInfBtn;
-  
-	  @FXML
-	  private TextField paymentTextField;
+	@FXML
+	private TextField paymentTextField;
 
-	  @FXML
-	  private Button editEmployeesInfBtn;
+	@FXML
+	private Button editEmployeesInfBtn;
 
-	  @FXML
-	  private Button saveChangesBtn;
+	@FXML
+	private Button saveChangesBtn;
 
     @FXML
     private Text welcomeLabel;
+    
+    @FXML
+    private Button openRequestsBtn;
 
 	private EmployeeManager manager;
 
@@ -199,6 +194,16 @@ public class HrLandingPageController {
 		
 		this.refreshSystemNames();
 	}
+	
+    @FXML
+    void handleOpenRequests(ActionEvent event) {
+    	try {
+    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "Requets Page");
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
+
+    }
 
 	@FXML
 	void initialize() {
@@ -300,7 +305,7 @@ public class HrLandingPageController {
 		this.idTextField.setEditable(state);
 		this.usernameTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
-		this.paymentTextField.setEditable(state);
+		this.PaymentTextField.setEditable(state);
 		this.hrsWorkedTextField.setEditable(state);
 		this.monStartTimeField.setEditable(state);
 		this.tueStartTimeField.setEditable(state);

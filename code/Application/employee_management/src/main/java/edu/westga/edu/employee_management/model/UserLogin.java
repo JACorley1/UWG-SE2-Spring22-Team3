@@ -64,15 +64,7 @@ public class UserLogin {
 	 * @return true if credentials are valid, false otherwise
 	 */
 	public boolean verifyLoginCredentials() {
-		
-		if (this.employeeCredentials.containsKey(this.username)) {
-			String correctPassword = this.employeeCredentials.get(this.username);
-			if (correctPassword.equalsIgnoreCase(this.password)) {
-				return true;
-			}
-		}
-		
-		return false;
+		return RequestManager.verifyPassword(this.username, this.password);
 	}
 
 	/**

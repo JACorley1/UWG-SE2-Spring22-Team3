@@ -1,4 +1,4 @@
-package edu.westga.cs3211.employee_management.model.time_sheet;
+package edu.westga.cs3211.employee_management.model.day_sheet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -9,29 +9,28 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
+import edu.westga.edu.employee_management.model.DaySheet;
 import edu.westga.edu.employee_management.model.EmployeeTime;
-import edu.westga.edu.employee_management.model.TimeSheet;
 
-class TestAddTime {
+class TestDaySheetAdd {
 
 	@Test
 	void testValidAdd() {
 		LocalDate date = LocalDate.of(2022, 3, 3);
-		TimeSheet sheet = new TimeSheet(date);
+		DaySheet sheet = new DaySheet(0);
 
 		EmployeeTime time = new EmployeeTime(4, LocalDateTime.of(date, LocalTime.of(3, 20)));
-		sheet.addTime(time);
+		sheet.add(time);
 
-		assertEquals(1, sheet.getTimeSheet().get(4).getTimes().size());
+		assertEquals(1, sheet.getTimes().size());
 	}
 
 	@Test
 	void testInvalidAddNullTime() {
-		LocalDate date = LocalDate.of(2022, 3, 3);
-		TimeSheet sheet = new TimeSheet(date);
+		DaySheet sheet = new DaySheet(0);
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			sheet.addTime(null);
+			sheet.add(null);
 		});
 	}
 
