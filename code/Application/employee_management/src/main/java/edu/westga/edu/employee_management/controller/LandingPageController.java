@@ -186,6 +186,12 @@ public class LandingPageController {
 
 	private DaySheet getButtonDaySheet(Button button) {
 		int rowIndex = GridPane.getRowIndex(button);
+		var children = this.secondWeekGrid.getChildren();
+
+		if (children.contains(button)) {
+			rowIndex += 7;
+		}
+
 		DaySheet sheet = this.currentTimeSheet.getTimeSheet().get(rowIndex);
 		return sheet;
 	}
@@ -229,7 +235,7 @@ public class LandingPageController {
 			int dayIndex = time.getKey();
 			this.setHoursTextField(dayIndex, HOURS_COL_INDEX, time.getValue().getHoursWorked());
 
-			Node node = this.getNodeFromGridPane(dayIndex, BUTTON_COL_INDEX);
+			Node node = this.getNodeFromGridPane(BUTTON_COL_INDEX, dayIndex);
 			node.setDisable(false);
 		}
 	}
