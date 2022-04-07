@@ -4,11 +4,9 @@ The purpose of this system is to efficietly manage the employment related inform
 
 In order to set up the development environment for this system, you must download Maven and add the path of it's bin folder to your computer's environment variables. You must then install Python and run the 'pip install pyzmq' command in the terminal. When launching the application through the Maven command 'mvn javafx:run' you will be presented with a login page. The following are valid login credentials that can be used to log in to the system:
 
-Username:        Password:
----------        ---------
-destiny          harper
-miguel           campos
-brianna          irie
-fernando         dominguez
+Username: destiny   Password: harper
+Username: miguel   Password: campos
+Username: brianna   Password: irie
+Username: fernando   Password: dominguez
 
 The login credentials must be lowercase and avoid any spaces after the username or password, as that will invalidate the credentials. 
