@@ -6,6 +6,11 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * Manages the data for the Employee Request Manager object
+ * @author dharpe11
+ *
+ */
 public class EmployeeRequestManager {
 	private static EmployeeRequestManager single_instance = null;
 	
@@ -34,6 +39,9 @@ public class EmployeeRequestManager {
 	/**
 	 * Creates an instance of the EmployeeRequestManager
 	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @return an instance of the EmployeeRequestManager
 	 */
 	public static EmployeeRequestManager getInstance() {
@@ -44,18 +52,24 @@ public class EmployeeRequestManager {
 	}
 	
 	/**
-	 * Get the EmployeeRequest
+	 * Gets the observable list of employee requests
 	 * 
-	 * @return the EmployeeRequest on the list
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the observable list of employee requests
 	 */
 	public ObservableList<EmployeeRequest> getCurrentRequestsObservable() {
 		return this.observableList;
 	}
 	
 	/**
-	 * Get the EmployeeRequest
+	 * Gets the list of employee requests
 	 * 
-	 * @return the EmployeeRequest on the list
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the list of employee requests
 	 */
 	public List<EmployeeRequest> getCurrentRequests() {
 		return this.currentRequests;
@@ -64,6 +78,9 @@ public class EmployeeRequestManager {
 	/**
 	 * Gets the number of Employees' Request
 	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
 	 * @return the number of Employees' Request
 	 */
 	public int getNumberOfRequests() {
@@ -71,11 +88,18 @@ public class EmployeeRequestManager {
 	}
 	
 	/**
-	 * Set the number of requests 
+	 * Sets the number of requests 
+	 * 
+	 * @precondition numberOfRequests >= 0
+	 * @postcondition this.getNumberOfRequests = @prev + 1
 	 * 
 	 * @param numberOfRequests the number of requests
 	 */
 	public void setNumberOfRequests(int numberOfRequests) {
+		if (numberOfRequests < 0) {
+			throw new IllegalArgumentException("Number of requests must be positive.");
+		}
+		
 		this.numberOfRequests = numberOfRequests;
 	}
 	
