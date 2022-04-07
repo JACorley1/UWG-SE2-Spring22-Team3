@@ -19,7 +19,7 @@ public class EmployeeManager {
 	private List<EmployeeProfile> profiles;
 
 	/**
-	 * Create a new instance of EmployeeManager
+	 * Creates a private instance of EmployeeManager
 	 * 
 	 * @precondition none
 	 * @postcondition this.profiles != null
@@ -42,7 +42,7 @@ public class EmployeeManager {
 	}
 
 	/**
-	 * Get the profile
+	 * Get the profiles
 	 * 
 	 * @return the profiles on the list
 	 */

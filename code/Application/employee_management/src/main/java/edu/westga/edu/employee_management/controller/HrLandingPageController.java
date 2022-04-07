@@ -50,13 +50,8 @@ public class HrLandingPageController {
     @FXML
     private RadioButton hrEmployeeRadioBtn;
 
-
-    @FXML
-    private ToggleGroup Type;
-
-	  @FXML
-	  private ToggleGroup type;
-
+	@FXML
+	private ToggleGroup type;
 
     @FXML
     private RadioButton normalEmployeeRadioBtn;
@@ -115,7 +110,6 @@ public class HrLandingPageController {
     @FXML
     private TextField PaymentTextField;
 
-  
 	@FXML
 	private TextField paymentTextField;
 
@@ -127,6 +121,9 @@ public class HrLandingPageController {
 
     @FXML
     private Text welcomeLabel;
+    
+    @FXML
+    private Button openRequestsBtn;
 
 	private EmployeeManager manager;
 
@@ -197,6 +194,16 @@ public class HrLandingPageController {
 		
 		this.refreshSystemNames();
 	}
+	
+    @FXML
+    void handleOpenRequests(ActionEvent event) {
+    	try {
+    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "Requets Page");
+    	} catch(IOException e) {
+    		e.printStackTrace();
+    	}
+
+    }
 
 	@FXML
 	void initialize() {
