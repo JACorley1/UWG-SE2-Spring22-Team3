@@ -30,19 +30,23 @@ class _RequestHandler:
      
      @return response string using appropriate format (see description for details)
     '''
-    def _getPassword(self, userName: str) -> MutableMapping[str, Any]:
-        password = self._credentialsManager.getUserPassword(userName)
-        response = {"successCode": 1, "password": password}
+    def _verifyPassword(self, userName, password) -> MutableMapping[str, Any]:
+        actualPassword = self._credentialsManager.getUserPassword(userName)
+        if(password == password) :
+            response = {"successCode": 1, "isValid": "1" }
+        else :
+            response = {"successCode": 1, "isValid": "0" }
         return response
         
     def handleRequest(self, request: MutableMapping[str, Any]) -> MutableMapping[str, Any]:
         response: MutableMapping[str, Any]
         if ("requestType" not in request) :
             response = {"successCode": -1, "errorMessage": "Malformed Request, missing Request Type"}
-        if (request["requestType"] == "getPassword") :
-            userName = request["request"]
-            print(userName)
-            response = self._getPassword(userName)
+        if (request["requestType"] == "verifyPassword") :
+            data = json.loads(request["request"])
+            userName = data["username"]
+            password = data["password"]
+            response = self._verifyPassword(userName, password)
         else :
             errorMessage = "Unsupported Request Type ({requestType})".format(requestType = request['requestType'])
             response = {"successCode": -1, "errorMessage": errorMessage}
@@ -77,7 +81,7 @@ class Server:
             request = json.loads(jsonRequest)
             jsonResponse: str
             print("Received request: %s" % request)
-            if (request == "exit"):
+            if (request["request"] == "exit"):
                 return
             else :
                 response = requestHandler.handleRequest(request)
