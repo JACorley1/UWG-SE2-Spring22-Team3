@@ -13,6 +13,8 @@ import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.DaySheet;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.EmployeeTime;
 import edu.westga.edu.employee_management.model.PayPeriod;
 import edu.westga.edu.employee_management.model.TimeSheet;
 import edu.westga.edu.employee_management.model.UserLogin;
@@ -87,13 +89,33 @@ public class LandingPageController {
 
 	@FXML
 	private GridPane secondWeekGrid;
+	
+	@FXML
+    private Button viewCurrentRequestsButton;
+
+	@FXML
+    private Text currentRequestsText;
+
+    @FXML
+    private Text numberOfRequestsText;
 
 	@FXML
 	private Text profileErrorText;
 
 	private EmployeeManager manager;
+	
+	private EmployeeRequestManager requestManager;
 
 	private UserLogin login;
+	
+	@FXML
+    void onViewRequestsButtonClick(ActionEvent event) {
+		try {
+			SceneController.openWindow(Scenes.REQUESTSPAGE, "EmployeeRequestsPage");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
@@ -175,8 +197,11 @@ public class LandingPageController {
 	 *
 	 */
 	public void initialize() {
-		this.manager = new EmployeeManager();
+		this.manager = EmployeeManager.getInstance();
+		this.requestManager = EmployeeRequestManager.getInstance();
 		this.login = new UserLogin();
+		
+		this.numberOfRequestsText.setText(Integer.toString(this.requestManager.getNumberOfRequests()));
 
 	}
 

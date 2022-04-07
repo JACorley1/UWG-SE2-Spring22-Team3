@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="262.0" minWidth="200.0" prefHeight="262.0" prefWidth="221.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.AddRequestPageController">
+   <children>
+      <Text fx:id="newRequestLabel" layoutX="51.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW REQUEST">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="requestTypeLabel" layoutX="59.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Type: ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="startDateLabel" layoutX="31.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" />
+      <Text fx:id="endDateLabel" layoutX="131.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" />
+      <ComboBox fx:id="requestTypeCombobox" layoutX="29.0" layoutY="90.0" prefWidth="150.0" />
+      <TextField fx:id="startDateTextbox" layoutX="12.0" layoutY="158.0" prefHeight="25.0" prefWidth="90.0" />
+      <TextField fx:id="endDateTextbox" layoutX="111.0" layoutY="158.0" prefHeight="25.0" prefWidth="90.0" />
+      <Button fx:id="addRequestBtn" layoutX="64.0" layoutY="210.0" mnemonicParsing="false" onAction="#onClickAddRequest" text="ADD REQUEST" />
+   </children>
+</AnchorPane>
