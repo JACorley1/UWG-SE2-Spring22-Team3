@@ -3,8 +3,8 @@ package edu.westga.edu.employee_management.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Time Sheet Class
@@ -15,8 +15,8 @@ import java.util.List;
 public class TimeSheet {
 	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
 	private static final String TIME_CANNOT_BE_NULL = "Time cannot be null";
-	private List<EmployeeTime> timeData;
-	private EmployeeTime openTime;
+	private Map<Integer, DaySheet> timeData;
+	private DaySheet openTime;
 	private LocalDate payPeriodStart;
 	private LocalDate payPeriodEnd;
 
@@ -33,7 +33,7 @@ public class TimeSheet {
 		if (payPeriodDate == null) {
 			throw new IllegalArgumentException(DATE_CANNOT_BE_NULL);
 		}
-		this.timeData = new ArrayList<EmployeeTime>();
+		this.timeData = new HashMap<Integer, DaySheet>();
 		this.setPayPeriodRange(payPeriodDate);
 	}
 
@@ -52,16 +52,21 @@ public class TimeSheet {
 	 */
 	public boolean clockIn() {
 		LocalDateTime time = LocalDateTime.now();
-
-		if (this.openTime == null && this.withinTimeSheet(time)) {
-			int dayIndex = this.getDayIndex(time);
-			EmployeeTime newTime = new EmployeeTime(dayIndex, time);
-			this.openTime = newTime;
-			this.timeData.add(newTime);
-			return true;
-		} else {
+		if (!this.withinTimeSheet(time)) {
 			return false;
 		}
+		int dayIndex = this.getDayIndex(time);
+		DaySheet daySheet = null;
+
+		if (this.timeData.containsKey(dayIndex)) {
+			daySheet = this.timeData.get(dayIndex);
+		} else {
+			daySheet = new DaySheet(dayIndex);
+			this.timeData.put(dayIndex, daySheet);
+		}
+
+		this.openTime = daySheet;
+		return daySheet.clockIn(time);
 	}
 
 	private int getDayIndex(LocalDateTime time) {
@@ -85,13 +90,18 @@ public class TimeSheet {
 	public boolean clockOut() {
 		LocalDateTime time = LocalDateTime.now();
 
-		if (this.openTime != null && this.withinTimeSheet(time)) {
-			this.openTime.setClockOutTime(time);
+		if (!this.withinTimeSheet(time)) {
+			return false;
+		}
+
+		if (this.hasOpenTime()) {
+			this.openTime.clockOut(time);
 			this.openTime = null;
 			return true;
 		} else {
 			return false;
 		}
+
 	}
 
 	/**
@@ -102,15 +112,14 @@ public class TimeSheet {
 	 *
 	 * @return the time sheet
 	 */
-	public List<EmployeeTime> getTimeSheet() {
+	public Map<Integer, DaySheet> getTimeSheet() {
 		return this.timeData;
 	}
 
 	/**
 	 * Checks if there is a current clock in without a clock out
 	 * 
-	 * Preconditions: none
-	 * Postconditions: none
+	 * Preconditions: none Postconditions: none
 	 *
 	 * @return if there is open time;
 	 */
@@ -121,8 +130,7 @@ public class TimeSheet {
 	/**
 	 * Add time to time sheet
 	 * 
-	 * Preconditions: time != null
-	 * Postconditions: getTime().size() += 1
+	 * Preconditions: time != null Postconditions: getTime().size() += 1
 	 *
 	 * @param time the employee time
 	 */
@@ -130,6 +138,14 @@ public class TimeSheet {
 		if (time == null) {
 			throw new IllegalArgumentException(TIME_CANNOT_BE_NULL);
 		}
-		this.timeData.add(time);
+		if (this.timeData.containsKey(time.getDayIndex())) {
+			DaySheet sheet = this.timeData.get(time.getDayIndex());
+			sheet.add(time);
+		} else {
+			DaySheet sheet = new DaySheet(time.getDayIndex());
+			this.timeData.put(time.getDayIndex(), sheet);
+			sheet.add(time);
+		}
+
 	}
 }

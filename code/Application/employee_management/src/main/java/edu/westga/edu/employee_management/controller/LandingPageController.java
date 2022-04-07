@@ -1,14 +1,16 @@
 package edu.westga.edu.employee_management.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Map.Entry;
 
+import edu.westga.edu.employee_management.MainApp;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
+import edu.westga.edu.employee_management.model.DaySheet;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
@@ -18,20 +20,27 @@ import edu.westga.edu.employee_management.model.TimeSheet;
 import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LandingPageController {
 
-	private static final int CLOCKIN_COL_INDEX = 1;
-	private static final int CLOCKOUT_COL_INDEX = 2;
+	private static final int BUTTON_COL_INDEX = 2;
+
+	private static final int HOURS_COL_INDEX = 1;
 
 	private EmployeeProfile user;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
+	
+	@FXML
+	private Button logOutButton;
 
 	@FXML
 	private Button clockInButton;
@@ -124,7 +133,15 @@ public class LandingPageController {
 		this.user.getTimeSheet(LocalDate.now()).clockOut();
 		this.updatePage();
 	}
-
+	
+	@FXML
+	void logOut(ActionEvent event) {
+		try {
+			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	void openHRView(ActionEvent event) {
 		try {
@@ -136,7 +153,41 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
+		
+	}
 
+	@FXML
+	void openDailyTime(ActionEvent event) {
+		try {
+			Button button = (Button) event.getSource();
+			DaySheet sheet = this.getButtonDaySheet(button);
+
+			this.openDailyTimeWindow(sheet);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void openDailyTimeWindow(DaySheet sheet) throws IOException {
+		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.DAILYTIMEPAGE + ".fxml"));
+		Scene scene = new Scene(loader.load());
+		Stage newWindow = new Stage();
+		newWindow.setScene(scene);
+		newWindow.setTitle("Daily Time");
+
+		newWindow.setUserData(sheet);
+
+		DailyTimePageController controller = (DailyTimePageController) loader.getController();
+		controller.initializeUserData(newWindow);
+
+		newWindow.show();
+	}
+
+	private DaySheet getButtonDaySheet(Button button) {
+		int rowIndex = GridPane.getRowIndex(button);
+		DaySheet sheet = this.currentTimeSheet.getTimeSheet().get(rowIndex);
+		return sheet;
 	}
 
 	/**
@@ -174,23 +225,20 @@ public class LandingPageController {
 	}
 
 	private void updateGrid() {
-		TimeSheet timeSheet = this.user.getTimeSheet(LocalDate.now());
-		for (EmployeeTime time : timeSheet.getTimeSheet()) {
-			int dayIndex = time.getDayIndex();
-			this.setTimeTextField(dayIndex, CLOCKIN_COL_INDEX, time.getClockInTime());
-			this.setTimeTextField(dayIndex, CLOCKOUT_COL_INDEX, time.getClockOutTime());
+		for (Entry<Integer, DaySheet> time : this.currentTimeSheet.getTimeSheet().entrySet()) {
+			int dayIndex = time.getKey();
+			this.setHoursTextField(dayIndex, HOURS_COL_INDEX, time.getValue().getHoursWorked());
+
+			Node node = this.getNodeFromGridPane(dayIndex, BUTTON_COL_INDEX);
+			node.setDisable(false);
 		}
 	}
 
-	private void setTimeTextField(int dayIndex, int col, LocalDateTime time) {
-		if (time == null) {
-			return;
-		}
-
+	private void setHoursTextField(int dayIndex, int col, double hoursWorked) {
 		Node node = this.getNodeFromGridPane(col, dayIndex);
 		TextField field = (TextField) node;
-		String timeString = this.formatTime(time);
-		field.textProperty().set(timeString);
+		DecimalFormat formatter = new DecimalFormat("###.##");
+		field.textProperty().set(formatter.format(hoursWorked) + " hr");
 	}
 
 	private Node getNodeFromGridPane(int col, int row) {
@@ -208,10 +256,6 @@ public class LandingPageController {
 		return null;
 	}
 
-	private String formatTime(LocalDateTime time) {
-		String timeString = time.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
-		return timeString;
-	}
 
 	private void updateGridPeriod() {
 		this.payPeriodLabel.textProperty().set(this.currentPayPeriod.toString());
