@@ -33,12 +33,13 @@ public class SceneController {
 	/**
 	 * Opens window for given fxml file
 	 * 
-	 * Preconditions: none
-	 * Postconditions: none
+	 * Preconditions: none Postconditions: none
 	 *
 	 * @param fxml
 	 * @param title
+	 * @return
 	 * @throws IOException
+	 * 
 	 */
 	public static void openWindow(Scenes fxml, String title) throws IOException {
 		Scene scene = SceneController.loadFXML(fxml);
