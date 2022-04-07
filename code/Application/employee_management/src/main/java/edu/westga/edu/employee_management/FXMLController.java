@@ -43,13 +43,13 @@ public class FXMLController {
 	private void btnClickAction(ActionEvent event) {
 		this.newLogin = new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText());
 		
-		if (this.newLogin.verifyLoginCredentials()) {
-			this.openLandingPage();
-		} else if (this.usernameTxt.getText().equals("") || this.passwordTxt.getText().equals("")) {
+		if (this.usernameTxt.getText().equals("") || this.passwordTxt.getText().equals("")) {
 			this.incorrectCredentialsMessage.setText("Please Input All Credentials And Try Again");
+		} else if (this.newLogin.verifyLoginCredentials()) {
+			this.openLandingPage();
 		} else {
 			this.incorrectCredentialsMessage.setText("Incorrect Credentials. Please Try Again");
-		}
+		} 
 		
 	}
 
