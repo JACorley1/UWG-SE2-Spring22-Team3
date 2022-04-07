@@ -36,6 +36,9 @@ public class LandingPageController {
 	private EmployeeProfile user;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
+	
+	@FXML
+	private Button logOutButton;
 
 	@FXML
 	private Button clockInButton;
@@ -108,7 +111,15 @@ public class LandingPageController {
 		this.user.getTimeSheet(LocalDate.now()).clockOut();
 		this.updatePage();
 	}
-
+	
+	@FXML
+	void logOut(ActionEvent event) {
+		try {
+			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	@FXML
 	void openHRView(ActionEvent event) {
 		try {
@@ -120,7 +131,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
-
+		
 	}
 
 	@FXML
