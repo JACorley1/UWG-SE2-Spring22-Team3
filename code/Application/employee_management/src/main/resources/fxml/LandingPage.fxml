@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
+<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
    <children>
       <Button fx:id="clockInButton" layoutX="55.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockIn" text="Clock In" />
       <Button fx:id="clockOutButton" layoutX="160.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockOut" text="Clock Out" />
@@ -20,7 +20,7 @@
          </font>
       </Text>
       <Button fx:id="hrViewButton" layoutX="496.0" layoutY="23.0" mnemonicParsing="false" onAction="#openHRView" text="Open HR View" visible="false" />
-      <Pane layoutX="17.0" layoutY="114.0" prefHeight="387.0" prefWidth="287.0">
+      <Pane layoutX="17.0" layoutY="114.0" prefHeight="308.0" prefWidth="287.0">
          <children>
             <TextField fx:id="idField" disable="true" layoutX="124.0" layoutY="40.0" />
             <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
@@ -73,11 +73,10 @@
                   <Font size="22.0" />
                </font>
             </Text>
-            <Text layoutX="123.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clock in" />
-            <Text layoutX="205.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clock out" />
+            <Text layoutX="122.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hours" textAlignment="CENTER" wrappingWidth="50.05078125" />
             <Button fx:id="payPeriodBackButton" layoutX="30.0" layoutY="2.0" mnemonicParsing="false" onAction="#payPeriodBack" text="&lt;-" />
             <Button fx:id="payPeriodForwardButton" layoutX="230.0" layoutY="2.0" mnemonicParsing="false" onAction="#payPeriodForward" text="-&gt;" />
-            <GridPane fx:id="firstWeekGrid" disable="true" layoutX="21.0" layoutY="45.0" prefHeight="198.0" prefWidth="252.0" vgap="5.0">
+            <GridPane fx:id="firstWeekGrid" layoutX="21.0" layoutY="45.0" prefHeight="198.0" prefWidth="252.0" vgap="5.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -95,28 +94,28 @@
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sun, Feb 13" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                   <TextField disable="true" prefHeight="0.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mon, Feb 14" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tue, Feb 15" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wed, Feb 16" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thu, Feb 17" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fri, Feb 18" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sat, Feb 20" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                </children>
             </GridPane>
-            <GridPane fx:id="secondWeekGrid" disable="true" layoutX="21.0" layoutY="256.0" prefHeight="198.0" prefWidth="252.0">
+            <GridPane fx:id="secondWeekGrid" layoutX="21.0" layoutY="256.0" prefHeight="198.0" prefWidth="252.0">
             	<columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -133,29 +132,41 @@
             	</rowConstraints>
             	<children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sun, Feb 21" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mon, Feb 22" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tue, Feb 23" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wed, Feb 24" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thu, Feb 25" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Fri, Feb 26" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sat, Feb 27" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                  <TextField prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="6" />
             	</children>
             </GridPane>
          </children>
       </Pane>
+      <Button fx:id="viewCurrentRequestsButton" layoutX="31.0" layoutY="479.0" mnemonicParsing="false" onAction="#onViewRequestsButtonClick" prefHeight="27.0" prefWidth="258.0" text="View Current Work Requests" />
+      <Text fx:id="currentRequestsText" layoutX="71.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Requests: ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="numberOfRequestsText" layoutX="198.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="68.62451171875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="logOutButton" layoutX="17.0" layoutY="521.0" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="113.0" text="Log Out" />
    </children>
 </AnchorPane>

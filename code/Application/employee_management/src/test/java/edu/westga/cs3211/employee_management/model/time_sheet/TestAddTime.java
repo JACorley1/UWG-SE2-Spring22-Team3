@@ -19,10 +19,10 @@ class TestAddTime {
 		LocalDate date = LocalDate.of(2022, 3, 3);
 		TimeSheet sheet = new TimeSheet(date);
 
-		EmployeeTime time = new EmployeeTime(LocalDateTime.of(date, LocalTime.of(3, 20)));
+		EmployeeTime time = new EmployeeTime(4, LocalDateTime.of(date, LocalTime.of(3, 20)));
 		sheet.addTime(time);
 
-		assertEquals(1, sheet.getTimeSheet().size());
+		assertEquals(1, sheet.getTimeSheet().get(4).getTimes().size());
 	}
 
 	@Test

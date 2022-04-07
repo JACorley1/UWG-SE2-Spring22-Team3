@@ -1,0 +1,16 @@
+Context - User is logged in and on the landing page
+
+Primary Flow
+1 - user clicks to view requests
+2 - user clicks to go to Request Creation
+3 - user chooses request type and enters start and end date
+4 - user clicks add request
+
+Alternative Flow(s)
+BAD CONNECTION
+a5 - system fails to connect to server
+a6 - system informs user of error
+
+CLOSING ADD REQUEST
+a4- user does not enter request information and click to exit page
+a5- user is presented with the request view page
