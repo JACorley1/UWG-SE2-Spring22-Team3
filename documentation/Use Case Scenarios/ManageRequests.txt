@@ -1,0 +1,18 @@
+Context - HR user is logged in and viewing the HR page
+
+Primary Flow
+1 - user clicks Open Requests Button
+2 - user selects Request from list
+3 - user selects either approve or deny option
+4 - user clicks submit
+5 - user is notified that the request decision has been saved
+
+Alternative Flow(s)
+BAD CONNECTION
+a4 - system fails to connect to server
+a5 - system informs user of error
+
+Cancel
+a3 - user does not select either options or exits without submitting
+a4 - request remains unchanged
+a5 - user is presented back with the HR view landing page
