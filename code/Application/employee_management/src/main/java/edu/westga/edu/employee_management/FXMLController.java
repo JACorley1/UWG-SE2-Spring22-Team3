@@ -4,53 +4,34 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.controller.LandingPageController;
 import edu.westga.edu.employee_management.model.UserLogin;
+import edu.westga.edu.employee_management.viewmodel.LoginPageViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class FXMLController {
-	
-	@FXML
-	private Text applicationNameText;
+	private LoginPageViewModel viewModel;
 	
 	@FXML
     private Text incorrectCredentialsMessage;
 
 	@FXML
-	private Button loginButton;
-
-	@FXML
-	private Text passwordText;
-
-	@FXML
 	private TextField passwordTxt;
 
 	@FXML
-	private Text usernameText;
-
-	@FXML
 	private TextField usernameTxt;
-	
-	private UserLogin newLogin;
 
 	@FXML
 	private void btnClickAction(ActionEvent event) {
-		this.newLogin = new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText());
-		
-		if (this.usernameTxt.getText().equals("") || this.passwordTxt.getText().equals("")) {
-			this.incorrectCredentialsMessage.setText("Please Input All Credentials And Try Again");
-		} else if (this.newLogin.verifyLoginCredentials()) {
+		boolean isValid = this.viewModel.verifyLoginInfo();
+		if (isValid) {
 			this.openLandingPage();
-		} else {
-			this.incorrectCredentialsMessage.setText("Incorrect Credentials. Please Try Again");
-		} 
-		
+		}
 	}
 
 	private void openLandingPage() {
@@ -63,7 +44,7 @@ public class FXMLController {
 			LandingPageController controller = loader.getController();
 			controller.setLogin(new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText()));
 
-			Stage window = (Stage) this.loginButton.getScene().getWindow();
+			Stage window = (Stage) this.usernameTxt.getScene().getWindow();
 			window.setScene(landingPageScene);
 			window.show();
 
@@ -72,4 +53,19 @@ public class FXMLController {
 		}
 
 	}
+	
+	/**
+	 * Initializes Landing Page
+	 *
+	 * Preconditions: none 
+	 * Postconditions: none
+	 *
+	 */
+	public void initialize() {
+		this.viewModel = new LoginPageViewModel();
+		this.viewModel.getPasswordProperty().bind(this.passwordTxt.textProperty());
+		this.viewModel.getUsernameProperty().bind(this.usernameTxt.textProperty());
+		this.incorrectCredentialsMessage.textProperty().bind(this.viewModel.getIncorrectCredentialsMessageProperty());
+	}
+
 }

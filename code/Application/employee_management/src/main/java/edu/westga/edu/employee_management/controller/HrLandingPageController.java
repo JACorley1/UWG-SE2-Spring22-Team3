@@ -211,14 +211,13 @@ public class HrLandingPageController {
 		this.changeEditableState(false);
 		this.getInfoFromProfile();
 
-		this.setOfEmployeessSample();
 		this.handleDiisplayList();
 		this.refreshSystemNames();
 
 	}
 	
 	private void refreshSystemNames() {
-		this.listOfEmployeesView.setItems(FXCollections.observableList(manager.getProfiles()));
+		this.listOfEmployeesView.setItems(FXCollections.observableList(this.manager.getProfiles()));
     }
 	
 	private void getInfoFromProfile() {
@@ -269,18 +268,6 @@ public class HrLandingPageController {
 
 			alert.showAndWait();
 		}
-	}
-
-	private void setOfEmployeessSample() {
-
-		manager.addNewEmployee(1213, "Destiny", "A", "Harper", "gomitagodoz666@hotmail.com", "7778542369", true,
-				"destiny", "harper");
-		manager.addNewEmployee(1312, "Brianna", "S", "Irie", "CarjotXX777@hotmail.com", "6678954563", true,
-				"brianna", "irie");
-		manager.addNewEmployee(1112, "Fernando", "J", "Dominguez", "elverGaXXX89@hotmail.com", "8975462147", true,
-				"fernando", "dominguez");
-		manager.addNewEmployee(1115, "Miguel", "A", "Campos", "elverGaXXX89@hotmail.com", "8975462147", false,
-				"miguel", "campos");
 	}
 
 	private void setAllFieldsEmpty() {
