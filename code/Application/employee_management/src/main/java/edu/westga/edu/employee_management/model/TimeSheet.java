@@ -3,7 +3,9 @@ package edu.westga.edu.employee_management.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +37,10 @@ public class TimeSheet {
 		}
 		this.timeData = new HashMap<Integer, DaySheet>();
 		this.setPayPeriodRange(payPeriodDate);
+
+		for (int i = 0; i < 14; i++) {
+			this.timeData.put(i, new DaySheet(i));
+		}
 	}
 
 	private void setPayPeriodRange(LocalDate payPeriodDate) {
@@ -147,5 +153,17 @@ public class TimeSheet {
 			sheet.add(time);
 		}
 
+	}
+
+	/**
+	 * Returns a list of day sheets
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return list of day sheets
+	 */
+	public List<DaySheet> daySheets() {
+		return new ArrayList<DaySheet>(this.timeData.values());
 	}
 }

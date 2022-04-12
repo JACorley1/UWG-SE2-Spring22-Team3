@@ -123,4 +123,16 @@ public class DaySheet {
 		this.times.add(time);
 		Collections.sort(this.times);
 	}
+
+	/**
+	 * Returns the number of clock times in the day sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the size
+	 */
+	public int size() {
+		return this.times.size();
+	}
 }

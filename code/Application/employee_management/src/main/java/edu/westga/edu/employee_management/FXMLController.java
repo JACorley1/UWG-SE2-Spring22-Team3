@@ -63,9 +63,9 @@ public class FXMLController {
 	 */
 	public void initialize() {
 		this.viewModel = new LoginPageViewModel();
-		this.viewModel.passwordProperty.bind(this.passwordTxt.textProperty());
-		this.viewModel.usernameProperty.bind(this.usernameTxt.textProperty());
-		this.incorrectCredentialsMessage.textProperty().bind(this.viewModel.incorrectCredentialsMessageProperty);
+		this.viewModel.getPasswordProperty().bind(this.passwordTxt.textProperty());
+		this.viewModel.getUsernameProperty().bind(this.usernameTxt.textProperty());
+		this.incorrectCredentialsMessage.textProperty().bind(this.viewModel.getIncorrectCredentialsMessageProperty());
 	}
 
 }
