@@ -1,0 +1,24 @@
+Context - HR user is logged in and viewing HR view page
+
+Primary Flow
+1 - HR user selects button to create profile
+2 - System displays Profile Creation page
+3 - HR user enter employee info (name, title, work email, work phone, date started)
+4 - User presses button to confirm add profile
+5 - System adds profile data 
+6 - System gives confirmation of addition
+7 - HR user will now see employee in HR employee view list
+
+Alternate Flows
+Cancel
+a3 - HR user can choose to hit the cancel button
+a4 - Profile creation page closes and returns use to HR view page
+
+Bad Connection
+a5 - System fails to connect to server
+a6 - System notifies user that profile page could not be added
+
+Invalid Information
+a4 - System finds error with information input through validation
+a5 - System informs user that invalid information was inputted and asks the user to input information again
+Return to step 3

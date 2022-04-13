@@ -1,0 +1,20 @@
+Users: HR employees
+Context - HR user is loged in and viewing the landing HR page
+
+Primary Flow:
+1 - The HR user requests the list of employees to the server
+2 - The sytem retrieves employees data from the server
+3 - The landing HR page displays the list of all the employees
+4 - The HR user selects an empoloyee profile
+5 - The HR user seletcs edit the profile
+6 - The system saves the changes
+7 - The system informs the HR user that data has been successfully saved
+
+Alternative Flows(s):
+BAD CONNECTION
+a1 - System cannot connect to the server
+a2 - The HR user is informed of the error and prompted to try again later
+
+INCORRECT DATA
+a3 - The HR user input icorret data to the selected profile
+a4 - The system inform the user about the error and prompted to try again

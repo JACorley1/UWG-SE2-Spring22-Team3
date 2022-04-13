@@ -8,20 +8,20 @@
 
 <AnchorPane id="AnchorPane" minHeight="500.0" minWidth="500.0" prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.FXMLController">
     <children>
-        <Button fx:id="loginButton" layoutX="162.0" layoutY="339.0" onAction="#btnClickAction" prefHeight="25.0" prefWidth="176.0" text="LOGIN" />
+        <Button layoutX="162.0" layoutY="339.0" onAction="#btnClickAction" prefHeight="25.0" prefWidth="176.0" text="LOGIN" />
       <TextField fx:id="usernameTxt" layoutX="223.0" layoutY="211.0" prefHeight="27.0" prefWidth="166.0" />
       <TextField fx:id="passwordTxt" layoutX="223.0" layoutY="267.0" prefHeight="27.0" prefWidth="166.0" />
-      <Text fx:id="applicationNameText" layoutX="62.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Management">
+      <Text layoutX="62.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Management">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text fx:id="usernameText" layoutX="114.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME:">
+      <Text layoutX="114.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="passwordText" layoutX="114.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD:">
+      <Text layoutX="114.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD:">
          <font>
             <Font size="18.0" />
          </font>
