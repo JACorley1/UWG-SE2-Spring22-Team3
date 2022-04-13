@@ -145,7 +145,7 @@
                   <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sat, Feb 27" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                   <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="3" />
@@ -168,5 +168,6 @@
          </font>
       </Text>
       <Button fx:id="logOutButton" layoutX="17.0" layoutY="521.0" mnemonicParsing="false" onAction="#logOut" prefHeight="47.0" prefWidth="113.0" text="Log Out" />
+      <Button fx:id="scheduleButton" layoutX="189.0" layoutY="521.0" mnemonicParsing="false" onAction="#openSchedule" prefHeight="47.0" prefWidth="113.0" text="Schedule" />
    </children>
 </AnchorPane>

@@ -78,6 +78,9 @@ public class LandingPageController {
 	
 	@FXML
     private Button viewCurrentRequestsButton;
+	
+	@FXML
+    private Button scheduleButton;
 
 	@FXML
     private Text currentRequestsText;
@@ -142,7 +145,16 @@ public class LandingPageController {
 			e.printStackTrace();
 		}
 	}
-
+	
+	@FXML
+	void openSchedule(ActionEvent event) {
+		try {
+			SceneController.openWindow(Scenes.SCHEDULEPAGE, "Schedule Page");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private void openDailyTimeWindow(ActionEvent event) throws IOException {
 		Button button = (Button) event.getSource();
 		int rowIndex = GridPane.getRowIndex(button);
