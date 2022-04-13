@@ -11,11 +11,21 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 
 public class HrRequestsPageController {
 	@FXML
-	private ListView<EmployeeRequest> listOfRequestsView;
+	private ListView<EmployeeRequest> pendingRequestsListView;
+
+	@FXML
+	private Text pendingRequestsText;
+
+	@FXML
+	private ListView<EmployeeRequest> confirmedRequestsListView;
+
+	@FXML
+	private Text confirmedRequestsText;
 
 	@FXML
 	private TextField requestTypeField;
@@ -45,19 +55,45 @@ public class HrRequestsPageController {
 
 	@FXML
 	void handleSubmitBtn(ActionEvent event) {
-		this.listOfRequestsView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+		if (this.pendingRequestsListView.getSelectionModel().getSelectedItem() != null) {
+			this.pendingRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+			this.requestManager.updateRequestsLists(this.pendingRequestsListView.getSelectionModel().getSelectedItem());
+		}
+		if (this.confirmedRequestsListView.getSelectionModel().getSelectedItem() != null) {
+			this.confirmedRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+			this.requestManager
+					.updateRequestsLists(this.confirmedRequestsListView.getSelectionModel().getSelectedItem());
+		}
 
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getPendingRequests()));
 	}
 
 	@FXML
 	public void initialize() {
 		this.requestManager = EmployeeRequestManager.getInstance();
-		this.listOfRequestsView.setItems(FXCollections.observableList(requestManager.getCurrentRequests()));
-		this.getInformation();
-	}
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getPendingRequests()));
 
-	private void getInformation() {
-		this.listOfRequestsView.getSelectionModel().selectedItemProperty()
+		this.confirmedRequestsListView.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					if (newValue != null) {
+						this.requestTypeField.setText(newValue.getType());
+						this.startDateField.setText(newValue.getStartDate());
+						this.endDateField.setText(newValue.getEndDate());
+						this.statusField.setText(newValue.getStatus());
+						if (newValue.getStatus() == "APPROVED")
+							this.status.selectToggle(this.approvedRadioBtn);
+						else if (newValue.getStatus() == "DENIED") {
+							this.status.selectToggle(this.deniedRadioBtn);
+						} else {
+							this.approvedRadioBtn.setSelected(false);
+							this.deniedRadioBtn.setSelected(false);
+						}
+					}
+				});
+
+		this.pendingRequestsListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
 						this.requestTypeField.setText(newValue.getType());
@@ -86,7 +122,7 @@ public class HrRequestsPageController {
 			alert.setTitle("Success!");
 			alert.setHeaderText(null);
 			alert.setContentText("The request was updated!!");
-			
+
 			alert.showAndWait();
 
 		} else if (this.status.getSelectedToggle().equals(this.deniedRadioBtn)) {
@@ -95,7 +131,7 @@ public class HrRequestsPageController {
 			alert.setTitle("Success!");
 			alert.setHeaderText(null);
 			alert.setContentText("The request was updated!!");
-			
+
 			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -105,7 +141,7 @@ public class HrRequestsPageController {
 
 			alert.showAndWait();
 		}
-		
+
 		return status;
 
 	}

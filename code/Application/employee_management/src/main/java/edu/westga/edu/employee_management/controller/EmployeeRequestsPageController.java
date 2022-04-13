@@ -73,7 +73,7 @@ public class EmployeeRequestsPageController {
     	this.statusCombobox.getItems().addAll(requestStatusOptions);
     	
     	this.confirmedRequestsListview.getItems().addAll(this.requestManager.getConfirmedRequests());
-    	this.confirmedRequestsListview.getItems().addAll(this.requestManager.getConfirmedRequests());
+    	this.pendingRequestsListview.getItems().addAll(this.requestManager.getPendingRequests());
     	
     	this.confirmedRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             this.startDateTextBox.textProperty().setValue(newSelection.getStartDate());

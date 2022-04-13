@@ -29,6 +29,7 @@ public class EmployeeRequestManager {
 	 * 
 	 */
 	private EmployeeRequestManager() {
+		this.numberOfRequests = 0;
 		
 		this.confirmedRequests = new ArrayList<EmployeeRequest>();
 		this.addEmployeeRequest(new EmployeeRequest("Personal Time", "03/12/2022", "03/16/2022", "DENIED"));
@@ -37,11 +38,9 @@ public class EmployeeRequestManager {
 		this.observableConfirmedList = FXCollections.observableList(this.confirmedRequests);
 		
 		this.pendingRequests = new ArrayList<EmployeeRequest>();
-		this.addEmployeeRequest(new EmployeeRequest("Vacation", "04/21/2022", "04/26/2022", "Pending"));
+		this.addEmployeeRequest(new EmployeeRequest("Vacation", "04/21/2022", "04/26/2022", "PENDING"));
 		
 		this.observableConfirmedList = FXCollections.observableList(this.pendingRequests);
-		
-		this.numberOfRequests = 0;
 	}
 	
 	/**
@@ -158,6 +157,27 @@ public class EmployeeRequestManager {
 			this.numberOfRequests += 1;
 			return this.confirmedRequests.add(newRequest);
 		}
+			
+	}
+	
+	/**
+	 * Updates the requests lists when the stautus of the given request is updated
+	 * 
+	 * @precondition request != null
+	 * @postcondition none
+	 * 
+	 * @param request the request being updated
+	 * 
+	 */
+	public void updateRequestsLists(EmployeeRequest request) {
+		if (request == null) {
+			throw new IllegalArgumentException("Request cannot be null");
+		}
+		
+		if (this.pendingRequests.contains(request)) {
+			this.confirmedRequests.add(request);
+			this.pendingRequests.remove(request);
+		} 
 			
 	}
 }
