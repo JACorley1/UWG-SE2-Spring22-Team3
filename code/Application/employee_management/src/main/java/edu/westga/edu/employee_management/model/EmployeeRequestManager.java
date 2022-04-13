@@ -14,8 +14,11 @@ import javafx.collections.ObservableList;
 public class EmployeeRequestManager {
 	private static EmployeeRequestManager single_instance = null;
 	
-	private List<EmployeeRequest> currentRequests;
-	private ObservableList<EmployeeRequest> observableList;
+	private List<EmployeeRequest> confirmedRequests;
+	private ObservableList<EmployeeRequest> observableConfirmedList;
+	private List<EmployeeRequest> pendingRequests;
+	private ObservableList<EmployeeRequest> observablePendingList;
+	
 	private int numberOfRequests;
 	
 	/**
@@ -27,13 +30,18 @@ public class EmployeeRequestManager {
 	 */
 	private EmployeeRequestManager() {
 		
-		this.currentRequests = new ArrayList<EmployeeRequest>();
-		this.currentRequests.add(new EmployeeRequest("Personal Time", "04/21/2022", "04/26/2022", "PENDING"));
-		this.currentRequests.add(new EmployeeRequest("Sick Leave", "02/04/2022", "02/05/2022", "APPROVED"));
+		this.confirmedRequests = new ArrayList<EmployeeRequest>();
+		this.addEmployeeRequest(new EmployeeRequest("Personal Time", "03/12/2022", "03/16/2022", "DENIED"));
+		this.addEmployeeRequest(new EmployeeRequest("Sick Leave", "02/04/2022", "02/05/2022", "APPROVED"));
 		
-		this.observableList = FXCollections.observableList(this.currentRequests);
+		this.observableConfirmedList = FXCollections.observableList(this.confirmedRequests);
 		
-		this.numberOfRequests = 2;
+		this.pendingRequests = new ArrayList<EmployeeRequest>();
+		this.addEmployeeRequest(new EmployeeRequest("Vacation", "04/21/2022", "04/26/2022", "Pending"));
+		
+		this.observableConfirmedList = FXCollections.observableList(this.pendingRequests);
+		
+		this.numberOfRequests = 0;
 	}
 	
 	/**
@@ -59,20 +67,44 @@ public class EmployeeRequestManager {
 	 * 
 	 * @return the observable list of employee requests
 	 */
-	public ObservableList<EmployeeRequest> getCurrentRequestsObservable() {
-		return this.observableList;
+	public ObservableList<EmployeeRequest> getConfirmedRequestsObservable() {
+		return this.observableConfirmedList;
 	}
 	
 	/**
-	 * Gets the list of employee requests
+	 * Gets the list of confirmed employee requests
 	 * 
 	 * @precondition none
 	 * @postcondition none
 	 * 
-	 * @return the list of employee requests
+	 * @return the list of confirmed employee requests
 	 */
-	public List<EmployeeRequest> getCurrentRequests() {
-		return this.currentRequests;
+	public List<EmployeeRequest> getConfirmedRequests() {
+		return this.confirmedRequests;
+	}
+	
+	/**
+	 * Gets the observable list of pending employee requests
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the observable list of pending employee requests
+	 */
+	public ObservableList<EmployeeRequest> getPendingRequestsObservable() {
+		return this.observablePendingList;
+	}
+	
+	/**
+	 * Gets the list of pending employee requests
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the list of pending employee requests
+	 */
+	public List<EmployeeRequest> getPendingRequests() {
+		return this.pendingRequests;
 	}
 	
 	/**
@@ -118,8 +150,14 @@ public class EmployeeRequestManager {
 		if (newRequest == null) {
 			throw new IllegalArgumentException("Request cannot be null");
 		}
-		this.numberOfRequests += 1;
 		
-		return this.currentRequests.add(newRequest);
+		if (newRequest.getStatus().equals("PENDING")) {
+			this.numberOfRequests += 1;
+			return this.pendingRequests.add(newRequest);
+		} else {
+			this.numberOfRequests += 1;
+			return this.confirmedRequests.add(newRequest);
+		}
+			
 	}
 }
