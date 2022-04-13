@@ -79,10 +79,11 @@ public class Client extends Thread {
 	 *
 	 * @return the server's response
 	 */
-	public String sendRequest() {
+	public String sendRequest() throws Exception {
 		JSONObject request = new JSONObject();
 		request.put("requestType", this.type.toString());
 		request.put("request", this.request);
+		socket.setReceiveTimeOut(3000);
 		socket.send(request.toString().getBytes(ZMQ.CHARSET), 0);
 
 		byte[] reply = socket.recv(0);

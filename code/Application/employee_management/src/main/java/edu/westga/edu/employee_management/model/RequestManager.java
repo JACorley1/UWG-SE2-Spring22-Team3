@@ -19,10 +19,10 @@ public class RequestManager {
 		request.put("username", username);
 		request.put("password", password);
 		Client client = new Client(RequestType.VERIFY_PASSWORD, request.toString());
-		client.start();
 		
-		String response = client.sendRequest();
 		try {
+			client.start();
+			String response = client.sendRequest();
 			JSONObject json = new JSONObject(response);
 			return json.get("isValid").equals("1");
 
