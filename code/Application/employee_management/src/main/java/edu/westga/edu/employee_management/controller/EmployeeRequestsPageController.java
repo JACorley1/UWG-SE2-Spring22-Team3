@@ -19,47 +19,52 @@ import javafx.scene.text.Text;
 
 public class EmployeeRequestsPageController {
 
-    @FXML
-    private ListView<EmployeeRequest> currentRequestsListview;
+	@FXML
+	private ComboBox<String> requestTypeCombobox;
 
-    @FXML
-    private ComboBox<String> requestTypeCombobox;
+	@FXML
+	private ComboBox<String> statusCombobox;
 
+	@FXML
+	private Button requestCreationButton;
 
-    @FXML
-    private ComboBox<String> statusCombobox;
+	@FXML
+	private Text requestDetailsText;
 
-    @FXML
-    private Button requestCreationButton;
+	@FXML
+	private Text requestTypeText;
 
-    @FXML
-    private Text currentRequestsText;
+	@FXML
+	private Text requestStatusText;
 
-    @FXML
-    private Text requestDetailsText;
+	@FXML
+	private Text endDateLabel;
 
-    @FXML
-    private Text requestTypeText;
+	@FXML
+	private TextField startDateTextBox;
 
-    @FXML
-    private Text requestStatusText;
-    
-    @FXML
-    private Text endDateLabel;
+	@FXML
+	private TextField endDateTextBox;
 
-    @FXML
-    private TextField startDateTextBox;
+	@FXML
+	private ListView<EmployeeRequest> confirmedRequestsListview;
 
-    @FXML
-    private TextField endDateTextBox;
-    
-    private EmployeeRequestManager requestManager;
-    
-    public EmployeeRequestsPageController() {
-    	this.requestManager = EmployeeRequestManager.getInstance();
-    }
-    
-    @FXML
+	@FXML
+	private Text confirmedRequestsText;
+
+	@FXML
+	private Text currentRequestsText;
+
+	@FXML
+	private ListView<EmployeeRequest> pendingRequestsListview;
+
+	private EmployeeRequestManager requestManager;
+
+	public EmployeeRequestsPageController() {
+		this.requestManager = EmployeeRequestManager.getInstance();
+	}
+
+	@FXML
     public void initialize() {
     	ObservableList<String> requestTypeOptions = FXCollections.observableArrayList("Vacation", "Sick Leave", "Personal Time");
     	this.requestTypeCombobox.getItems().addAll(requestTypeOptions);
@@ -67,29 +72,40 @@ public class EmployeeRequestsPageController {
     	ObservableList<String> requestStatusOptions = FXCollections.observableArrayList("APPROVED", "DENIED", "PENDING");
     	this.statusCombobox.getItems().addAll(requestStatusOptions);
     	
-    	this.currentRequestsListview.getItems().addAll(this.requestManager.getCurrentRequests());
+    	this.confirmedRequestsListview.getItems().addAll(this.requestManager.getConfirmedRequests());
+    	this.pendingRequestsListview.getItems().addAll(this.requestManager.getPendingRequests());
     	
-    	this.currentRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+    	this.confirmedRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            this.startDateTextBox.textProperty().setValue(newSelection.getStartDate());
+            this.endDateTextBox.textProperty().setValue(newSelection.getEndDate());
+            this.requestTypeCombobox.setValue(newSelection.getType());
+            this.statusCombobox.setValue(newSelection.getStatus());
+        });
+    	
+    	this.pendingRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             this.startDateTextBox.textProperty().setValue(newSelection.getStartDate());
             this.endDateTextBox.textProperty().setValue(newSelection.getEndDate());
             this.requestTypeCombobox.setValue(newSelection.getType());
             this.statusCombobox.setValue(newSelection.getStatus());
         });
     }
-    
-    @FXML
-    void onClickRequestCreation(ActionEvent event) {
-    	try {
+
+	@FXML
+	void onClickRequestCreation(ActionEvent event) {
+		try {
 			SceneController.openMiniWindow(Scenes.ADDREQUESTPAGE, "AddRequestPage", event);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	
-    	this.currentRequestsListview.setItems(FXCollections.observableList(this.requestManager.getCurrentRequestsObservable()));
-    	for (EmployeeRequest currRequest : this.requestManager.getCurrentRequests()) {
-    		this.currentRequestsListview.getSelectionModel().select(currRequest);
-    	}
-    }
+
+		this.confirmedRequestsListview.setItems(FXCollections.observableList(this.requestManager.getConfirmedRequests()));
+		for (EmployeeRequest currRequest : this.requestManager.getConfirmedRequests()) {
+			this.confirmedRequestsListview.getSelectionModel().select(currRequest);
+		}
+		this.pendingRequestsListview.setItems(FXCollections.observableList(this.requestManager.getPendingRequests()));
+		for (EmployeeRequest currRequest : this.requestManager.getPendingRequests()) {
+			this.pendingRequestsListview.getSelectionModel().select(currRequest);
+		}
+	}
 
 }
-

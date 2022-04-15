@@ -11,27 +11,33 @@
 
 <AnchorPane prefHeight="487.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.HrRequestsPageController">
    <children>
-      <ListView fx:id="listOfRequestsView" layoutX="20.0" layoutY="41.0" prefHeight="400.0" prefWidth="200.0" />
-      <Text layoutX="20.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employees' requests" wrappingWidth="189.9609375">
+      <ListView fx:id="pendingRequestsListView" layoutX="10.0" layoutY="41.0" prefHeight="188.0" prefWidth="244.0" />
+      <Text fx:id="pendingRequestsText" layoutX="26.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pending Employees' Requests:" wrappingWidth="267.9609375">
          <font>
-            <Font size="18.0" />
+            <Font size="16.0" />
          </font>
       </Text>
-      <Text layoutX="241.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Type" wrappingWidth="82.13671875" />
-      <Text layoutX="241.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" wrappingWidth="82.13671875" />
-      <Text layoutX="241.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" wrappingWidth="82.13671875" />
-      <Text layoutX="241.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Status" wrappingWidth="82.13671875" />
-      <TextField fx:id="requestTypeField" layoutX="241.0" layoutY="58.0" />
-      <TextField fx:id="startDateField" layoutX="241.0" layoutY="117.0" />
-      <TextField fx:id="endDateField" layoutX="241.0" layoutY="163.0" />
-      <RadioButton fx:id="approvedRadioBtn" layoutX="235.0" layoutY="275.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="94.0" text="APPROVED">
+      <Text layoutX="282.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Request Type" wrappingWidth="82.13671875" />
+      <Text layoutX="282.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date" wrappingWidth="82.13671875" />
+      <Text layoutX="282.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date" wrappingWidth="82.13671875" />
+      <Text layoutX="315.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Change Status" wrappingWidth="82.13671875" />
+      <TextField fx:id="requestTypeField" layoutX="282.0" layoutY="75.0" />
+      <TextField fx:id="startDateField" layoutX="282.0" layoutY="125.0" />
+      <TextField fx:id="endDateField" layoutX="282.0" layoutY="178.0" />
+      <RadioButton fx:id="approvedRadioBtn" layoutX="264.0" layoutY="335.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="94.0" text="APPROVED">
          <toggleGroup>
             <ToggleGroup fx:id="status" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="deniedRadioBtn" layoutX="339.0" layoutY="275.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="82.0" text="DENIED" toggleGroup="$status" />
-      <Button fx:id="submitBtn" layoutX="288.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleSubmitBtn" prefHeight="25.0" prefWidth="71.0" text="Submit" />
-      <TextField fx:id="statusField" layoutX="241.0" layoutY="211.0" />
-      <Text layoutX="241.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Status" wrappingWidth="82.13671875" />
+      <RadioButton fx:id="deniedRadioBtn" layoutX="364.0" layoutY="335.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="82.0" text="DENIED" toggleGroup="$status" />
+      <Button fx:id="submitBtn" layoutX="321.0" layoutY="365.0" mnemonicParsing="false" onAction="#handleSubmitBtn" prefHeight="25.0" prefWidth="71.0" text="Submit" />
+      <TextField fx:id="statusField" layoutX="282.0" layoutY="231.0" />
+      <Text layoutX="282.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Status" wrappingWidth="82.13671875" />
+      <ListView fx:id="confirmedRequestsListView" layoutX="10.0" layoutY="269.0" prefHeight="188.0" prefWidth="244.0" />
+      <Text fx:id="confirmedRequestsText" layoutX="19.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed Employees' Requests:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
