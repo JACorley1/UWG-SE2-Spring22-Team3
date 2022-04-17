@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -89,6 +90,15 @@ public class LandingPageController {
 	private Text profileErrorText;
 	
 	@FXML
+	private Button editButton;
+
+	@FXML
+	private Button doneButton;
+
+	@FXML
+	private Button cancelButton;
+
+	@FXML
     void onViewRequestsButtonClick(ActionEvent event) {
 		try {
 			SceneController.openWindow(Scenes.REQUESTSPAGE, "EmployeeRequestsPage");
@@ -143,6 +153,36 @@ public class LandingPageController {
 		}
 	}
 
+	@FXML
+	void onCancelEdit(ActionEvent event) {
+		this.viewModel.resetProfileValues();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onDoneEdit(ActionEvent event) {
+		this.viewModel.setProfile();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onEdit(ActionEvent event) {
+		this.middleNameField.setDisable(false);
+		this.emailField.setDisable(false);
+		this.phoneField.setDisable(false);
+		this.setProfileMode(true);
+	}
+
+	private void setProfileMode(boolean isEditing) {
+		this.doneButton.setVisible(isEditing);
+		this.cancelButton.setVisible(isEditing);
+		this.editButton.setVisible(!isEditing);
+
+		this.middleNameField.setDisable(!isEditing);
+		this.emailField.setDisable(!isEditing);
+		this.phoneField.setDisable(!isEditing);
+	}
+
 	private void openDailyTimeWindow(ActionEvent event) throws IOException {
 		Button button = (Button) event.getSource();
 		int rowIndex = GridPane.getRowIndex(button);
@@ -172,6 +212,8 @@ public class LandingPageController {
 	public void setLogin(UserLogin login) {
 		if (login != null) {
 			this.bindUI(login);
+			this.setProfileMode(false);
+			this.setValidation();
 		}
 	}
 
@@ -250,5 +292,13 @@ public class LandingPageController {
 		String dateString = date.format(formatter);
 		return dateString;
 	}
+
+	private void setValidation() {
+		this.phoneField.setTextFormatter(new TextFormatter<>(Validation.integerValidationFormatter()));
+		Validation.setEmailInputValidation(this.emailField);
+
+		this.doneButton.disableProperty().bind(this.emailField.borderProperty().isNotNull());
+	}
+
 }
 

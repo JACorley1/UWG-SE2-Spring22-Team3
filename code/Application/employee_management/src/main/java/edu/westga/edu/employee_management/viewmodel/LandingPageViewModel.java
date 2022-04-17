@@ -87,6 +87,30 @@ public class LandingPageViewModel {
 	}
 	
 	/**
+	 * Updates user profile data to match the properties
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void setProfile() {
+		this.user.setMiddleName(this.middleNameProperty.getValue());
+		this.user.setEmail(this.emailProperty.getValue());
+		this.user.setPhone(this.phoneProperty.getValue());
+	}
+
+	/**
+	 * Resets properties to model data
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void resetProfileValues() {
+		this.updateUserInfo();
+	}
+
+	/**
 	 * Clocks in user
 	 * 
 	 * Preconditions: none
