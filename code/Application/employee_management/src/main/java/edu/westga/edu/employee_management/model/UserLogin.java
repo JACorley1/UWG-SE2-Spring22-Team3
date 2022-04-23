@@ -61,9 +61,9 @@ public class UserLogin {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
-	 * @return true if credentials are valid, false otherwise
+	 * @return the employee's profile if credentials are valid, null otherwise
 	 */
-	public boolean verifyLoginCredentials() {
+	public EmployeeProfile verifyLoginCredentials() {
 		return RequestManager.verifyPassword(this.username, this.password);
 	}
 

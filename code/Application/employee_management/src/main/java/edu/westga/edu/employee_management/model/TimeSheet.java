@@ -3,10 +3,15 @@ package edu.westga.edu.employee_management.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Time Sheet Class
@@ -130,7 +135,18 @@ public class TimeSheet {
 	 * @return if there is open time;
 	 */
 	public boolean hasOpenTime() {
-		return this.openTime != null;
+		if (this.openTime != null) {
+			return true;
+		} else {
+			for (DaySheet sheet : this.timeData.values()) {
+				if (sheet.hasOpenTime()) {
+					this.openTime = sheet;
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -165,5 +181,63 @@ public class TimeSheet {
 	 */
 	public List<DaySheet> daySheets() {
 		return new ArrayList<DaySheet>(this.timeData.values());
+	}
+
+	/**
+	 * Converts object to json
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the object as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		JSONArray daysheets = new JSONArray();
+		for (DaySheet sheet : this.timeData.values()) {
+			daysheets.put(sheet.toJson());
+		}
+
+		json.put("startDate", this.payPeriodStart.toString());
+		json.put("daysheets", daysheets);
+
+		return json;
+	}
+
+	/**
+	 * Converts JSON object into time sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param json the json to convert
+	 * @return the employee profile
+	 */
+	public static TimeSheet fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		LocalDate startDate = LocalDate.parse(json.get("startDate").toString());
+		TimeSheet time = new TimeSheet(startDate);
+
+		Map<Integer, DaySheet> timeData = new HashMap<Integer, DaySheet>();
+
+		JSONArray sheets = json.optJSONArray("daysheets");
+
+		if (sheets != null) {
+			for (Object obj : sheets) {
+				JSONObject sheet = (JSONObject) obj;
+				int dayIndex = sheet.getInt("dayIndex");
+				DaySheet daysheet = DaySheet.fromJson(sheet);
+				timeData.put(dayIndex, daysheet);
+			}
+
+			time.setData(timeData);
+		}
+
+		return time;
+
+	}
+
+	private void setData(Map<Integer, DaySheet> timeData) {
+		this.timeData = timeData;
 	}
 }

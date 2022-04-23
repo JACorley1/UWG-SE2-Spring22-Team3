@@ -31,13 +31,28 @@ class _RequestHandler:
      @return response string using appropriate format (see description for details)
     '''
     def _verifyPassword(self, userName, password) -> MutableMapping[str, Any]:
-        actualPassword = self._credentialsManager.getUserPassword(userName)
         if(password == password) :
-            response = {"successCode": 1, "isValid": "1" }
+            user = self._credentialsManager.getUser(userName)
+            response = {"successCode": 1, "isValid": "1", "user": user}
         else :
             response = {"successCode": 1, "isValid": "0" }
         return response
+    def _addUser(self, userName, password, profile) -> MutableMapping[str, Any]:
+        userAdded = self._credentialsManager.addUser(userName, password, profile)
+        if(userAdded):
+            response = {"successCode": 1, "response": "1" }
+        else:
+            response = {"successCode": 1, "response": "0" }
+        return response
         
+    def _updateUser(self, userName, profile) -> MutableMapping[str, Any]:
+        userUpdated = self._credentialsManager.updateUserProfile(userName, profile)
+        if(userUpdated):
+            response = {"successCode": 1, "response": "1" }
+        else:
+            response = {"successCode": 1, "response": "0" }
+        return response
+
     def handleRequest(self, request: MutableMapping[str, Any]) -> MutableMapping[str, Any]:
         response: MutableMapping[str, Any]
         if ("requestType" not in request) :
@@ -47,6 +62,17 @@ class _RequestHandler:
             userName = data["username"]
             password = data["password"]
             response = self._verifyPassword(userName, password)
+        elif (request["requestType"] == "addUser") :
+            data = json.loads(request["request"])
+            userName = data["username"]
+            password = data["password"]
+            profile = data["profile"]
+            response = self._addUser(userName, password, profile)
+        elif (request["requestType"] == "updateUser") :
+            data = json.loads(request["request"])
+            userName = data["username"]
+            profile = data["profile"]
+            response = self._updateUser(userName, profile)
         else :
             errorMessage = "Unsupported Request Type ({requestType})".format(requestType = request['requestType'])
             response = {"successCode": -1, "errorMessage": errorMessage}
@@ -76,7 +102,7 @@ class Server:
         
         while True:
             #  Wait for next request from client
-            print("waiting for message...")
+            print("waiting for message... \n")
             jsonRequest = socket.recv_string()
             request = json.loads(jsonRequest)
             jsonResponse: str

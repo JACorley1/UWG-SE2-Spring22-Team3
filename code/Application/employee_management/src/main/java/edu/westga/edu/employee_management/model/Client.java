@@ -47,9 +47,15 @@ public class Client extends Thread {
 	 * 
 	 * Preconditions: none
 	 * Postconditions: none
+	 * 
+	 * @param server
 	 *
 	 */
-	public static void disconnectFromSocket() {
+	public static void disconnectFromSocket(PythonServer server) {
+		if (!server.isAlive()) {
+			return;
+		}
+
 		JSONObject request = new JSONObject();
 		request.put("request", "exit");
 		System.out.println("Client - Sending exit");
@@ -67,7 +73,7 @@ public class Client extends Thread {
 	 *
 	 */
 	public static void connectToSocket() {
-		System.out.println("Connecting to hello world server");
+		System.out.println("Connecting to Employee Management Server");
 		socket.connect("tcp://127.0.0.1:5555");
 	}
 

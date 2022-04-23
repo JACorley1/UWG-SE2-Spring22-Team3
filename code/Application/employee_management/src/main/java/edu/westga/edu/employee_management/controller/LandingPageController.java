@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import edu.westga.edu.employee_management.MainApp;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.UserLogin;
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -207,11 +207,11 @@ public class LandingPageController {
 	 * @Preconditions: login != null
 	 * @Postconditions: none
 	 * 
-	 * @param login the user login
+	 * @param user the user login
 	 */
-	public void setLogin(UserLogin login) {
-		if (login != null) {
-			this.bindUI(login);
+	public void setLogin(EmployeeProfile user) {
+		if (user != null) {
+			this.bindUI(user);
 			this.setProfileMode(false);
 			this.setValidation();
 		}
@@ -219,8 +219,8 @@ public class LandingPageController {
 
 
 
-	private void bindUI(UserLogin login) {
-		this.viewModel = new LandingPageViewModel(login);
+	private void bindUI(EmployeeProfile user) {
+		this.viewModel = new LandingPageViewModel(user);
 		this.hrViewButton.visibleProperty().bind(this.viewModel.getHrViewButtonVisibleProperty());
 		this.idField.textProperty().bindBidirectional(this.viewModel.getIdProperty());
 		this.firstNameField.textProperty().bind(this.viewModel.getFirstNameProperty());

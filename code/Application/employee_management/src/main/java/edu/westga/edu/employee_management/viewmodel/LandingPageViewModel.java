@@ -7,12 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import edu.westga.edu.employee_management.model.DaySheet;
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.model.PayPeriod;
+import edu.westga.edu.employee_management.model.RequestManager;
 import edu.westga.edu.employee_management.model.TimeSheet;
-import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
@@ -31,8 +30,6 @@ public class LandingPageViewModel {
 	public static final int BUTTON_COL_INDEX = 2;
 	public static final int HOURS_COL_INDEX = 1;
 
-	private static final String PROFILE_NOT_FOUND = "Profile could not be found," + System.lineSeparator()
-			+ "showing sample profile.";
 	private BooleanProperty clockInDisableProperty;
 	private BooleanProperty clockOutDisableProperty;
 	private BooleanProperty hrViewButtonVisibleProperty;
@@ -51,9 +48,7 @@ public class LandingPageViewModel {
 	private EmployeeProfile user;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
-	private EmployeeManager manager;
 	private EmployeeRequestManager requestManager;
-	private UserLogin login;
 
 	/**
 	 * Creates new instance of LandingPageViewModel
@@ -61,9 +56,9 @@ public class LandingPageViewModel {
 	 * Preconditions: none
 	 * Postconditions: none
 	 * 
-	 * @param login the
+	 * @param user the user
 	 */
-	public LandingPageViewModel(UserLogin login) {
+	public LandingPageViewModel(EmployeeProfile user) {
 		this.clockInDisableProperty = new SimpleBooleanProperty();
 		this.clockOutDisableProperty = new SimpleBooleanProperty();
 		this.employeeNameProperty = new SimpleStringProperty();
@@ -79,11 +74,11 @@ public class LandingPageViewModel {
 		this.numberOfRequestsProperty = new SimpleStringProperty();
 		this.profileErrorProperty = new SimpleStringProperty();
 
-		this.login = login;
-		this.manager = EmployeeManager.getInstance();
 		this.requestManager = EmployeeRequestManager.getInstance();
 
+		this.user = user;
 		this.setUser();
+
 	}
 	
 	/**
@@ -97,6 +92,7 @@ public class LandingPageViewModel {
 		this.user.setMiddleName(this.middleNameProperty.getValue());
 		this.user.setEmail(this.emailProperty.getValue());
 		this.user.setPhone(this.phoneProperty.getValue());
+		this.updateServer();
 	}
 
 	/**
@@ -121,6 +117,7 @@ public class LandingPageViewModel {
 		this.user.getTimeSheet(LocalDate.now()).clockIn();
 		this.updateHours();
 		this.updateClockButtons();
+		this.updateServer();
 	}
 	
 	/**
@@ -134,6 +131,7 @@ public class LandingPageViewModel {
 		this.user.getTimeSheet(LocalDate.now()).clockOut();
 		this.updateHours();
 		this.updateClockButtons();
+		this.updateServer();
 	}
 
 	/**
@@ -150,28 +148,7 @@ public class LandingPageViewModel {
 	}
 
 	private void setUser() {
-		EmployeeProfile profile = this.getProfile();
-		if (profile != null) {
-			this.user = profile;
-		} else {
-			this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
-					"user name", "password");
-			this.profileErrorProperty.setValue(PROFILE_NOT_FOUND);
-		}
-
 		this.initializeUserInfo();
-	}
-
-	private EmployeeProfile getProfile() {
-		String userName = this.login.getUsername();
-		String pass = this.login.getPassword();
-		for (EmployeeProfile currProfile : this.manager.getProfiles()) {
-			if (currProfile.getUserName().equalsIgnoreCase(userName)
-					|| currProfile.getPassword().equalsIgnoreCase(pass)) {
-				return currProfile;
-			}
-		}
-		return null;
 	}
 
 	private void initializeUserInfo() {
@@ -274,6 +251,10 @@ public class LandingPageViewModel {
 	private boolean isTimeButtonDisabled(DaySheet sheet) {
 		double hoursWorked = sheet.getHoursWorked();
 		return !(hoursWorked > 0 || sheet.size() > 0);
+	}
+
+	private boolean updateServer() {
+		return RequestManager.updateUser(this.user);
 	}
 
 	/**
