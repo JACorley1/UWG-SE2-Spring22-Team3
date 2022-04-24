@@ -87,7 +87,8 @@ public class TimeSheet {
 	}
 
 	private boolean withinTimeSheet(LocalDateTime time) {
-		return time.toLocalDate().isBefore(this.payPeriodEnd) && time.toLocalDate().isAfter(this.payPeriodStart);
+		return time.toLocalDate().isBefore(this.payPeriodEnd.plusDays(1))
+				&& time.toLocalDate().isAfter(this.payPeriodStart.minusDays(1));
 	}
 
 	/**

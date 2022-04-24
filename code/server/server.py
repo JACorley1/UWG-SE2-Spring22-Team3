@@ -37,6 +37,7 @@ class _RequestHandler:
         else :
             response = {"successCode": 1, "isValid": "0" }
         return response
+
     def _addUser(self, userName, password, profile) -> MutableMapping[str, Any]:
         userAdded = self._credentialsManager.addUser(userName, password, profile)
         if(userAdded):
@@ -48,6 +49,22 @@ class _RequestHandler:
     def _updateUser(self, userName, profile) -> MutableMapping[str, Any]:
         userUpdated = self._credentialsManager.updateUserProfile(userName, profile)
         if(userUpdated):
+            response = {"successCode": 1, "response": "1" }
+        else:
+            response = {"successCode": 1, "response": "0" }
+        return response
+
+    def _getProfiles(self) -> MutableMapping[str, Any]:
+        users = self._credentialsManager.getProfiles()
+        if(users):
+            response = {"successCode": 1, "response": "1", "users": users }
+        else:
+            response = {"successCode": 1, "response": "0" }
+        return response
+
+    def _removeUser(self, userName) -> MutableMapping[str, Any]:
+        userRemove = self._credentialsManager.removeUser(userName)
+        if(userRemove):
             response = {"successCode": 1, "response": "1" }
         else:
             response = {"successCode": 1, "response": "0" }
@@ -73,6 +90,12 @@ class _RequestHandler:
             userName = data["username"]
             profile = data["profile"]
             response = self._updateUser(userName, profile)
+        elif (request["requestType"] == "getProfiles") :
+            response = self._getProfiles()
+        elif (request["requestType"] == "removeUser") :
+            data = json.loads(request["request"])
+            userName = data["username"]
+            response = self._removeUser(userName)
         else :
             errorMessage = "Unsupported Request Type ({requestType})".format(requestType = request['requestType'])
             response = {"successCode": -1, "errorMessage": errorMessage}

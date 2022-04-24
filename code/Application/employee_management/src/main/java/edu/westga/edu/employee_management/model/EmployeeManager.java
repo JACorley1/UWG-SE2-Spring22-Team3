@@ -38,7 +38,7 @@ public class EmployeeManager {
 		if (single_instance == null) {
 			single_instance = new EmployeeManager();
 		}
-		 return single_instance;
+		return single_instance;
 	}
 
 	/**
@@ -47,7 +47,10 @@ public class EmployeeManager {
 	 * @return the profiles on the list
 	 */
 	public List<EmployeeProfile> getProfiles() {
-		return getInstance().profiles;
+		if (this.profiles.isEmpty()) {
+			this.profiles = RequestManager.getProfiles();
+		}
+		return this.profiles;
 	}
 
 	/**
@@ -94,7 +97,10 @@ public class EmployeeManager {
 		}
 		EmployeeProfile profile = this.getProfile(id);
 		if (profile == null) {
-			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee, userName, password));
+			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
+					userName, password);
+			RequestManager.addUser(employee);
+			return this.profiles.add(employee);
 		} else {
 			throw new IllegalStateException("This profile already exists.");
 		}
@@ -151,8 +157,10 @@ public class EmployeeManager {
 		} else if (!this.profiles.remove(newProfile)) {
 			return false;
 		} else {
-			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
-					userName, password));
+			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
+					userName, password);
+			RequestManager.updateUser(employee);
+			return this.profiles.add(employee);
 		}
 	}
 
@@ -181,6 +189,7 @@ public class EmployeeManager {
 		if (newProfile == null) {
 			throw new IllegalStateException(THAT_PROFILE_DOES_NOT_EXIST);
 		} else {
+			RequestManager.removeUser(newProfile.getUserName());
 			return this.profiles.remove(newProfile);
 		}
 	}

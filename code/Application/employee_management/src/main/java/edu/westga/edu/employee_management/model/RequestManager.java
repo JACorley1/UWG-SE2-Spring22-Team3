@@ -1,5 +1,9 @@
 package edu.westga.edu.employee_management.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class RequestManager {
@@ -80,6 +84,66 @@ public class RequestManager {
 		request.put("username", profile.getUserName());
 		request.put("profile", profile.toJson());
 		Client client = new Client(RequestType.UPDATE_USER, request.toString());
+
+		try {
+			client.start();
+			String response = client.sendRequest();
+			JSONObject json = new JSONObject(response);
+			return json.get("response").equals("1");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Gets all employee profiles from server
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the employee profile
+	 */
+	public static List<EmployeeProfile> getProfiles() {
+		Client client = new Client(RequestType.GET_PROFILES, "{}");
+		List<EmployeeProfile> employees = new ArrayList<EmployeeProfile>();
+
+		try {
+			client.start();
+			String response = client.sendRequest();
+			JSONObject json = new JSONObject(response);
+			Boolean successful = json.get("response").equals("1");
+			if (successful) {
+				JSONArray array = new JSONArray(json.getString("users"));
+				for (Object object : array) {
+					JSONObject user = (JSONObject) object;
+					// user.remove("timesheets");
+					EmployeeProfile profile = EmployeeProfile.fromJson(user);
+					employees.add(profile);
+				}
+			}
+
+			return employees;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * Removes User
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param username
+	 * @return true if the user was remove, false otherwise
+	 */
+	public static boolean removeUser(String username) {
+		JSONObject request = new JSONObject();
+		request.put("username", username);
+		Client client = new Client(RequestType.REMOVE_USER, request.toString());
 
 		try {
 			client.start();
