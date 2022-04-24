@@ -27,7 +27,7 @@ class TestGetTimeSheet {
 		LocalDate date = LocalDate.of(2022, 3, 3);
 		TimeSheet timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(0, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 
 	@Test
@@ -36,7 +36,7 @@ class TestGetTimeSheet {
 		this.employee.getTimeSheet(date.minusWeeks(2));
 		TimeSheet timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(0, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 
 	@Test
@@ -49,6 +49,6 @@ class TestGetTimeSheet {
 
 		timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(1, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 }

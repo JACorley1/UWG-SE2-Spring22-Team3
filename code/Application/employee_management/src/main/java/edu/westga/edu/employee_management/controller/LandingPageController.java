@@ -109,7 +109,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
-
+		this.viewModel.decrementPayPeriod();
 	}
 
 	@FXML
@@ -141,7 +141,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
-		
+		this.viewModel.incrementPayPeriod();
 	}
 
 	@FXML
@@ -186,6 +186,10 @@ public class LandingPageController {
 	private void openDailyTimeWindow(ActionEvent event) throws IOException {
 		Button button = (Button) event.getSource();
 		int rowIndex = GridPane.getRowIndex(button);
+		int colIndex = LandingPageViewModel.BUTTON_COL_INDEX;
+		if (!(this.getNodeFromGridPane(colIndex, rowIndex) == button)) {
+			rowIndex += 7;
+		}
 
 		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.DAILYTIMEPAGE + ".fxml"));
 		Scene scene = new Scene(loader.load());
@@ -257,8 +261,7 @@ public class LandingPageController {
 		for (int i = 0; i < 14; i++) {
 			TextField hourText = (TextField) this.getNodeFromGridPane(column, i);
 			DoubleProperty hours = (DoubleProperty) dayHours.get(i);
-			String value = hours.getValue() == 0 ? "-" : hours.getValue().toString() + " hrs";
-			hourText.textProperty().bind(hours.asString(value));
+			hourText.textProperty().bind(hours.asString("%.1f hrs"));
 		}
 	}
 
@@ -268,7 +271,7 @@ public class LandingPageController {
 		for (int i = 0; i < 14; i++) {
 			Text dateLabel = (Text) this.getNodeFromGridPane(column, i);
 			ObjectProperty<LocalDate> date = (ObjectProperty<LocalDate>) dates.get(i);
-			dateLabel.textProperty().bind(date.asString(this.formatDate(date.getValue())));
+			dateLabel.textProperty().bind(date.asString("%1$ta %1$tb, %1$td"));
 		}
 	}
 
@@ -290,7 +293,7 @@ public class LandingPageController {
 	private String formatDate(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, MMM d");
 		String dateString = date.format(formatter);
-		return dateString;
+		return formatter.toString();
 	}
 
 	private void setValidation() {

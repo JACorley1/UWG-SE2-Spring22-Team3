@@ -118,7 +118,7 @@ public class RequestManager {
 				JSONArray array = new JSONArray(json.getString("users"));
 				for (Object object : array) {
 					JSONObject user = (JSONObject) object;
-					// user.remove("timesheets");
+					user.remove("timesheets");
 					EmployeeProfile profile = EmployeeProfile.fromJson(user);
 					employees.add(profile);
 				}

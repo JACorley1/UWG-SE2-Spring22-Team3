@@ -59,10 +59,10 @@ public class TimeSheet {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
+	 * @param time the time of clock in
 	 * @return true if successfully clocked in false otherwise
 	 */
-	public boolean clockIn() {
-		LocalDateTime time = LocalDateTime.now();
+	public boolean clockIn(LocalDateTime time) {
 		if (!this.withinTimeSheet(time)) {
 			return false;
 		}
@@ -97,19 +97,14 @@ public class TimeSheet {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
+	 * @param time the time of clockout
 	 * @return true if successfully clocked out false otherwise
 	 */
-	public boolean clockOut() {
-		LocalDateTime time = LocalDateTime.now();
-
-		if (!this.withinTimeSheet(time)) {
-			return false;
-		}
-
+	public boolean clockOut(LocalDateTime time) {
 		if (this.hasOpenTime()) {
-			this.openTime.clockOut(time);
-			this.openTime = null;
-			return true;
+			boolean clocked = this.openTime.clockOut(time);
+			this.openTime = clocked ? null : this.openTime;
+			return clocked;
 		} else {
 			return false;
 		}

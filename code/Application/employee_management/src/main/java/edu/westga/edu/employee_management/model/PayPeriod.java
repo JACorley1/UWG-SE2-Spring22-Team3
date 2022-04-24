@@ -60,7 +60,7 @@ public class PayPeriod implements Iterable<LocalDate> {
 		TemporalField defaultField = WeekFields.of(Locale.getDefault()).dayOfWeek();
 		LocalDate startOfWeek = date.with(defaultField, 1);
 		if (weekOfYear % 2 == 0) {
-			startOfWeek.minus(Period.ofWeeks(1));
+			startOfWeek = startOfWeek.minus(Period.ofWeeks(1));
 		}
 
 		return startOfWeek;
@@ -88,6 +88,32 @@ public class PayPeriod implements Iterable<LocalDate> {
 
 	private static TemporalField getDayOfWeekField() {
 		return WeekFields.of(Locale.getDefault()).dayOfWeek();
+	}
+
+	/**
+	 * Get start date of next pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param period
+	 * @return the next pay period
+	 */
+	public static PayPeriod getNextPeriod(PayPeriod period) {
+		return new PayPeriod(period.startDate.plusDays(14));
+	}
+
+	/**
+	 * Gets start date of previous pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param period
+	 * @return the previous pay period
+	 */
+	public static PayPeriod getPreviousPeriod(PayPeriod period) {
+		return new PayPeriod(period.startDate.minusDays(14));
 	}
 
 	/**

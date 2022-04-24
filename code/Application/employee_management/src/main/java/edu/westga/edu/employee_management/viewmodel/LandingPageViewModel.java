@@ -1,6 +1,7 @@
 package edu.westga.edu.employee_management.viewmodel;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -114,7 +115,8 @@ public class LandingPageViewModel {
 	 *
 	 */
 	public void clockIn() {
-		this.user.getTimeSheet(LocalDate.now()).clockIn();
+		TimeSheet timesheet = this.user.getTimeSheet(this.getNow().toLocalDate());
+		timesheet.clockIn(this.getNow());
 		this.updateHours();
 		this.updateClockButtons();
 		this.updateServer();
@@ -128,7 +130,8 @@ public class LandingPageViewModel {
 	 *
 	 */
 	public void clockOut() {
-		this.user.getTimeSheet(LocalDate.now()).clockOut();
+		TimeSheet timesheet = this.user.getTimeSheet(this.getNow().toLocalDate());
+		timesheet.clockOut(this.getNow());
 		this.updateHours();
 		this.updateClockButtons();
 		this.updateServer();
@@ -147,6 +150,36 @@ public class LandingPageViewModel {
 		return this.currentTimeSheet.daySheets().get(rowIndex);
 	}
 
+	/**
+	 * Increments pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void incrementPayPeriod() {
+		this.currentPayPeriod = PayPeriod.getNextPeriod(this.currentPayPeriod);
+		this.currentTimeSheet = this.user.getTimeSheet(this.currentPayPeriod.getStartDate());
+		this.updatePeriodDates();
+		this.updateHours();
+		this.updateClockButtons();
+	}
+
+	/**
+	 * Decrements pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void decrementPayPeriod() {
+		this.currentPayPeriod = PayPeriod.getPreviousPeriod(this.currentPayPeriod);
+		this.currentTimeSheet = this.user.getTimeSheet(this.currentPayPeriod.getStartDate());
+		this.updatePeriodDates();
+		this.updateHours();
+		this.updateClockButtons();
+	}
+
 	private void setUser() {
 		this.initializeUserInfo();
 	}
@@ -154,13 +187,17 @@ public class LandingPageViewModel {
 	private void initializeUserInfo() {
 		this.updateUserInfo();
 
-		LocalDate today = LocalDate.now();
+		LocalDate today = this.getNow().toLocalDate();
 		this.currentPayPeriod = new PayPeriod(today);
 		this.currentTimeSheet = this.user.getTimeSheet(today);
 
 		this.payPeriodTextProperty.setValue(this.currentPayPeriod.toString());
 
 		this.initializeTimeSheet();
+	}
+
+	private LocalDateTime getNow() {
+		return LocalDateTime.now();
 	}
 
 	private void initializeTimeSheet() {
@@ -216,6 +253,7 @@ public class LandingPageViewModel {
 	}
 
 	private void updatePeriodDates() {
+		this.payPeriodTextProperty.setValue(this.currentPayPeriod.toString());
 		List<LocalDate> days = this.currentPayPeriod.toList();
 		ListProperty<Object> dates = this.timeProperty.get(0);
 		for (int i = 0; i < dates.getSize(); i++) {
