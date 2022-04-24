@@ -3,7 +3,7 @@ package edu.westga.edu.employee_management;
 import java.io.IOException;
 
 import edu.westga.edu.employee_management.controller.LandingPageController;
-import edu.westga.edu.employee_management.model.UserLogin;
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.viewmodel.LoginPageViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,13 +28,13 @@ public class FXMLController {
 
 	@FXML
 	private void btnClickAction(ActionEvent event) {
-		boolean isValid = this.viewModel.verifyLoginInfo();
-		if (isValid) {
-			this.openLandingPage();
+		EmployeeProfile user = this.viewModel.verifyLoginInfo();
+		if (user != null) {
+			this.openLandingPage(user);
 		}
 	}
 
-	private void openLandingPage() {
+	private void openLandingPage(EmployeeProfile user) {
 		try {
 			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.LANDINGPAGE + ".fxml"));
 			Parent parent = loader.load();
@@ -42,7 +42,7 @@ public class FXMLController {
 			Scene landingPageScene = new Scene(parent);
 
 			LandingPageController controller = loader.getController();
-			controller.setLogin(new UserLogin(this.usernameTxt.getText(), this.passwordTxt.getText()));
+			controller.setLogin(user);
 
 			Stage window = (Stage) this.usernameTxt.getScene().getWindow();
 			window.setScene(landingPageScene);

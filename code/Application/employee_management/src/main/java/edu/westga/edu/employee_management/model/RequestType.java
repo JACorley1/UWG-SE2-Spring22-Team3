@@ -1,7 +1,8 @@
 package edu.westga.edu.employee_management.model;
 
 public enum RequestType {
-	VERIFY_PASSWORD("verifyPassword");
+	VERIFY_PASSWORD("verifyPassword"), ADD_USER("addUser"), UPDATE_USER("updateUser"), GET_PROFILES("getProfiles"),
+	REMOVE_USER("removeUser");
 
 	private String type;
 

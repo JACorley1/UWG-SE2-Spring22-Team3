@@ -1,18 +1,18 @@
 package edu.westga.edu.employee_management.viewmodel;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import edu.westga.edu.employee_management.model.DaySheet;
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.model.PayPeriod;
+import edu.westga.edu.employee_management.model.RequestManager;
 import edu.westga.edu.employee_management.model.TimeSheet;
-import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
@@ -31,8 +31,6 @@ public class LandingPageViewModel {
 	public static final int BUTTON_COL_INDEX = 2;
 	public static final int HOURS_COL_INDEX = 1;
 
-	private static final String PROFILE_NOT_FOUND = "Profile could not be found," + System.lineSeparator()
-			+ "showing sample profile.";
 	private BooleanProperty clockInDisableProperty;
 	private BooleanProperty clockOutDisableProperty;
 	private BooleanProperty hrViewButtonVisibleProperty;
@@ -51,9 +49,7 @@ public class LandingPageViewModel {
 	private EmployeeProfile user;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
-	private EmployeeManager manager;
 	private EmployeeRequestManager requestManager;
-	private UserLogin login;
 
 	/**
 	 * Creates new instance of LandingPageViewModel
@@ -61,9 +57,9 @@ public class LandingPageViewModel {
 	 * Preconditions: none
 	 * Postconditions: none
 	 * 
-	 * @param login the
+	 * @param user the user
 	 */
-	public LandingPageViewModel(UserLogin login) {
+	public LandingPageViewModel(EmployeeProfile user) {
 		this.clockInDisableProperty = new SimpleBooleanProperty();
 		this.clockOutDisableProperty = new SimpleBooleanProperty();
 		this.employeeNameProperty = new SimpleStringProperty();
@@ -79,13 +75,38 @@ public class LandingPageViewModel {
 		this.numberOfRequestsProperty = new SimpleStringProperty();
 		this.profileErrorProperty = new SimpleStringProperty();
 
-		this.login = login;
-		this.manager = EmployeeManager.getInstance();
 		this.requestManager = EmployeeRequestManager.getInstance();
 
+		this.user = user;
 		this.setUser();
+
 	}
 	
+	/**
+	 * Updates user profile data to match the properties
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void setProfile() {
+		this.user.setMiddleName(this.middleNameProperty.getValue());
+		this.user.setEmail(this.emailProperty.getValue());
+		this.user.setPhone(this.phoneProperty.getValue());
+		this.updateServer();
+	}
+
+	/**
+	 * Resets properties to model data
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void resetProfileValues() {
+		this.updateUserInfo();
+	}
+
 	/**
 	 * Clocks in user
 	 * 
@@ -94,9 +115,11 @@ public class LandingPageViewModel {
 	 *
 	 */
 	public void clockIn() {
-		this.user.getTimeSheet(LocalDate.now()).clockIn();
+		TimeSheet timesheet = this.user.getTimeSheet(this.getNow().toLocalDate());
+		timesheet.clockIn(this.getNow());
 		this.updateHours();
 		this.updateClockButtons();
+		this.updateServer();
 	}
 	
 	/**
@@ -107,9 +130,11 @@ public class LandingPageViewModel {
 	 *
 	 */
 	public void clockOut() {
-		this.user.getTimeSheet(LocalDate.now()).clockOut();
+		TimeSheet timesheet = this.user.getTimeSheet(this.getNow().toLocalDate());
+		timesheet.clockOut(this.getNow());
 		this.updateHours();
 		this.updateClockButtons();
+		this.updateServer();
 	}
 
 	/**
@@ -125,41 +150,54 @@ public class LandingPageViewModel {
 		return this.currentTimeSheet.daySheets().get(rowIndex);
 	}
 
-	private void setUser() {
-		EmployeeProfile profile = this.getProfile();
-		if (profile != null) {
-			this.user = profile;
-		} else {
-			this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
-					"user name", "password");
-			this.profileErrorProperty.setValue(PROFILE_NOT_FOUND);
-		}
-
-		this.initializeUserInfo();
+	/**
+	 * Increments pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void incrementPayPeriod() {
+		this.currentPayPeriod = PayPeriod.getNextPeriod(this.currentPayPeriod);
+		this.currentTimeSheet = this.user.getTimeSheet(this.currentPayPeriod.getStartDate());
+		this.updatePeriodDates();
+		this.updateHours();
+		this.updateClockButtons();
 	}
 
-	private EmployeeProfile getProfile() {
-		String userName = this.login.getUsername();
-		String pass = this.login.getPassword();
-		for (EmployeeProfile currProfile : this.manager.getProfiles()) {
-			if (currProfile.getUserName().equalsIgnoreCase(userName)
-					|| currProfile.getPassword().equalsIgnoreCase(pass)) {
-				return currProfile;
-			}
-		}
-		return null;
+	/**
+	 * Decrements pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public void decrementPayPeriod() {
+		this.currentPayPeriod = PayPeriod.getPreviousPeriod(this.currentPayPeriod);
+		this.currentTimeSheet = this.user.getTimeSheet(this.currentPayPeriod.getStartDate());
+		this.updatePeriodDates();
+		this.updateHours();
+		this.updateClockButtons();
+	}
+
+	private void setUser() {
+		this.initializeUserInfo();
 	}
 
 	private void initializeUserInfo() {
 		this.updateUserInfo();
 
-		LocalDate today = LocalDate.now();
+		LocalDate today = this.getNow().toLocalDate();
 		this.currentPayPeriod = new PayPeriod(today);
 		this.currentTimeSheet = this.user.getTimeSheet(today);
 
 		this.payPeriodTextProperty.setValue(this.currentPayPeriod.toString());
 
 		this.initializeTimeSheet();
+	}
+
+	private LocalDateTime getNow() {
+		return LocalDateTime.now();
 	}
 
 	private void initializeTimeSheet() {
@@ -215,6 +253,7 @@ public class LandingPageViewModel {
 	}
 
 	private void updatePeriodDates() {
+		this.payPeriodTextProperty.setValue(this.currentPayPeriod.toString());
 		List<LocalDate> days = this.currentPayPeriod.toList();
 		ListProperty<Object> dates = this.timeProperty.get(0);
 		for (int i = 0; i < dates.getSize(); i++) {
@@ -250,6 +289,10 @@ public class LandingPageViewModel {
 	private boolean isTimeButtonDisabled(DaySheet sheet) {
 		double hoursWorked = sheet.getHoursWorked();
 		return !(hoursWorked > 0 || sheet.size() > 0);
+	}
+
+	private boolean updateServer() {
+		return RequestManager.updateUser(this.user);
 	}
 
 	/**

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import edu.westga.edu.employee_management.MainApp;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.UserLogin;
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -20,6 +20,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -89,6 +90,15 @@ public class LandingPageController {
 	private Text profileErrorText;
 	
 	@FXML
+	private Button editButton;
+
+	@FXML
+	private Button doneButton;
+
+	@FXML
+	private Button cancelButton;
+
+	@FXML
     void onViewRequestsButtonClick(ActionEvent event) {
 		try {
 			SceneController.openWindow(Scenes.REQUESTSPAGE, "EmployeeRequestsPage");
@@ -99,7 +109,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
-
+		this.viewModel.decrementPayPeriod();
 	}
 
 	@FXML
@@ -131,7 +141,7 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
-		
+		this.viewModel.incrementPayPeriod();
 	}
 
 	@FXML
@@ -143,9 +153,43 @@ public class LandingPageController {
 		}
 	}
 
+	@FXML
+	void onCancelEdit(ActionEvent event) {
+		this.viewModel.resetProfileValues();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onDoneEdit(ActionEvent event) {
+		this.viewModel.setProfile();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onEdit(ActionEvent event) {
+		this.middleNameField.setDisable(false);
+		this.emailField.setDisable(false);
+		this.phoneField.setDisable(false);
+		this.setProfileMode(true);
+	}
+
+	private void setProfileMode(boolean isEditing) {
+		this.doneButton.setVisible(isEditing);
+		this.cancelButton.setVisible(isEditing);
+		this.editButton.setVisible(!isEditing);
+
+		this.middleNameField.setDisable(!isEditing);
+		this.emailField.setDisable(!isEditing);
+		this.phoneField.setDisable(!isEditing);
+	}
+
 	private void openDailyTimeWindow(ActionEvent event) throws IOException {
 		Button button = (Button) event.getSource();
 		int rowIndex = GridPane.getRowIndex(button);
+		int colIndex = LandingPageViewModel.BUTTON_COL_INDEX;
+		if (!(this.getNodeFromGridPane(colIndex, rowIndex) == button)) {
+			rowIndex += 7;
+		}
 
 		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.DAILYTIMEPAGE + ".fxml"));
 		Scene scene = new Scene(loader.load());
@@ -167,18 +211,20 @@ public class LandingPageController {
 	 * @Preconditions: login != null
 	 * @Postconditions: none
 	 * 
-	 * @param login the user login
+	 * @param user the user login
 	 */
-	public void setLogin(UserLogin login) {
-		if (login != null) {
-			this.bindUI(login);
+	public void setLogin(EmployeeProfile user) {
+		if (user != null) {
+			this.bindUI(user);
+			this.setProfileMode(false);
+			this.setValidation();
 		}
 	}
 
 
 
-	private void bindUI(UserLogin login) {
-		this.viewModel = new LandingPageViewModel(login);
+	private void bindUI(EmployeeProfile user) {
+		this.viewModel = new LandingPageViewModel(user);
 		this.hrViewButton.visibleProperty().bind(this.viewModel.getHrViewButtonVisibleProperty());
 		this.idField.textProperty().bindBidirectional(this.viewModel.getIdProperty());
 		this.firstNameField.textProperty().bind(this.viewModel.getFirstNameProperty());
@@ -215,8 +261,7 @@ public class LandingPageController {
 		for (int i = 0; i < 14; i++) {
 			TextField hourText = (TextField) this.getNodeFromGridPane(column, i);
 			DoubleProperty hours = (DoubleProperty) dayHours.get(i);
-			String value = hours.getValue() == 0 ? "-" : hours.getValue().toString() + " hrs";
-			hourText.textProperty().bind(hours.asString(value));
+			hourText.textProperty().bind(hours.asString("%.1f hrs"));
 		}
 	}
 
@@ -226,7 +271,7 @@ public class LandingPageController {
 		for (int i = 0; i < 14; i++) {
 			Text dateLabel = (Text) this.getNodeFromGridPane(column, i);
 			ObjectProperty<LocalDate> date = (ObjectProperty<LocalDate>) dates.get(i);
-			dateLabel.textProperty().bind(date.asString(this.formatDate(date.getValue())));
+			dateLabel.textProperty().bind(date.asString("%1$ta %1$tb, %1$td"));
 		}
 	}
 
@@ -248,7 +293,15 @@ public class LandingPageController {
 	private String formatDate(LocalDate date) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, MMM d");
 		String dateString = date.format(formatter);
-		return dateString;
+		return formatter.toString();
 	}
+
+	private void setValidation() {
+		this.phoneField.setTextFormatter(new TextFormatter<>(Validation.integerValidationFormatter()));
+		Validation.setEmailInputValidation(this.emailField);
+
+		this.doneButton.disableProperty().bind(this.emailField.borderProperty().isNotNull());
+	}
+
 }
 
