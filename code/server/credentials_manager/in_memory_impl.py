@@ -21,6 +21,7 @@ class _EmployeeProfile:
     EMAIL = "email"
     PHONE = "phone"
     HR = "hr"
+    TIMESHEET = "timesheets"
 
     profileSchema = {
         "type": "object",
@@ -117,6 +118,11 @@ class _User:
      @postcondition none
     '''
     def setProfile(self, profile: str):
+        timesheets = _EmployeeProfile.TIMESHEET
+        currentHasTimesheet =  timesheets in self._profile
+        noNewTimeSheet = timesheets not in profile or len(profile[timesheets]) < 1
+        if currentHasTimesheet and noNewTimeSheet:
+            profile[timesheets] = self._profile[timesheets]
         self._profile = profile
 
     ''' Encodes user to serializable object 
