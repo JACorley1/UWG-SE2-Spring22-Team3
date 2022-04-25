@@ -3,9 +3,6 @@ package edu.westga.edu.employee_management.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Manages the data for the Employee Request Manager object
  * @author dharpe11
@@ -16,6 +13,7 @@ public class EmployeeRequestManager {
 	
 	private List<EmployeeRequest> confirmedRequests;
 	private List<EmployeeRequest> pendingRequests;
+	
 	
 	private int numberOfRequests;
 	
@@ -30,7 +28,7 @@ public class EmployeeRequestManager {
 		this.numberOfRequests = 0;
 		
 		this.confirmedRequests = new ArrayList<EmployeeRequest>();
-		this.pendingRequests = new ArrayList<EmployeeRequest>();		
+		this.pendingRequests = new ArrayList<EmployeeRequest>();	
 	}
 	
 	/**

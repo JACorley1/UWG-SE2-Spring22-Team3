@@ -187,6 +187,6 @@ public class EmployeeRequest {
 	 */
 	@Override
 	public String toString() {
-		return "Request Type: " + this.type + " Dates: " + this.startDate + " - " + this.endDate + "  (" + this.status + ")"; 
+		return "Employee: " + this.employee.getFirstName() + " " + this.employee.getLastName() +" :: Request Type: " + this.type + " Dates: " + this.startDate + " - " + this.endDate + "  (" + this.status + ")"; 
 	}
 }

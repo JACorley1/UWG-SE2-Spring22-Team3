@@ -87,21 +87,21 @@
 			"workRequests": [
                 {
 					"requestType": "Personal Time",
-					"requestStartDate": "03/12/2022",
-					"requestEndDate": "03/16/2022",
-					"requestStatus": "DENIED"
+					"startDate": "03/12/2022",
+					"endDate": "03/16/2022",
+					"status": "DENIED"
 				},
 				{
 					"requestType": "Sick Leave",
-					"requestStartDate": "02/04/2022",
-					"requestEndDate": "02/05/2022",
-					"requestStatus": "APPROVED"
+					"startDate": "02/04/2022",
+					"endDate": "02/05/2022",
+					"status": "APPROVED"
 				},
 				{
 					"requestType": "Vacation",
-					"requestStartDate": "04/21/2022",
-					"requestEndDate": "04/26/2022",
-					"requestStatus": "PENDING"
+					"startDate": "04/21/2022",
+					"endDate": "04/26/2022",
+					"status": "PENDING"
 				}
 			]
         },
@@ -191,9 +191,9 @@
 			"workRequests": [
 				{
 					"requestType": "Sick Leave",
-					"requestStartDate": "01/14/2022",
-					"requestEndDate": "01/16/2022",
-					"requestStatus": "APPROVED"
+					"startDate": "01/14/2022",
+					"endDate": "01/16/2022",
+					"status": "APPROVED"
 				}
 			]
         },
@@ -214,9 +214,9 @@
 			"workRequests": [
 				{
 					"requestType": "Vacation",
-					"requestStartDate": "06/21/2022",
-					"requestEndDate": "06/26/2022",
-					"requestStatus": "PENDING"
+					"startDate": "06/21/2022",
+					"endDate": "06/26/2022",
+					"status": "PENDING"
 				}
 			]
         },
@@ -237,15 +237,15 @@
 			"workRequests": [
                 {
 					"requestType": "Personal Time",
-					"requestStartDate": "08/22/2021",
-					"requestEndDate": "08/26/2021",
-					"requestStatus": "DENIED"
+					"startDate": "08/22/2021",
+					"endDate": "08/26/2021",
+					"status": "DENIED"
 				},
 				{
 					"requestType": "Vacation",
-					"requestStartDate": "12/01/2022",
-					"requestEndDate": "12/06/2022",
-					"requestStatus": "PENDING"
+					"startDate": "12/01/2022",
+					"endDate": "12/06/2022",
+					"status": "PENDING"
 				}
 			]
         },

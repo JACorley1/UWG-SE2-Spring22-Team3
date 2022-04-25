@@ -450,7 +450,6 @@ public class EmployeeProfile {
 		EmployeeProfile employee = new EmployeeProfile(id, firstName, middleName, lastName, email, phone, hr, userName, password);
 		Map<LocalDate, TimeSheet> timesheets = new HashMap<LocalDate, TimeSheet>();
 		JSONArray sheets = profile.optJSONArray("timesheets");
-		List<EmployeeRequest> workRequests = new ArrayList<EmployeeRequest>();
 		JSONArray requests = profile.optJSONArray("workRequests");
 
 		if (sheets != null) {
@@ -473,7 +472,7 @@ public class EmployeeProfile {
 				String endDate = request.getString("requestEndDate");
 				String status = request.getString("requestStatus");
 				
-				requestManager.addEmployeeRequest(new EmployeeRequest(type, startDate, endDate, status));
+				requestManager.addEmployeeRequest(new EmployeeRequest(employee, type, startDate, endDate, status));
 			}
 		}
 

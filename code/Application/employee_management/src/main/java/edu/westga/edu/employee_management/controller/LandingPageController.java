@@ -2,7 +2,6 @@ package edu.westga.edu.employee_management.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import edu.westga.edu.employee_management.MainApp;
@@ -296,12 +295,6 @@ public class LandingPageController {
 			}
 		}
 		return null;
-	}
-
-	private String formatDate(LocalDate date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, MMM d");
-		String dateString = date.format(formatter);
-		return formatter.toString();
 	}
 
 	private void setValidation() {

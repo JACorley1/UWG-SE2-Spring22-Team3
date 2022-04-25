@@ -6,6 +6,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -198,7 +199,11 @@ public class HrLandingPageController {
     @FXML
     void handleOpenRequests(ActionEvent event) {
     	try {
-    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "Requets Page");
+    		EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
+			requestManager.setConfirmedRequests(requestManager.getConfirmedRequests());
+			requestManager.setPendingRequests(requestManager.getPendingRequests());
+    		
+    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "HrRequestsPage");
     	} catch(IOException e) {
     		e.printStackTrace();
     	}
