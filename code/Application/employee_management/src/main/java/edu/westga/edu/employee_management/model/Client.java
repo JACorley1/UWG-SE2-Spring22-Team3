@@ -29,8 +29,8 @@ public class Client extends Thread {
 			throw new IllegalArgumentException("Type cannot be null");
 		}
 
-		if (request == null || request.isEmpty()) {
-			throw new IllegalArgumentException("Request cannot be null or empty");
+		if (request == null) {
+			throw new IllegalArgumentException("Request cannot be null");
 		}
 
 		this.type = type;

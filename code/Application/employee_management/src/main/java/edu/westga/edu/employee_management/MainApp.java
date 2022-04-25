@@ -36,12 +36,11 @@ public class MainApp extends Application {
 		String path = appDirectory.normalize().toString() + SERVER_PATH;
 
 		PythonServer server = new PythonServer(path);
-		server.run();
+		server.start();
 
 		Client.connectToSocket();
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> Client.disconnectFromSocket()));
 		launch(args);
-
+		server.exit();
     }
 
 
