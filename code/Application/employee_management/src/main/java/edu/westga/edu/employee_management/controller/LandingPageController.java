@@ -3,11 +3,14 @@ package edu.westga.edu.employee_management.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import edu.westga.edu.employee_management.MainApp;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.EmployeeRequest;
+import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -125,6 +128,11 @@ public class LandingPageController {
 	@FXML
 	void logOut(ActionEvent event) {
 		try {
+			EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
+			requestManager.setConfirmedRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setPendingRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setNumberOfRequests(0);
+			
 			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());
 		} catch (IOException e) {
 			e.printStackTrace();

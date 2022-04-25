@@ -15,9 +15,7 @@ public class EmployeeRequestManager {
 	private static EmployeeRequestManager single_instance = null;
 	
 	private List<EmployeeRequest> confirmedRequests;
-	private ObservableList<EmployeeRequest> observableConfirmedList;
 	private List<EmployeeRequest> pendingRequests;
-	private ObservableList<EmployeeRequest> observablePendingList;
 	
 	private int numberOfRequests;
 	
@@ -32,15 +30,7 @@ public class EmployeeRequestManager {
 		this.numberOfRequests = 0;
 		
 		this.confirmedRequests = new ArrayList<EmployeeRequest>();
-		this.addEmployeeRequest(new EmployeeRequest("Personal Time", "03/12/2022", "03/16/2022", "DENIED"));
-		this.addEmployeeRequest(new EmployeeRequest("Sick Leave", "02/04/2022", "02/05/2022", "APPROVED"));
-		
-		this.observableConfirmedList = FXCollections.observableList(this.confirmedRequests);
-		
-		this.pendingRequests = new ArrayList<EmployeeRequest>();
-		this.addEmployeeRequest(new EmployeeRequest("Vacation", "04/21/2022", "04/26/2022", "PENDING"));
-		
-		this.observableConfirmedList = FXCollections.observableList(this.pendingRequests);
+		this.pendingRequests = new ArrayList<EmployeeRequest>();		
 	}
 	
 	/**
@@ -59,18 +49,6 @@ public class EmployeeRequestManager {
 	}
 	
 	/**
-	 * Gets the observable list of employee requests
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the observable list of employee requests
-	 */
-	public ObservableList<EmployeeRequest> getConfirmedRequestsObservable() {
-		return this.observableConfirmedList;
-	}
-	
-	/**
 	 * Gets the list of confirmed employee requests
 	 * 
 	 * @precondition none
@@ -80,18 +58,6 @@ public class EmployeeRequestManager {
 	 */
 	public List<EmployeeRequest> getConfirmedRequests() {
 		return this.confirmedRequests;
-	}
-	
-	/**
-	 * Gets the observable list of pending employee requests
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the observable list of pending employee requests
-	 */
-	public ObservableList<EmployeeRequest> getPendingRequestsObservable() {
-		return this.observablePendingList;
 	}
 	
 	/**
@@ -106,6 +72,14 @@ public class EmployeeRequestManager {
 		return this.pendingRequests;
 	}
 	
+	public void setConfirmedRequests(List<EmployeeRequest> confirmedRequests) {
+		this.confirmedRequests = confirmedRequests;
+	}
+
+	public void setPendingRequests(List<EmployeeRequest> pendingRequests) {
+		this.pendingRequests = pendingRequests;
+	}
+
 	/**
 	 * Gets the number of Employees' Request
 	 * 
@@ -161,7 +135,7 @@ public class EmployeeRequestManager {
 	}
 	
 	/**
-	 * Updates the requests lists when the stautus of the given request is updated
+	 * Updates the requests lists when the status of the given request is updated
 	 * 
 	 * @precondition request != null
 	 * @postcondition none
