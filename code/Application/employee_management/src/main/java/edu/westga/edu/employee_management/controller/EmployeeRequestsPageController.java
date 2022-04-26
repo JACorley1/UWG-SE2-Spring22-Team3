@@ -75,6 +75,13 @@ public class EmployeeRequestsPageController {
     	this.confirmedRequestsListview.getItems().addAll(this.requestManager.getConfirmedRequests());
     	this.pendingRequestsListview.getItems().addAll(this.requestManager.getPendingRequests());
     	
+    	for (EmployeeRequest request : this.requestManager.getConfirmedRequests()) {
+    		this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    	}
+    	for (EmployeeRequest request : this.requestManager.getPendingRequests()) {
+    		this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    	}
+    	
     	this.confirmedRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             this.startDateTextBox.textProperty().setValue(newSelection.getStartDate());
             this.endDateTextBox.textProperty().setValue(newSelection.getEndDate());

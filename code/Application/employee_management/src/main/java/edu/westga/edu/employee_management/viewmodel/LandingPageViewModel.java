@@ -76,6 +76,7 @@ public class LandingPageViewModel {
 		this.profileErrorProperty = new SimpleStringProperty();
 
 		this.requestManager = EmployeeRequestManager.getInstance();
+		this.requestManager.setActiveEmployee(user);
 
 		this.user = user;
 		this.setUser();

@@ -2,6 +2,7 @@ package edu.westga.edu.employee_management.controller;
 
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -61,9 +62,12 @@ public class AddRequestPageController {
     	this.startDateTextbox.setText("");
     	this.endDateTextbox.setText("");
     	
-    	EmployeeRequest newRequest = new EmployeeRequest(type, startDate, endDate, "PENDING");
+    	EmployeeRequest newRequest = new EmployeeRequest(this.requestManager.getActiveEmployee(), type, startDate, endDate, "PENDING");
     	
     	this.requestManager.addEmployeeRequest(newRequest);
+    	this.requestManager.getActiveEmployee().getWorkRequests().add(newRequest);
+    	
+    	RequestManager.updateUser(this.requestManager.getActiveEmployee());
     	
     	Stage stage = (Stage) this.addRequestBtn.getScene().getWindow();
         stage.close();

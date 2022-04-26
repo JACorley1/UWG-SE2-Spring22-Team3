@@ -405,9 +405,14 @@ public class EmployeeProfile {
 		JSONObject json = new JSONObject();
 
 		JSONArray timesheets = new JSONArray();
+		JSONArray workRequests = new JSONArray();
 
 		for (TimeSheet sheet : this.timesheets.values()) {
 			timesheets.put(sheet.toJson());
+		}
+		
+		for (EmployeeRequest request : this.workRequests) {
+			workRequests.put(request.toJson());
 		}
 		
 		json.put("__profile__", true);
@@ -419,6 +424,7 @@ public class EmployeeProfile {
 		json.put("phone", this.phone);
 		json.put("hr", this.hr);
 		json.put("timesheets", timesheets);
+		json.put("workRequests", workRequests);
 
 		return json;
 	}

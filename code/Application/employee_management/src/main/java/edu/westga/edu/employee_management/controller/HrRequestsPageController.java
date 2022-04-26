@@ -1,7 +1,10 @@
 package edu.westga.edu.employee_management.controller;
 
+import edu.westga.edu.employee_management.model.EmployeeManager;
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
 import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +55,7 @@ public class HrRequestsPageController {
 	private Button submitBtn;
 
 	private EmployeeRequestManager requestManager;
+	private EmployeeManager employeeManager;
 
 	@FXML
 	void handleSubmitBtn(ActionEvent event) {
@@ -67,6 +71,10 @@ public class HrRequestsPageController {
 
 		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getConfirmedRequests()));
 		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getPendingRequests()));
+		
+		for (EmployeeProfile employee : this.employeeManager.getProfiles()) {
+			RequestManager.updateUser(employee);
+		}
 	}
 
 	@FXML
@@ -110,6 +118,7 @@ public class HrRequestsPageController {
 						}
 					}
 				});
+		
 	}
 
 	private String setStatus() {
