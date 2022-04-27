@@ -87,6 +87,6 @@ class TestConstructor {
 				() -> assertEquals("d", profile.getMiddleName()), () -> assertEquals("smith", profile.getLastName()),
 						() -> assertEquals("email", profile.getEmail()), () -> assertEquals("phone", profile.getPhone()),
 						() -> assertTrue(profile.isHR()), () -> assertEquals("username", profile.getUserName()), 
-						() -> assertEquals("password", profile.getPassword()));
+						() -> assertEquals("password", profile.getPassword()), () -> assertEquals("smith ID: 1234 HR: Yes", profile.toString()));
 	}
 }

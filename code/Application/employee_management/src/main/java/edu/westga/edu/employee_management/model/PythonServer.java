@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 
 public class PythonServer extends Thread {
 	private String path;
-	private boolean running;
 	private volatile boolean exit;
 	private BufferedReader stdInput;
 	private BufferedReader stdError;
@@ -29,6 +28,7 @@ public class PythonServer extends Thread {
 	public void run() {
 		try {
 			Process process = Runtime.getRuntime().exec("py " + "\"" + this.path + "\"");
+			Client.connectToSocket();
 
 			this.stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -38,7 +38,6 @@ public class PythonServer extends Thread {
 			// read the output from the command
 			System.out.println("---SERVER RESPONSES--:\n");
 			while (!this.exit) {
-				this.running = true;
 				System.out.println(response);
 				response = this.stdInput.readLine();
 				if (response == null) {
@@ -49,24 +48,11 @@ public class PythonServer extends Thread {
 			// read any errors from the attempted command
 			System.out.println("---SERVER ERROR-- (if any):\n");
 			while ((response = this.stdError.readLine()) != null && !this.exit) {
-				this.running = false;
 				System.err.println(response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Returns if this python server is currently running
-	 * 
-	 * Preconditions: none
-	 * Postconditions: none
-	 *
-	 * @return true if server is running, false otherwise
-	 */
-	public boolean isRunning() {
-		return this.running;
 	}
 
 	/**

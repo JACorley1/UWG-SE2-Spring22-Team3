@@ -32,20 +32,11 @@ public class EmployeeRequest {
 		if (type == null) {
 			throw new IllegalArgumentException("Request type cannot be null");
 		}
-		if (startDate == null) {
-			throw new IllegalArgumentException("Request start date cannot be null");
-		}
-		if (endDate == null) {
-			throw new IllegalArgumentException("Request end date cannot be null");
-		}
-		if (status == null) {
-			throw new IllegalArgumentException("Request status cannot be null");
-		}
 		
 		this.type = type;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.status = status;
+		this.setStartDate(startDate);
+		this.setEndDate(endDate);
+		this.setStatus(status);
 	}
 	
 	/**
