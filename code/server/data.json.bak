@@ -194,6 +194,12 @@
                     "requestStartDate": "01/14/2022",
                     "requestStatus": "APPROVED",
                     "requestType": "Sick Leave"
+                },
+                {
+                    "requestEndDate": "test",
+                    "requestStartDate": "test",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Vacation"
                 }
             ]
         },

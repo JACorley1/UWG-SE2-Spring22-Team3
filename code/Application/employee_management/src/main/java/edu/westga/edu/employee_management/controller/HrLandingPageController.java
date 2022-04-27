@@ -198,7 +198,7 @@ public class HrLandingPageController {
     @FXML
     void handleOpenRequests(ActionEvent event) {
     	try {
-    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "Requets Page");
+    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "HrRequestsPage");
     	} catch(IOException e) {
     		e.printStackTrace();
     	}

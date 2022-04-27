@@ -18,8 +18,7 @@ public class TestConstructor {
 		// ASSERT
 		assertAll(
 				() -> assertEquals("", testLogin.getUsername()), 
-				() -> assertEquals("", testLogin.getPassword()),
-				() -> assertEquals(4, testLogin.getEmployeeCredentials().size()));
+				() -> assertEquals("", testLogin.getPassword()));
 	}
 
 	@Test
@@ -44,8 +43,7 @@ public class TestConstructor {
 		// ASSERT
 		assertAll(
 				() -> assertEquals("destiny", testLogin.getUsername()), 
-				() -> assertEquals("harper", testLogin.getPassword()),
-				() -> assertEquals(4, testLogin.getEmployeeCredentials().size()));
+				() -> assertEquals("harper", testLogin.getPassword()));
 
 	}
 }

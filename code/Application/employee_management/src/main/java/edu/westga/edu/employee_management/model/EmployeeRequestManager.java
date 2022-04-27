@@ -3,24 +3,25 @@ package edu.westga.edu.employee_management.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 /**
  * Manages the data for the Employee Request Manager object
+ * 
  * @author dharpe11
  *
  */
 public class EmployeeRequestManager {
 	private static EmployeeRequestManager single_instance = null;
-	
+
 	private List<EmployeeRequest> confirmedRequests;
-	private ObservableList<EmployeeRequest> observableConfirmedList;
 	private List<EmployeeRequest> pendingRequests;
-	private ObservableList<EmployeeRequest> observablePendingList;
-	
+
+	private List<EmployeeRequest> allEmployeesConfirmedRequests;
+	private List<EmployeeRequest> allEmployeesPendingRequests;
+
+	private EmployeeProfile activeEmployee;
+
 	private int numberOfRequests;
-	
+
 	/**
 	 * Creates a private instance of EmployeeRequestManager
 	 * 
@@ -30,19 +31,22 @@ public class EmployeeRequestManager {
 	 */
 	private EmployeeRequestManager() {
 		this.numberOfRequests = 0;
-		
+
 		this.confirmedRequests = new ArrayList<EmployeeRequest>();
-		this.addEmployeeRequest(new EmployeeRequest("Personal Time", "03/12/2022", "03/16/2022", "DENIED"));
-		this.addEmployeeRequest(new EmployeeRequest("Sick Leave", "02/04/2022", "02/05/2022", "APPROVED"));
-		
-		this.observableConfirmedList = FXCollections.observableList(this.confirmedRequests);
-		
 		this.pendingRequests = new ArrayList<EmployeeRequest>();
-		this.addEmployeeRequest(new EmployeeRequest("Vacation", "04/21/2022", "04/26/2022", "PENDING"));
-		
-		this.observableConfirmedList = FXCollections.observableList(this.pendingRequests);
+
+		this.allEmployeesConfirmedRequests = new ArrayList<EmployeeRequest>();
+		this.allEmployeesPendingRequests = new ArrayList<EmployeeRequest>();
 	}
-	
+
+	public EmployeeProfile getActiveEmployee() {
+		return activeEmployee;
+	}
+
+	public void setActiveEmployee(EmployeeProfile activeEmployee) {
+		this.activeEmployee = activeEmployee;
+	}
+
 	/**
 	 * Creates an instance of the EmployeeRequestManager
 	 * 
@@ -57,19 +61,7 @@ public class EmployeeRequestManager {
 
 		return single_instance;
 	}
-	
-	/**
-	 * Gets the observable list of employee requests
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the observable list of employee requests
-	 */
-	public ObservableList<EmployeeRequest> getConfirmedRequestsObservable() {
-		return this.observableConfirmedList;
-	}
-	
+
 	/**
 	 * Gets the list of confirmed employee requests
 	 * 
@@ -81,19 +73,7 @@ public class EmployeeRequestManager {
 	public List<EmployeeRequest> getConfirmedRequests() {
 		return this.confirmedRequests;
 	}
-	
-	/**
-	 * Gets the observable list of pending employee requests
-	 * 
-	 * @precondition none
-	 * @postcondition none
-	 * 
-	 * @return the observable list of pending employee requests
-	 */
-	public ObservableList<EmployeeRequest> getPendingRequestsObservable() {
-		return this.observablePendingList;
-	}
-	
+
 	/**
 	 * Gets the list of pending employee requests
 	 * 
@@ -105,7 +85,31 @@ public class EmployeeRequestManager {
 	public List<EmployeeRequest> getPendingRequests() {
 		return this.pendingRequests;
 	}
-	
+
+	public void setConfirmedRequests(List<EmployeeRequest> confirmedRequests) {
+		this.confirmedRequests = confirmedRequests;
+	}
+
+	public void setPendingRequests(List<EmployeeRequest> pendingRequests) {
+		this.pendingRequests = pendingRequests;
+	}
+
+	public List<EmployeeRequest> getAllEmployeesConfirmedRequests() {
+		return this.allEmployeesConfirmedRequests;
+	}
+
+	public void setAllEmployeesConfirmedRequests(List<EmployeeRequest> allEmployeesConfirmedRequests) {
+		this.allEmployeesConfirmedRequests = allEmployeesConfirmedRequests;
+	}
+
+	public List<EmployeeRequest> getAllEmployeesPendingRequests() {
+		return this.allEmployeesPendingRequests;
+	}
+
+	public void setAllEmployeesPendingRequests(List<EmployeeRequest> allEmployeesPendingRequests) {
+		this.allEmployeesPendingRequests = allEmployeesPendingRequests;
+	}
+
 	/**
 	 * Gets the number of Employees' Request
 	 * 
@@ -117,9 +121,9 @@ public class EmployeeRequestManager {
 	public int getNumberOfRequests() {
 		return this.numberOfRequests;
 	}
-	
+
 	/**
-	 * Sets the number of requests 
+	 * Sets the number of requests
 	 * 
 	 * @precondition numberOfRequests >= 0
 	 * @postcondition this.getNumberOfRequests = @prev + 1
@@ -130,10 +134,10 @@ public class EmployeeRequestManager {
 		if (numberOfRequests < 0) {
 			throw new IllegalArgumentException("Number of requests must be positive.");
 		}
-		
+
 		this.numberOfRequests = numberOfRequests;
 	}
-	
+
 	/**
 	 * Adds a new request to the list
 	 * 
@@ -142,26 +146,50 @@ public class EmployeeRequestManager {
 	 * 
 	 * @param newRequest the request to be added
 	 * 
-	 * @return true if the request was added
-	 * 		   false otherwise
+	 * @return true if the request was added false otherwise
 	 */
 	public boolean addEmployeeRequest(EmployeeRequest newRequest) {
 		if (newRequest == null) {
 			throw new IllegalArgumentException("Request cannot be null");
 		}
-		
-		if (newRequest.getStatus().equals("PENDING")) {
-			this.numberOfRequests += 1;
-			return this.pendingRequests.add(newRequest);
+		if (this.pendingRequests.contains(newRequest) || this.confirmedRequests.contains(newRequest)) {
+			return false;
 		} else {
-			this.numberOfRequests += 1;
-			return this.confirmedRequests.add(newRequest);
+			if (newRequest.getStatus().equals("PENDING")) {
+				this.numberOfRequests += 1;
+				return this.pendingRequests.add(newRequest);
+			} else {
+				this.numberOfRequests += 1;
+				return this.confirmedRequests.add(newRequest);
+			}
 		}
-			
 	}
-	
+
 	/**
-	 * Updates the requests lists when the stautus of the given request is updated
+	 * Adds a new request to the list of all employee requests
+	 * 
+	 * @precondition newRequest != null
+	 * @postcondition getNumberOfRequests++
+	 * 
+	 * @param newRequest the request to be added
+	 * 
+	 * @return true if the request was added false otherwise
+	 */
+	public boolean addToAllEmployeeRequests(EmployeeRequest newRequest) {
+		if (newRequest == null) {
+			throw new IllegalArgumentException("Request cannot be null");
+		}
+
+		if (newRequest.getStatus().equals("PENDING")) {
+			return this.allEmployeesPendingRequests.add(newRequest);
+		} else {
+			return this.allEmployeesConfirmedRequests.add(newRequest);
+		}
+
+	}
+
+	/**
+	 * Updates the requests lists when the status of the given request is updated
 	 * 
 	 * @precondition request != null
 	 * @postcondition none
@@ -173,11 +201,11 @@ public class EmployeeRequestManager {
 		if (request == null) {
 			throw new IllegalArgumentException("Request cannot be null");
 		}
-		
+
 		if (this.pendingRequests.contains(request)) {
 			this.confirmedRequests.add(request);
 			this.pendingRequests.remove(request);
-		} 
-			
+		}
+
 	}
 }

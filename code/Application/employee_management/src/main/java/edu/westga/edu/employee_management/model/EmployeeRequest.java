@@ -1,5 +1,7 @@
 package edu.westga.edu.employee_management.model;
 
+import org.json.JSONObject;
+
 /**
  * Manages the data of an EmployeeRequest object 
  * 
@@ -169,6 +171,25 @@ public class EmployeeRequest {
 	}
 	
 	/**
+	 * Converts object to json
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the object as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		json.put("requestEndDate", this.endDate);
+		json.put("requestStartDate", this.startDate);
+		json.put("requestStatus", this.status);
+		json.put("requestType", this.type);
+
+		return json;
+	}
+	
+	/**
 	 * Returns the string representation of the EmployeeRequest object 
 	 * 
 	 * @precondition none
@@ -178,6 +199,6 @@ public class EmployeeRequest {
 	 */
 	@Override
 	public String toString() {
-		return "Request Type: " + this.type + " Dates: " + this.startDate + " - " + this.endDate + "  (" + this.status + ")"; 
+		return "Employee: " + this.employee.getFirstName() + " " + this.employee.getLastName() +" :: Request Type: " + this.type + " Dates: " + this.startDate + " - " + this.endDate + "  (" + this.status + ")"; 
 	}
 }
