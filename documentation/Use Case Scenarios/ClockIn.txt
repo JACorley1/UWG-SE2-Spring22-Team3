@@ -1,10 +1,12 @@
-Context - User is logged in and is viewing landing page
+Context - User is logged in, not clocked in, and viewing landing page
 
 Primary Flow
 1 - user selects clock in button
-2 - system displays current time in clock in section of landing page
+2 - system will disable button to clock in
+3 - system will enable button to clock out
+4 - system displays current time in clock in section of landing page
 
 Alternative Flow(s)
 BAD CONNECTION
-a2 - system fails to connect to server
-a3 - system informs user of error
+a4 - system fails to connect to server
+a5 - system informs user of error
