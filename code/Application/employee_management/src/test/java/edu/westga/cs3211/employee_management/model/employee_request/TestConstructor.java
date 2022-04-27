@@ -73,7 +73,8 @@ public class TestConstructor {
 				() -> assertEquals("Vacation", request.getType()),
 				() -> assertEquals("04/11/2022", request.getStartDate()),
 				() -> assertEquals("04/15/2022", request.getEndDate()),
-				() -> assertEquals("DENIED", request.getStatus()));
+				() -> assertEquals("DENIED", request.getStatus()),
+				() -> assertEquals("Request Type: " + request.getType() + " Dates: " + request.getStartDate() + " - " + request.getEndDate() + "  (" + request.getStatus() + ")", request.toString() ));
 
 	}
 
