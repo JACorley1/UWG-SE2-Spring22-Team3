@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import edu.westga.edu.employee_management.model.TimeSheet;
@@ -55,6 +56,20 @@ class TestClockIn {
 		assertAll(() -> {
 			assertFalse(sheet.clockIn(time));
 			assertFalse(sheet.hasOpenTime());
+		});
+	}
+
+	@Test
+	void testClockinWithMissingDaySheets() {
+		String json = "{\"daysheets\":[],\"startDate\":\"2022-04-10\"}";
+		JSONObject jObject = new JSONObject(json);
+		TimeSheet sheet = TimeSheet.fromJson(jObject);
+		LocalDateTime time = LocalDateTime.of(2022, 4, 10, 3, 20);
+
+		sheet.clockIn(time);
+		assertAll(() -> {
+			assertFalse(sheet.clockIn(time.plusHours(10)));
+			assertTrue(sheet.hasOpenTime());
 		});
 	}
 
