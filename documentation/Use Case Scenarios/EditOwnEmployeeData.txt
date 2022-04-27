@@ -1,0 +1,26 @@
+Users: All Employees
+Context - Employee is logged in and viewing landing page
+
+Primary Flow:
+1 - The user clicks the edit button on the landing page
+2 - The system enables the fields of middle name, email, and phone
+3 - The system enables and shows the done and cancel button and hides the edit button
+4 - The user enters updated data into the fields
+5 - The users selects the done button
+6 - The server updates the profile
+7 - The system hides the done and cancel button and makes the edit button visible
+8 - The system disables the fields of middle name email and phone
+
+Alternative Flows(s):
+BAD CONNECTION
+a5 - System cannot connect to the server
+a6 - The user is informed of the error and prompted to try again later
+
+INCORRECT DATA
+a5 - The user input incorret data to the selected profile
+a6 - The system inform the user about the error and prompted to try again
+
+CANCEL EDIT
+a5 - The user selects cancel button
+a6 - The system hides the done and cancel button and makes the edit button visible
+a7 - The system disables the fields of middle name email and phone
