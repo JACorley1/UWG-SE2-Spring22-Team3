@@ -65,6 +65,7 @@ public class AddRequestPageController {
     	EmployeeRequest newRequest = new EmployeeRequest(this.requestManager.getActiveEmployee(), type, startDate, endDate, "PENDING");
     	
     	this.requestManager.addEmployeeRequest(newRequest);
+    	this.requestManager.addToAllEmployeeRequests(newRequest);
     	this.requestManager.getActiveEmployee().getWorkRequests().add(newRequest);
     	
     	RequestManager.updateUser(this.requestManager.getActiveEmployee());

@@ -15,6 +15,9 @@ public class EmployeeRequestManager {
 	private List<EmployeeRequest> confirmedRequests;
 	private List<EmployeeRequest> pendingRequests;
 
+	private List<EmployeeRequest> allEmployeesConfirmedRequests;
+	private List<EmployeeRequest> allEmployeesPendingRequests;
+
 	private EmployeeProfile activeEmployee;
 
 	private int numberOfRequests;
@@ -31,6 +34,9 @@ public class EmployeeRequestManager {
 
 		this.confirmedRequests = new ArrayList<EmployeeRequest>();
 		this.pendingRequests = new ArrayList<EmployeeRequest>();
+
+		this.allEmployeesConfirmedRequests = new ArrayList<EmployeeRequest>();
+		this.allEmployeesPendingRequests = new ArrayList<EmployeeRequest>();
 	}
 
 	public EmployeeProfile getActiveEmployee() {
@@ -88,6 +94,22 @@ public class EmployeeRequestManager {
 		this.pendingRequests = pendingRequests;
 	}
 
+	public List<EmployeeRequest> getAllEmployeesConfirmedRequests() {
+		return this.allEmployeesConfirmedRequests;
+	}
+
+	public void setAllEmployeesConfirmedRequests(List<EmployeeRequest> allEmployeesConfirmedRequests) {
+		this.allEmployeesConfirmedRequests = allEmployeesConfirmedRequests;
+	}
+
+	public List<EmployeeRequest> getAllEmployeesPendingRequests() {
+		return this.allEmployeesPendingRequests;
+	}
+
+	public void setAllEmployeesPendingRequests(List<EmployeeRequest> allEmployeesPendingRequests) {
+		this.allEmployeesPendingRequests = allEmployeesPendingRequests;
+	}
+
 	/**
 	 * Gets the number of Employees' Request
 	 * 
@@ -130,13 +152,38 @@ public class EmployeeRequestManager {
 		if (newRequest == null) {
 			throw new IllegalArgumentException("Request cannot be null");
 		}
-		
-		if (newRequest.getStatus().equals("PENDING")) {
-			this.numberOfRequests += 1;
-			return this.pendingRequests.add(newRequest);
+		if (this.pendingRequests.contains(newRequest) || this.confirmedRequests.contains(newRequest)) {
+			return false;
 		} else {
-			this.numberOfRequests += 1;
-			return this.confirmedRequests.add(newRequest);
+			if (newRequest.getStatus().equals("PENDING")) {
+				this.numberOfRequests += 1;
+				return this.pendingRequests.add(newRequest);
+			} else {
+				this.numberOfRequests += 1;
+				return this.confirmedRequests.add(newRequest);
+			}
+		}
+	}
+
+	/**
+	 * Adds a new request to the list of all employee requests
+	 * 
+	 * @precondition newRequest != null
+	 * @postcondition getNumberOfRequests++
+	 * 
+	 * @param newRequest the request to be added
+	 * 
+	 * @return true if the request was added false otherwise
+	 */
+	public boolean addToAllEmployeeRequests(EmployeeRequest newRequest) {
+		if (newRequest == null) {
+			throw new IllegalArgumentException("Request cannot be null");
+		}
+
+		if (newRequest.getStatus().equals("PENDING")) {
+			return this.allEmployeesPendingRequests.add(newRequest);
+		} else {
+			return this.allEmployeesConfirmedRequests.add(newRequest);
 		}
 
 	}

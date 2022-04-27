@@ -81,29 +81,29 @@
                             "times": []
                         }
                     ],
-                    "startDate": "2022-04-17"
+                    "startDate": "2022-04-10"
                 }
             ],
-			"workRequests": [
+            "workRequests": [
                 {
-					"requestType": "Personal Time",
-					"requestStartDate": "03/12/2022",
-					"requestEndDate": "03/16/2022",
-					"requestStatus": "DENIED"
-				},
-				{
-					"requestType": "Sick Leave",
-					"requestStartDate": "02/04/2022",
-					"requestEndDate": "02/05/2022",
-					"requestStatus": "APPROVED"
-				},
-				{
-					"requestType": "Vacation",
-					"requestStartDate": "04/21/2022",
-					"requestEndDate": "04/26/2022",
-					"requestStatus": "PENDING"
-				}
-			]
+                    "requestEndDate": "03/16/2022",
+                    "requestStartDate": "03/12/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Personal Time"
+                },
+                {
+                    "requestEndDate": "02/05/2022",
+                    "requestStartDate": "02/04/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Sick Leave"
+                },
+                {
+                    "requestEndDate": "04/26/2022",
+                    "requestStartDate": "04/21/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Vacation"
+                }
+            ]
         },
         "username": "brianna"
     },
@@ -188,14 +188,14 @@
                     "startDate": "2022-04-24"
                 }
             ],
-			"workRequests": [
-				{
-					"requestType": "Sick Leave",
-					"requestStartDate": "01/14/2022",
-					"requestEndDate": "01/16/2022",
-					"requestStatus": "APPROVED"
-				}
-			]
+            "workRequests": [
+                {
+                    "requestEndDate": "01/16/2022",
+                    "requestStartDate": "01/14/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Sick Leave"
+                }
+            ]
         },
         "username": "destiny"
     },
@@ -211,14 +211,15 @@
             "lastname": "Dominguez",
             "middlename": "J",
             "phone": "8975462147",
-			"workRequests": [
-				{
-					"requestType": "Vacation",
-					"requestStartDate": "06/21/2022",
-					"requestEndDate": "06/26/2022",
-					"requestStatus": "PENDING"
-				}
-			]
+            "timesheets": [],
+            "workRequests": [
+                {
+                    "requestEndDate": "06/26/2022",
+                    "requestStartDate": "06/21/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Vacation"
+                }
+            ]
         },
         "username": "fernando"
     },
@@ -234,20 +235,20 @@
             "lastname": "Campos",
             "middlename": "A",
             "phone": "8975462147",
-			"workRequests": [
+            "workRequests": [
                 {
-					"requestType": "Personal Time",
-					"requestStartDate": "08/22/2021",
-					"requestEndDate": "08/26/2021",
-					"requestStatus": "DENIED"
-				},
-				{
-					"requestType": "Vacation",
-					"requestStartDate": "12/01/2022",
-					"requestEndDate": "12/06/2022",
-					"requestStatus": "PENDING"
-				}
-			]
+                    "requestEndDate": "08/26/2021",
+                    "requestStartDate": "08/22/2021",
+                    "requestStatus": "DENIED",
+                    "requestType": "Personal Time"
+                },
+                {
+                    "requestEndDate": "12/06/2022",
+                    "requestStartDate": "12/01/2022",
+                    "requestStatus": "PENDING",
+                    "requestType": "Vacation"
+                }
+            ]
         },
         "username": "miguel"
     }

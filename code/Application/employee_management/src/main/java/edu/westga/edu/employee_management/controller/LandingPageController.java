@@ -130,6 +130,8 @@ public class LandingPageController {
 			EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
 			requestManager.setConfirmedRequests(new ArrayList<EmployeeRequest>());
 			requestManager.setPendingRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setAllEmployeesConfirmedRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setAllEmployeesPendingRequests(new ArrayList<EmployeeRequest>());
 			requestManager.setNumberOfRequests(0);
 			
 			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());

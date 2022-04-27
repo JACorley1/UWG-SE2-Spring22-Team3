@@ -478,7 +478,10 @@ public class EmployeeProfile {
 				String endDate = request.getString("requestEndDate");
 				String status = request.getString("requestStatus");
 				
-				requestManager.addEmployeeRequest(new EmployeeRequest(employee, type, startDate, endDate, status));
+				EmployeeRequest workRequest = new EmployeeRequest(employee, type, startDate, endDate, status);
+				
+				requestManager.addEmployeeRequest(workRequest);
+				employee.workRequests.add(workRequest);
 			}
 		}
 

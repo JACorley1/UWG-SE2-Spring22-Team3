@@ -62,26 +62,43 @@ public class HrRequestsPageController {
 		if (this.pendingRequestsListView.getSelectionModel().getSelectedItem() != null) {
 			this.pendingRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
 			this.requestManager.updateRequestsLists(this.pendingRequestsListView.getSelectionModel().getSelectedItem());
+			
+			RequestManager.updateUser(this.pendingRequestsListView.getSelectionModel().getSelectedItem().getEmployee());
 		}
-		if (this.confirmedRequestsListView.getSelectionModel().getSelectedItem() != null) {
+		else if (this.confirmedRequestsListView.getSelectionModel().getSelectedItem() != null) {
 			this.confirmedRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
 			this.requestManager
 					.updateRequestsLists(this.confirmedRequestsListView.getSelectionModel().getSelectedItem());
+			
+			RequestManager.updateUser(this.confirmedRequestsListView.getSelectionModel().getSelectedItem().getEmployee());
 		}
 
-		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getConfirmedRequests()));
-		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getPendingRequests()));
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesPendingRequests()));
 		
-		for (EmployeeProfile employee : this.employeeManager.getProfiles()) {
-			RequestManager.updateUser(employee);
-		}
+		
 	}
 
 	@FXML
 	public void initialize() {
+		this.employeeManager = EmployeeManager.getInstance();
 		this.requestManager = EmployeeRequestManager.getInstance();
-		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getConfirmedRequests()));
-		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getPendingRequests()));
+		
+		this.requestManager.getAllEmployeesConfirmedRequests().clear();
+		this.requestManager.getAllEmployeesPendingRequests().clear();
+		
+		for (EmployeeProfile employee : this.employeeManager.getProfiles()) {
+			for (EmployeeRequest request : employee.getWorkRequests()) {
+				if (request.getStatus().equals("PENDING")) {
+					this.requestManager.getAllEmployeesPendingRequests().add(request);
+				} else {
+					this.requestManager.getAllEmployeesConfirmedRequests().add(request);
+				}
+			}
+		}
+		
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesPendingRequests()));
 
 		this.confirmedRequestsListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {

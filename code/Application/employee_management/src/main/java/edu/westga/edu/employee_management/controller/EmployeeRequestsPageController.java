@@ -66,20 +66,31 @@ public class EmployeeRequestsPageController {
 
 	@FXML
     public void initialize() {
+		this.requestManager.getActiveEmployee().getWorkRequests().clear();
+		
     	ObservableList<String> requestTypeOptions = FXCollections.observableArrayList("Vacation", "Sick Leave", "Personal Time");
     	this.requestTypeCombobox.getItems().addAll(requestTypeOptions);
     	
     	ObservableList<String> requestStatusOptions = FXCollections.observableArrayList("APPROVED", "DENIED", "PENDING");
     	this.statusCombobox.getItems().addAll(requestStatusOptions);
     	
-    	this.confirmedRequestsListview.getItems().addAll(this.requestManager.getConfirmedRequests());
-    	this.pendingRequestsListview.getItems().addAll(this.requestManager.getPendingRequests());
-    	
     	for (EmployeeRequest request : this.requestManager.getConfirmedRequests()) {
-    		this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    		if (this.requestManager.getActiveEmployee().equals(request.getEmployee())) {
+    			this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    		}
     	}
     	for (EmployeeRequest request : this.requestManager.getPendingRequests()) {
-    		this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    		if (this.requestManager.getActiveEmployee().equals(request.getEmployee())) {
+    			this.requestManager.getActiveEmployee().getWorkRequests().add(request);
+    		}
+    	}
+    	
+    	for (EmployeeRequest request : this.requestManager.getActiveEmployee().getWorkRequests()) {
+    		if (request.getStatus().equals("PENDING")) {
+    			this.pendingRequestsListview.getItems().add(request);
+    		} else {
+    			this.confirmedRequestsListview.getItems().add(request);
+    		}
     	}
     	
     	this.confirmedRequestsListview.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
