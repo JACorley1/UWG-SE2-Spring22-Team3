@@ -74,7 +74,9 @@ class _RequestHandler:
         response: MutableMapping[str, Any]
         if ("requestType" not in request) :
             response = {"successCode": -1, "errorMessage": "Malformed Request, missing Request Type"}
-        if (request["requestType"] == "verifyPassword") :
+        if (request["requestType"] == "ping") :
+            response = {"successCode": 1}
+        elif (request["requestType"] == "verifyPassword") :
             data = json.loads(request["request"])
             userName = data["username"]
             password = data["password"]

@@ -37,13 +37,8 @@ public class Client extends Thread {
 		this.request = request;
 	}
 
-	@Override
-	public void run() {
-		// this.sendRequest();
-	}
-
 	/**
-	 * Disconnects from server socket
+	 * Disconnects from python server socket
 	 * 
 	 * Preconditions: none
 	 * Postconditions: none
@@ -56,6 +51,17 @@ public class Client extends Thread {
 			return;
 		}
 
+		disconnectFromSocket();
+	}
+
+	/**
+	 * Disconnects from server socket
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
+	public static void disconnectFromSocket() {
 		JSONObject request = new JSONObject();
 		request.put("request", "exit");
 		System.out.println("Client - Sending exit");
@@ -73,6 +79,8 @@ public class Client extends Thread {
 	 *
 	 */
 	public static void connectToSocket() {
+		context = ZMQ.context(1);
+		socket = context.socket(ZMQ.REQ);
 		System.out.println("Connecting to Employee Management Server");
 		socket.connect("tcp://127.0.0.1:5555");
 	}
@@ -99,18 +107,4 @@ public class Client extends Thread {
 		this.responseRecevied = true;
 		return response;
 	}
-
-	/**
-	 * Gets the response
-	 *
-	 * Preconditions: none
-	 * Postconditions: none
-	 *
-	 * @return the response
-	 */
-	public String getResponse() {
-
-		return this.response;
-	}
-
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import edu.westga.edu.employee_management.model.Client;
 import edu.westga.edu.employee_management.model.PythonServer;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -38,7 +37,6 @@ public class MainApp extends Application {
 		PythonServer server = new PythonServer(path);
 		server.start();
 
-		Client.connectToSocket();
 		launch(args);
 		server.exit();
     }
