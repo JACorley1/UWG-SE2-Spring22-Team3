@@ -1,4 +1,4 @@
-package edu.westga.cs3211.employee_management.model.employee_Manager;
+package edu.westga.cs3211.employee_management.model.employee_manager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
