@@ -288,7 +288,7 @@ public class LandingPageViewModel {
 
 	private void updateClockButtons() {
 		boolean hasOpenTime = this.currentTimeSheet.hasOpenTime();
-		this.clockInDisableProperty.setValue(hasOpenTime || this.currentPayPeriod != this.todayPeriod);
+		this.clockInDisableProperty.setValue(hasOpenTime);
 		this.clockOutDisableProperty.setValue(!hasOpenTime);
 	}
 
