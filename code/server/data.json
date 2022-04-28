@@ -88,7 +88,7 @@
                 {
                     "requestEndDate": "03/16/2022",
                     "requestStartDate": "03/12/2022",
-                    "requestStatus": "APPROVED",
+                    "requestStatus": "PENDING",
                     "requestType": "Personal Time"
                 },
                 {
@@ -100,7 +100,7 @@
                 {
                     "requestEndDate": "04/26/2022",
                     "requestStartDate": "04/21/2022",
-                    "requestStatus": "APPROVED",
+                    "requestStatus": "PENDING",
                     "requestType": "Vacation"
                 }
             ]
@@ -117,7 +117,7 @@
             "hr": true,
             "id": 1213,
             "lastname": "Harper",
-            "middlename": "A",
+            "middlename": "D",
             "phone": "7778542369",
             "timesheets": [
                 {
@@ -192,8 +192,14 @@
                 {
                     "requestEndDate": "01/16/2022",
                     "requestStartDate": "01/14/2022",
-                    "requestStatus": "APPROVED",
+                    "requestStatus": "PENDING",
                     "requestType": "Sick Leave"
+                },
+				{
+                    "requestEndDate": "04/2/2022",
+                    "requestStartDate": "04/12/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Personal Time"
                 }
             ]
         },
@@ -233,8 +239,71 @@
             "hr": false,
             "id": 1313,
             "lastname": "Campos",
-            "middlename": "A",
+            "middlename": "C",
             "phone": "8975462147",
+            "timesheets": [
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 8,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 9,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-24"
+                }
+            ],
             "workRequests": [
                 {
                     "requestEndDate": "08/26/2021",
@@ -245,6 +314,12 @@
                 {
                     "requestEndDate": "12/06/2022",
                     "requestStartDate": "12/01/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Vacation"
+                }, 
+				{
+                    "requestEndDate": "08/18/2022",
+                    "requestStartDate": "08/20/2022",
                     "requestStatus": "PENDING",
                     "requestType": "Vacation"
                 }

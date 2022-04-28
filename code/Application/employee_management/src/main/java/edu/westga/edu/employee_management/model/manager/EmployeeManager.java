@@ -1,7 +1,9 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 
 /**
  * Employee manager class
@@ -191,6 +193,7 @@ public class EmployeeManager {
 			return this.profiles.remove(newProfile);
 		}
 	}
+<<<<<<< HEAD:code/Application/employee_management/src/main/java/edu/westga/edu/employee_management/model/EmployeeManager.java
 	
 	/**
 	 * Get the profile with the specified id
@@ -202,6 +205,15 @@ public class EmployeeManager {
 	 * @param id the id of the profile
 	 * 
 	 * @return the profile specified by the id
+=======
+
+	/**
+	 * Gets the EmployeeProfile associated with the given id
+	 * 
+	 * @precondition id > 0
+	 * @postcondition none
+	 * 
+>>>>>>> c81079f6b986aa53ccd2187b7ae49321a3eb5560:code/Application/employee_management/src/main/java/edu/westga/edu/employee_management/model/manager/EmployeeManager.java
 	 */
 	public EmployeeProfile getProfile(int id) {
 		if (id < 0) {

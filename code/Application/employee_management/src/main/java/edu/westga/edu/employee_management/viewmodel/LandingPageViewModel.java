@@ -9,10 +9,10 @@ import java.util.Map;
 
 import edu.westga.edu.employee_management.model.DaySheet;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.model.PayPeriod;
-import edu.westga.edu.employee_management.model.RequestManager;
 import edu.westga.edu.employee_management.model.TimeSheet;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
@@ -25,6 +25,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 
+/**
+ * Manages data for LandingPageViewModel object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class LandingPageViewModel {
 
 	public static final int DATE_COL_INDEX = 0;

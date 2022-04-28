@@ -9,7 +9,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -27,6 +27,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an LandingPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class LandingPageController {
 	
 	private LandingPageViewModel viewModel;

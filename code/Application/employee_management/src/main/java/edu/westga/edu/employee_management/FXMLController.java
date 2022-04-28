@@ -4,9 +4,7 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.controller.LandingPageController;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 import edu.westga.edu.employee_management.viewmodel.LoginPageViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an FXMLController
+ * 
+ * @author Team 3
+ * @version Sprint 2
+ */
 public class FXMLController {
 	private LoginPageViewModel viewModel;
 	private EmployeeRequestManager requestManager;

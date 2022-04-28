@@ -1,11 +1,16 @@
 package edu.westga.edu.employee_management.viewmodel;
 
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.UserLogin;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * Manages data for LoginPageViewModel object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class LoginPageViewModel {
 
 	private StringProperty incorrectCredentialsMessageProperty;
@@ -25,8 +30,6 @@ public class LoginPageViewModel {
 		this.incorrectCredentialsMessageProperty = new SimpleStringProperty();
 		this.passwordProperty = new SimpleStringProperty();
 		this.usernameProperty = new SimpleStringProperty();
-
-		EmployeeManager manager = EmployeeManager.getInstance();
 	}
 
 	/**

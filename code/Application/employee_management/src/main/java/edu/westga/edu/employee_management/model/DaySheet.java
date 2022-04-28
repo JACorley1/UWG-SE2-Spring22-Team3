@@ -10,6 +10,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Manages the data for a DaySheet object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class DaySheet {
 
 	private static final String TIME_CANNOT_BE_NULL = "Time cannot be null";

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import edu.westga.edu.employee_management.model.PythonServer;
+import edu.westga.edu.employee_management.model.server_communication.PythonServer;
 
 class TestServerRun {
 	private static final String SERVER_PATH = "../../server/main.py";

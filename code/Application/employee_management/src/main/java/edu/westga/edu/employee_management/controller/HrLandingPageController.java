@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +19,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 
+/**
+ * Manages the data for an HrLandingPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class HrLandingPageController {
 
 	@FXML
