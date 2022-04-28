@@ -31,10 +31,7 @@
             <ToggleGroup fx:id="type" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="normalEmployeeRadioBtn" layoutX="434.0" layoutY="553.0" mnemonicParsing="false" text="Normal Employee">
-         <toggleGroup>
-            <ToggleGroup fx:id="Type" />
-         </toggleGroup></RadioButton>
+      <RadioButton fx:id="normalEmployeeRadioBtn" layoutX="434.0" layoutY="553.0" mnemonicParsing="false" text="Normal Employee" toggleGroup="$type" />
       <Button fx:id="newEmployeeBtn" layoutX="28.0" layoutY="585.0" mnemonicParsing="false" onAction="#hnadleNewEmployee" prefHeight="25.0" prefWidth="107.0" text="Create Employee" />
       <Button fx:id="removeEmployeeBtn" layoutX="155.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleRemoveEmpoyee" prefHeight="25.0" prefWidth="116.0" text="Remove Employee" />
       <Button fx:id="editEmployeesInfBtn" layoutX="291.0" layoutY="585.0" mnemonicParsing="false" onAction="#handleEditEmployeesInfo" prefHeight="25.0" prefWidth="130.0" text="Edit Employee Info." />
