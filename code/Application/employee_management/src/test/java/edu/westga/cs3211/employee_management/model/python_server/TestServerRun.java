@@ -15,9 +15,10 @@ class TestServerRun {
 	void testServerRun() {
 		PythonServer server = new PythonServer(SERVER_PATH);
 		server.start();
+		boolean serverRan = server.isAlive();
 		this.waitTest();
 
-		boolean serverRan = server.isAlive();
+		
 		server.exit();
 
 		this.waitTest();
