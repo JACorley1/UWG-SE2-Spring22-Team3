@@ -23,7 +23,7 @@ class TestConstructor {
 						() -> assertEquals(profile.getID(), Integer.valueOf(viewmodel.getIdProperty().get())),
 						() -> assertEquals(profile.getMiddleName(), viewmodel.getMiddleNameProperty().get()),
 						() -> assertEquals(profile.isHR(), viewmodel.getHrViewButtonVisibleProperty().get()),
-						() -> assertFalse(viewmodel.getClockInDisabledProperty().get()),
+						() -> assertTrue(viewmodel.getClockInDisabledProperty().get()),
 						() -> assertTrue(viewmodel.getClockOutDisabledProperty().get()),
 						() -> assertEquals(profile.getPhone(), viewmodel.getPhoneProperty().get()));
 	}

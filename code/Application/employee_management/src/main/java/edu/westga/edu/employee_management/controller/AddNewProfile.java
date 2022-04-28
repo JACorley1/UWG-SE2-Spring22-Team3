@@ -4,19 +4,15 @@ import edu.westga.edu.employee_management.model.manager.EmployeeManager;
 import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-/**
- * Manages the data for an AddNewProfile controller
- * 
- * @author Team 3
- * @version Sprint 2
- */
 public class AddNewProfile {
 	@FXML
 	private TextField idTextField;
@@ -58,12 +54,13 @@ public class AddNewProfile {
 	
 	@FXML
 	void handleSaveBtn(ActionEvent event) {
-		int idValue = Integer.valueOf(this.idTextField.getText());
-		String positiveMessage = "The profile was added to the system!!, You can add another profile or close this window";
-		String negativeMessage = "The profile was not added to the system, Check the information entered";		
+		
+		String positiveMessage = "The profile was added to the system!!";
+		String negativeMessage = "The profile was not added to the system, Check your inputs and try again (ID and phone must numbers";		
 		boolean result;
 		
 		try {
+			int idValue = Integer.valueOf(this.idTextField.getText());
 			result = manager.addNewEmployee(idValue, this.firstNameTextField.getText(),
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
 					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
@@ -109,6 +106,7 @@ public class AddNewProfile {
 
 			alert.showAndWait();
 			this.setAllFieldsEmpty();
+			this.closeWindow(event);
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("FATAL!");
@@ -128,5 +126,10 @@ public class AddNewProfile {
 		this.phoneTextField.setText("");
 		this.idTextField.setText("");
 		this.passwordTextField.setText("");
+	}
+	
+	private void closeWindow(ActionEvent event) {
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.close();
 	}
 }
