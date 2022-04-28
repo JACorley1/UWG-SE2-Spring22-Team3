@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
-import edu.westga.edu.employee_management.model.Client;
-import edu.westga.edu.employee_management.model.PythonServer;
 import edu.westga.edu.employee_management.model.RequestType;
+import edu.westga.edu.employee_management.model.server_communication.Client;
+import edu.westga.edu.employee_management.model.server_communication.PythonServer;
 
 class TestServerRequest {
 	private static final String SERVER_PATH = "../../server/main.py";

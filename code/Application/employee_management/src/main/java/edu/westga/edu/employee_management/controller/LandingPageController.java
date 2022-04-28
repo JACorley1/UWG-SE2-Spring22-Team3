@@ -9,7 +9,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;

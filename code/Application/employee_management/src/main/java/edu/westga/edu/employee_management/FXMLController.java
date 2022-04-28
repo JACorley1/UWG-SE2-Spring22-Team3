@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.controller.LandingPageController;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 import edu.westga.edu.employee_management.viewmodel.LoginPageViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

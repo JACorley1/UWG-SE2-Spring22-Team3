@@ -1,10 +1,14 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.manager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.RequestType;
+import edu.westga.edu.employee_management.model.server_communication.Client;
 
 /**
  * Manages the data for the RequestManager object

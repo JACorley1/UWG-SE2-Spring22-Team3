@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import edu.westga.edu.employee_management.model.PythonServer;
+import edu.westga.edu.employee_management.model.server_communication.PythonServer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

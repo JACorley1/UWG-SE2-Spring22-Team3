@@ -1,5 +1,7 @@
 package edu.westga.edu.employee_management.model;
 
+import edu.westga.edu.employee_management.model.manager.RequestManager;
+
 /**
  * Manages data for UserLogin object
  * 

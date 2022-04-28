@@ -1,4 +1,4 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.server_communication;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

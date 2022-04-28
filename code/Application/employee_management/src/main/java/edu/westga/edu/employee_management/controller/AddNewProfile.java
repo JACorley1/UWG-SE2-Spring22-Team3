@@ -1,7 +1,7 @@
 package edu.westga.edu.employee_management.controller;
 
-import edu.westga.edu.employee_management.model.EmployeeManager;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

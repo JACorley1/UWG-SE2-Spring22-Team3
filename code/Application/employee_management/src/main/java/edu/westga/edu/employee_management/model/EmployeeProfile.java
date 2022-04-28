@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+
 /**
  * Employee Profile Class
  * 

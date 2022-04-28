@@ -4,9 +4,9 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,10 +1,10 @@
 package edu.westga.edu.employee_management.controller;
 
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,7 +1,9 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 
 /**
  * Employee manager class

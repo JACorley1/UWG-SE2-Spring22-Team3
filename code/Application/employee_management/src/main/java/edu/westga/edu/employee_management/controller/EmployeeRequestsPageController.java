@@ -5,8 +5,7 @@ import java.io.IOException;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

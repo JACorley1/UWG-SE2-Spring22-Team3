@@ -1,9 +1,11 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.server_communication;
 
 import org.json.JSONObject;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
+
+import edu.westga.edu.employee_management.model.RequestType;
 
 /**
  * Manages the data for a Response object

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import edu.westga.edu.employee_management.model.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
 
 class TestRemoveProfile {
 	@Test
