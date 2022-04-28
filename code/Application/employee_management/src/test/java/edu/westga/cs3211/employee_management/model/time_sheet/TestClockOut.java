@@ -34,4 +34,15 @@ class TestClockOut {
 			assertFalse(sheet.clockOut(time));
 		});
 	}
+
+	@Test
+	void testInvalidClockOutBeforeClockIn() {
+		LocalDate period = LocalDate.now();
+		TimeSheet sheet = new TimeSheet(period);
+		LocalDateTime time = period.minusDays(1).atStartOfDay();
+		sheet.clockIn(time);
+		assertAll(() -> {
+			assertFalse(sheet.clockOut(time));
+		});
+	}
 }

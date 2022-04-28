@@ -124,6 +124,18 @@ public class TimeSheet {
 	}
 
 	/**
+	 * Gets the time sheet's start date
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the payPeriodStart
+	 */
+	public LocalDate getStartDate() {
+		return this.payPeriodStart;
+	}
+
+	/**
 	 * Checks if there is a current clock in without a clock out
 	 * 
 	 * Preconditions: none Postconditions: none

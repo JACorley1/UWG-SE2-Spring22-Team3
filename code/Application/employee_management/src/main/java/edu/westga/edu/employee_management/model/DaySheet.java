@@ -125,6 +125,18 @@ public class DaySheet {
 	}
 
 	/**
+	 * Gets the dayIndex
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the dayIndex
+	 */
+	public int getDayIndex() {
+		return this.dayIndex;
+	}
+
+	/**
 	 * Adds given time to DaySheet
 	 * 
 	 * Preconditions: time != null Postconditions: getTimes.size() ==

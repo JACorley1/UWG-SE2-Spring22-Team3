@@ -22,7 +22,6 @@ class _EmployeeProfile:
     PHONE = "phone"
     HR = "hr"
     TIMESHEET = "timesheets"
-    WORKREQUESTS = "workRequests"
 
     profileSchema = {
         "type": "object",
@@ -51,14 +50,6 @@ class _EmployeeProfile:
                                                 "clockout": {"type": "string"}
                                     }}}
                         }}}
-            }}},
-            "workRequests": {"type": "array",
-                "items": {"type": "object",
-                    "properties": {
-                        "requestType": {"type": "string"},
-                        "requestStartDate": {"type": "string"},
-                        "requestEndDate": {"type": "string"},
-                        "requestStatus": {"type": "string"},
             }}}
         },
     }

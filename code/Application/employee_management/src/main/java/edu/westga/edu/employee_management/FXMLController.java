@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.controller.LandingPageController;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.EmployeeRequest;
+import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.RequestManager;
 import edu.westga.edu.employee_management.viewmodel.LoginPageViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +19,7 @@ import javafx.stage.Stage;
 
 public class FXMLController {
 	private LoginPageViewModel viewModel;
+	private EmployeeRequestManager requestManager;
 	
 	@FXML
     private Text incorrectCredentialsMessage;
@@ -29,7 +33,9 @@ public class FXMLController {
 	@FXML
 	private void btnClickAction(ActionEvent event) {
 		EmployeeProfile user = this.viewModel.verifyLoginInfo();
+		
 		if (user != null) {
+			this.requestManager.setActiveEmployee(user);
 			this.openLandingPage(user);
 		}
 	}
@@ -66,6 +72,8 @@ public class FXMLController {
 		this.viewModel.getPasswordProperty().bind(this.passwordTxt.textProperty());
 		this.viewModel.getUsernameProperty().bind(this.usernameTxt.textProperty());
 		this.incorrectCredentialsMessage.textProperty().bind(this.viewModel.getIncorrectCredentialsMessageProperty());
+		
+		this.requestManager = EmployeeRequestManager.getInstance();
 	}
 
 }

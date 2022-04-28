@@ -1,6 +1,7 @@
 package edu.westga.cs3211.employee_management.model.pay_period;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 
@@ -11,14 +12,26 @@ import edu.westga.edu.employee_management.model.PayPeriod;
 class TestGetEndDate {
 
 	@Test
-	void testNullDate() {
-		assertThrows(IllegalArgumentException.class, () -> PayPeriod.getEndDate(null));
+	void testInvalidDateNull() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			PayPeriod.getEndDate(null);
+		});
 	}
-	
+
 	@Test
-	void testValidDate() {
-		PayPeriod period = new PayPeriod(LocalDate.of(2022, 4, 25));
-		assertEquals(LocalDate.of(2022, 5, 7), period.getEndDate());
+	void testDateIsStartDate() {
+		LocalDate startDate = LocalDate.of(2022, 04, 10);
+		LocalDate expected = LocalDate.of(2022, 04, 23);
+		LocalDate actual = PayPeriod.getEndDate(startDate);
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	void testDateIsEndDate() {
+		LocalDate endDate = LocalDate.of(2022, 04, 23);
+		LocalDate expected = LocalDate.of(2022, 04, 23);
+		LocalDate actual = PayPeriod.getEndDate(endDate);
+		assertEquals(expected, actual);
 	}
 
 }

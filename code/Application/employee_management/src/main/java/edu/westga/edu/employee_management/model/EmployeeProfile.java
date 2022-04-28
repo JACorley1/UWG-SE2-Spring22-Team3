@@ -2,7 +2,9 @@ package edu.westga.edu.employee_management.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -40,6 +42,7 @@ public class EmployeeProfile {
 	private String password;
 	private boolean hr;
 	private Map<LocalDate, TimeSheet> timesheets;
+	private List<EmployeeRequest> workRequests;
 
 	/**
 	 * The Employee Profile constructor
@@ -74,6 +77,7 @@ public class EmployeeProfile {
 		this.setPassword(password);
 		this.setUserName(userName);
 		this.timesheets = new HashMap<LocalDate, TimeSheet>();
+		this.workRequests = new ArrayList<EmployeeRequest>();
 	}
 
 	/**
@@ -366,6 +370,30 @@ public class EmployeeProfile {
 	}
 
 	/**
+	 * Returns employee's list of work requests
+	 *
+	 * @precondition none
+	 * @postcondition none
+	 *
+	 * @return employee work requests
+	 */
+	public List<EmployeeRequest> getWorkRequests() {
+		return this.workRequests;
+	}
+
+	/**
+	 * Sets employee list of requests
+	 *
+	 * @precondition workRequests != null
+	 * @postcondition this.getWorkRequests == workRequests
+	 *
+	 * @param workRequests the list of all employee requests
+	 */
+	public void setWorkRequests(List<EmployeeRequest> workRequests) {
+		this.workRequests = workRequests;
+	}
+
+	/**
 	 * Converts profile to jsonObject
 	 * 
 	 * Preconditions: none
@@ -377,11 +405,16 @@ public class EmployeeProfile {
 		JSONObject json = new JSONObject();
 
 		JSONArray timesheets = new JSONArray();
+		JSONArray workRequests = new JSONArray();
 
 		for (TimeSheet sheet : this.timesheets.values()) {
 			timesheets.put(sheet.toJson());
 		}
-
+		
+		for (EmployeeRequest request : this.workRequests) {
+			workRequests.put(request.toJson());
+		}
+		
 		json.put("__profile__", true);
 		json.put("id", this.id);
 		json.put("firstname", this.firstName);
@@ -391,6 +424,7 @@ public class EmployeeProfile {
 		json.put("phone", this.phone);
 		json.put("hr", this.hr);
 		json.put("timesheets", timesheets);
+		json.put("workRequests", workRequests);
 
 		return json;
 	}
@@ -405,6 +439,8 @@ public class EmployeeProfile {
 	 * @return the employee profile
 	 */
 	public static EmployeeProfile fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
+		
 		String userName = json.getString("username");
 		String password = json.getString("password");
 		
@@ -420,6 +456,7 @@ public class EmployeeProfile {
 		EmployeeProfile employee = new EmployeeProfile(id, firstName, middleName, lastName, email, phone, hr, userName, password);
 		Map<LocalDate, TimeSheet> timesheets = new HashMap<LocalDate, TimeSheet>();
 		JSONArray sheets = profile.optJSONArray("timesheets");
+		JSONArray requests = profile.optJSONArray("workRequests");
 
 		if (sheets != null) {
 			for (Object obj : sheets) {
@@ -430,6 +467,22 @@ public class EmployeeProfile {
 			}
 		
 			employee.setTime(timesheets);
+		}
+		
+		if (requests != null) {
+			for (Object obj : requests) {
+				JSONObject request = (JSONObject) obj;
+				
+				String type = request.getString("requestType");
+				String startDate = request.getString("requestStartDate");
+				String endDate = request.getString("requestEndDate");
+				String status = request.getString("requestStatus");
+				
+				EmployeeRequest workRequest = new EmployeeRequest(employee, type, startDate, endDate, status);
+				
+				requestManager.addEmployeeRequest(workRequest);
+				employee.workRequests.add(workRequest);
+			}
 		}
 
 		return employee;
