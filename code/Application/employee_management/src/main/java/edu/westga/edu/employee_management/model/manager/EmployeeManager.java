@@ -193,15 +193,22 @@ public class EmployeeManager {
 			return this.profiles.remove(newProfile);
 		}
 	}
-
+	
 	/**
-	 * Gets the EmployeeProfile associated with the given id
+	 * Get the profile with the specified id
 	 * 
-	 * @precondition id > 0
+	 * @precondition id >= 0
+	 * 
 	 * @postcondition none
 	 * 
+	 * @param id the id of the profile
+	 * 
+	 * @return the profile specified by the id
 	 */
 	public EmployeeProfile getProfile(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException(CANNOT_BE_NULL_OR_EMPTY);
+		}
 		EmployeeProfile profile = null;
 
 		for (EmployeeProfile current : this.profiles) {
