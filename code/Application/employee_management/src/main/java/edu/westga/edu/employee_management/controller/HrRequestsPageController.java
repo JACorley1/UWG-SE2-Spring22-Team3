@@ -102,7 +102,10 @@ public class HrRequestsPageController {
 
 		this.confirmedRequestsListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
+					
 					if (newValue != null) {
+						this.pendingRequestsListView.getSelectionModel().clearSelection();
+						
 						this.requestTypeField.setText(newValue.getType());
 						this.startDateField.setText(newValue.getStartDate());
 						this.endDateField.setText(newValue.getEndDate());
@@ -121,6 +124,8 @@ public class HrRequestsPageController {
 		this.pendingRequestsListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
 					if (newValue != null) {
+						this.confirmedRequestsListView.getSelectionModel().clearSelection();
+						
 						this.requestTypeField.setText(newValue.getType());
 						this.startDateField.setText(newValue.getStartDate());
 						this.endDateField.setText(newValue.getEndDate());
