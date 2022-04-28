@@ -171,16 +171,16 @@ class _User:
 
 
 class LocalCredentialsManager (CredentialsManager):
-    DATA_FILE = 'data.json'
 
     ''' Create a new credential manager with default user credentials
+        saves to given file
 
      @precondition none
      @postcondition default credentials exist
     '''
-
-    def __init__(self):
+    def __init__(self, file: str = "data.json"):
         self._systemCredentials: dict[str, _User] = {}
+        self.dataFile = file
         self.loadData()
 
     ''' Saves data to data file from system credentials 
@@ -189,9 +189,9 @@ class LocalCredentialsManager (CredentialsManager):
      @postcondition
     '''
     def saveData(self):
-        file = open(LocalCredentialsManager.DATA_FILE, 'w')
+        file = open(self.dataFile, 'w')
         json.dump(self._systemCredentials, file, default=_User.encode_user, indent=4, sort_keys=True)
-        file.close
+        file.close()
 
     ''' Loads data from data file to system credentials 
 
@@ -199,9 +199,12 @@ class LocalCredentialsManager (CredentialsManager):
      @postcondition
     '''
     def loadData(self):
-        with open(LocalCredentialsManager.DATA_FILE) as user_data:
+        if not os.path.exists(self.dataFile):
+            return
+        with open(self.dataFile) as user_data:
             data = user_data.read()
             self._systemCredentials = json.loads(data, object_hook=_User.decode_user) 
+            user_data.close()
 
     ''' Add a new user with the specified credentials to the system
      
@@ -263,27 +266,6 @@ class LocalCredentialsManager (CredentialsManager):
         self.saveData()
         return True
 
-    ''' Update an existing user with the specified credentials in the system
-     
-     @precondition username != null && password != null &&
-                     getUserNames().contains(username)
-     @postcondition getUserNames().contains(systemName) &&
-                      getUsername(username).equals(username) &&
-                      getPassword(username).equals(password)
-     
-     @param username username for the user
-     @param password password for the user
-     
-     @return true  if user’s password updated successfully
-               false otherwise
-    '''
-    def updateUserPassword(self, username: str, password: str) -> bool:
-        if (username not in self._systemCredentials):
-            return False
-        credentialsSet = _User(username, password)
-        self._systemCredentials[username] = credentialsSet
-        return True
-
     ''' Update an existing user with the specified profile
      
      @precondition username != null && profile != null &&
@@ -304,24 +286,11 @@ class LocalCredentialsManager (CredentialsManager):
         self.saveData()
         return True
 
-    ''' Retrieves a list of the names for all users with credentials in the password manager
-     
-     @precondition none
-     @postcondition none
-     
-     @return list of the names for all users with credentials in the password manager
-    '''
-
-    def getUserNames(self) -> typing.List[str]:
-        userNames = []
-
-        for userName in self._systemCredentials:
-            userNames.append(userName)
-
-        return userNames
-
-    def getUser(self, username: str) -> _User:
-        return json.dumps(self._systemCredentials[username], default=_User.encode_user)
+    def getUser(self, username: str) -> str:
+        if username in self._systemCredentials:
+            return json.dumps(self._systemCredentials[username], default=_User.encode_user)
+        else:
+            return None
     
     def getProfiles(self) -> str:
         profiles = []
@@ -330,3 +299,88 @@ class LocalCredentialsManager (CredentialsManager):
             profiles.append(profile)
 
         return json.dumps(profiles, default=_User.encode_user)
+
+
+########################################################################
+
+import unittest
+
+'''
+Test Class for _LocalCredentialsManager
+
+@author Team Three
+@version Spring 2022
+'''
+class Test_LocalCredentialsManager(unittest.TestCase):
+    profile = {"__profile__": True,
+            "id": 1,
+            "firstname": "test fn",
+            "middlename": "test mn",
+            "lastname": "test ln",
+            "email": "test e",
+            "phone": "test p",
+            "hr": True}
+    testUser = {"username" : "test", "password" : "test", "profile" : profile}
+
+    def tearDown(self) -> None:
+        if os.path.exists("testdata.json"):
+            os.remove("testdata.json")
+
+    def test_addUser(self):
+        manager = LocalCredentialsManager("testdata.json")
+        result = manager.addUser("test add", "test add", self.profile)
+        
+        self.assertTrue(result)
+
+    def test_getPassword(self):
+        manager = LocalCredentialsManager("testdata.json")
+        manager.addUser("test", "test", self.testUser)
+        result = manager.getUserPassword("test")
+        
+        self.assertEqual(result, "test", "checking result")
+    
+    def test_updateProfile(self):
+        manager = LocalCredentialsManager("testdata.json")
+        manager.addUser("test", "test", self.testUser)
+        profile = {"__profile__": True,
+            "id": 1,
+            "firstname": "test fn",
+            "middlename": "test mn",
+            "lastname": "test ln",
+            "email": "test e",
+            "phone": "test p",
+            "hr": "test hr"}
+        result = manager.updateUserProfile("test", json.dumps(profile))
+
+        self.assertTrue(result)
+
+    def test_getProfiles(self):
+        manager = LocalCredentialsManager("testdata.json")
+        manager.addUser("test", "test", self.testUser)
+        
+        result = manager.getProfiles()
+        
+        self.assertIsNotNone(result)
+    
+    def test_removeUser(self):
+        manager = LocalCredentialsManager("testdata.json")
+        manager.addUser("test", "test", self.testUser)
+        
+        result = manager.removeUser("test")
+        
+        self.assertTrue(result)
+        self.assertFalse(manager.getUser("result"))
+
+'''
+Test Class for _User
+
+@author Team Three
+@version Spring 2022
+'''
+class Test_User(unittest.TestCase):
+    def test_initialization(self):
+        user = _User("username", "password", "profile")
+
+        self.assertEqual("username", user.getUsername())
+        self.assertEqual("password", user.getPassword())
+        self.assertEqual("profile", user.getProfile())
