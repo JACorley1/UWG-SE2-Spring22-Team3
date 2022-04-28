@@ -5,11 +5,16 @@ import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
 
+/**
+ * Manages the data for a Response object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class Client extends Thread {
 
 	private RequestType type;
 	private String request;
-	private String response;
 	private static Context context = ZMQ.context(1);
 	private static Socket socket = context.socket(ZMQ.REQ);
 	private boolean responseRecevied;

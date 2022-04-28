@@ -19,6 +19,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 
+/**
+ * Manages the data for an HrLandingPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class HrLandingPageController {
 
 	@FXML

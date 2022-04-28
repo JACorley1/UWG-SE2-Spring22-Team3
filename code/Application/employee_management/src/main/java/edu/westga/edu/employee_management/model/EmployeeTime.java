@@ -146,6 +146,14 @@ public class EmployeeTime implements Comparable<EmployeeTime> {
 		return hours;
 	}
 
+	/**
+	 * Compares employee times
+	 * 
+	 * Preconditions: none 
+	 * Postconditions: none
+	 *
+	 * @return comparison
+	 */
 	@Override
 	public int compareTo(EmployeeTime other) {
 		return this.clockInTime.compareTo(other.clockInTime);

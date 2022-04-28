@@ -1,5 +1,11 @@
 package edu.westga.edu.employee_management.model;
 
+/**
+ * Manages data for UserLogin object
+ * 
+ * @author Destiny Harper
+ * @version Sprint 1
+ */
 public class UserLogin {
 	private static final String PASSWORD_CANNOT_BE_NULL = "Password cannot be null.";
 	private static final String USERNAME_CANNOT_BE_NULL = "Username cannot be null.";

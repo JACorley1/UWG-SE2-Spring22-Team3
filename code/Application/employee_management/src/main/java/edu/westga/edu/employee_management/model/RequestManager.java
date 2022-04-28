@@ -6,6 +6,12 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Manages the data for the RequestManager object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class RequestManager {
 
 	/**

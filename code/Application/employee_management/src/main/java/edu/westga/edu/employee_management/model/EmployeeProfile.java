@@ -305,6 +305,14 @@ public class EmployeeProfile {
 		return timeSheet;
 	}
 
+	/**
+	 * Returns the string representation of the EmployeeProfile
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return string representation of the EmployeeProfile
+	 */
 	@Override
 	public String toString() {
 		String type = "No";

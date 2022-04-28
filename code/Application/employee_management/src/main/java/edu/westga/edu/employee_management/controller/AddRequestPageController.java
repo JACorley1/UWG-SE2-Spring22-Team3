@@ -13,6 +13,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an AddRequestPageController
+ * 
+ * @author Team 3
+ * @version Sprint 2
+ */
 public class AddRequestPageController {
 
     @FXML
@@ -42,10 +48,24 @@ public class AddRequestPageController {
     
     private EmployeeRequestManager requestManager;
     
+    /**
+     * Creates a new instance of an AddRequestPageController object
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
     public AddRequestPageController() {
     	this.requestManager = EmployeeRequestManager.getInstance();
     }
     
+    /**
+     * Initializes instance variables for the class
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
     @FXML
     public void initialize() {
     	ObservableList<String> requestTypeOptions = FXCollections.observableArrayList("Vacation", "Sick Leave", "Personal Time");

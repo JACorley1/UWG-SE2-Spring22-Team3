@@ -17,6 +17,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
+/**
+ * Manages the data for an EmployeeRequestsPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class EmployeeRequestsPageController {
 
 	@FXML
@@ -64,6 +70,13 @@ public class EmployeeRequestsPageController {
 		this.requestManager = EmployeeRequestManager.getInstance();
 	}
 
+	/**
+     * Initializes instance variables for the class
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
 	@FXML
     public void initialize() {
 		this.requestManager.getActiveEmployee().getWorkRequests().clear();

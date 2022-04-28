@@ -17,6 +17,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Manages the data for an HrRequestsPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class HrRequestsPageController {
 	@FXML
 	private ListView<EmployeeRequest> pendingRequestsListView;
@@ -79,6 +85,13 @@ public class HrRequestsPageController {
 		
 	}
 
+	/**
+     * Initializes instance variables for the class
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
 	@FXML
 	public void initialize() {
 		this.employeeManager = EmployeeManager.getInstance();

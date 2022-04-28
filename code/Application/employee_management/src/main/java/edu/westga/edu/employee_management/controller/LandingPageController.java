@@ -27,6 +27,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an LandingPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class LandingPageController {
 	
 	private LandingPageViewModel viewModel;

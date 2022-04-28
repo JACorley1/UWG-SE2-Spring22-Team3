@@ -25,6 +25,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 
+/**
+ * Manages data for LandingPageViewModel object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class LandingPageViewModel {
 
 	public static final int DATE_COL_INDEX = 0;

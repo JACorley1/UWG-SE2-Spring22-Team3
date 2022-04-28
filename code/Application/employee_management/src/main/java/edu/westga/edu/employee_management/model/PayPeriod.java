@@ -178,6 +178,14 @@ public class PayPeriod {
 		return dates;
 	}
 
+	/**
+	 * Returns the string representation of the PayPeriod
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the string representation of the PayPeriod
+	 */
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd");

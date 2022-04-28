@@ -192,6 +192,13 @@ public class EmployeeManager {
 		}
 	}
 
+	/**
+	 * Gets the EmployeeProfile associated with the given id
+	 * 
+	 * @precondition id > 0
+	 * @postcondition none
+	 * 
+	 */
 	public EmployeeProfile getProfile(int id) {
 		EmployeeProfile profile = null;
 

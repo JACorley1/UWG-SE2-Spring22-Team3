@@ -14,6 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an DailyTimePageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class DailyTimePageController {
 
 	private Stage stage;

@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * Manages the data for the Employee Request Manager object
  * 
- * @author dharpe11
+ * @author Destiny Harper 
+ * @version Sprint 2
  *
  */
 public class EmployeeRequestManager {
@@ -39,10 +40,24 @@ public class EmployeeRequestManager {
 		this.allEmployeesPendingRequests = new ArrayList<EmployeeRequest>();
 	}
 
+	/**
+	 * Gets the active employee
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 */
 	public EmployeeProfile getActiveEmployee() {
 		return activeEmployee;
 	}
 
+	/**
+	 * Sets the active employee
+	 * 
+	 * @precondition activeEmployee != null
+	 * @postcondition this.getActiveEmployee() == activeEmployee
+	 * 
+	 */
 	public void setActiveEmployee(EmployeeProfile activeEmployee) {
 		this.activeEmployee = activeEmployee;
 	}
@@ -86,26 +101,70 @@ public class EmployeeRequestManager {
 		return this.pendingRequests;
 	}
 
+	/**
+	 * Sets the confirmed requests
+	 * 
+	 * @precondition confirmedRequests != null
+	 * @postcondition this.getConfirmedRequests() == confirmedRequests
+	 * 
+	 */
 	public void setConfirmedRequests(List<EmployeeRequest> confirmedRequests) {
 		this.confirmedRequests = confirmedRequests;
 	}
 
+	/**
+	 * Sets the pending requests
+	 * 
+	 * @precondition pendingRequests != null
+	 * @postcondition this.getPendingRequests() == pendiongRequests
+	 * 
+	 */
 	public void setPendingRequests(List<EmployeeRequest> pendingRequests) {
 		this.pendingRequests = pendingRequests;
 	}
 
+	/**
+	 * Gets the list of all employees confirmed requests
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the list of all confirmed employee requests
+	 */
 	public List<EmployeeRequest> getAllEmployeesConfirmedRequests() {
 		return this.allEmployeesConfirmedRequests;
 	}
 
+	/**
+	 * Sets the confirmed requests for all employees
+	 * 
+	 * @precondition allEmployeesConfirmedRequests != null
+	 * @postcondition this.getAllEmployeesConfirmedRequests() == allEmployeesConfirmedRequests
+	 * 
+	 */
 	public void setAllEmployeesConfirmedRequests(List<EmployeeRequest> allEmployeesConfirmedRequests) {
 		this.allEmployeesConfirmedRequests = allEmployeesConfirmedRequests;
 	}
 
+	/**
+	 * Gets the list of all employees pending requests
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return the list of all pending employee requests
+	 */
 	public List<EmployeeRequest> getAllEmployeesPendingRequests() {
 		return this.allEmployeesPendingRequests;
 	}
 
+	/**
+	 * Sets the pending requests for all employees
+	 * 
+	 * @precondition allEmployeesPendingRequests != null
+	 * @postcondition this.getAllEmployeesPendingRequests() == allEmployeesPendingRequests
+	 * 
+	 */
 	public void setAllEmployeesPendingRequests(List<EmployeeRequest> allEmployeesPendingRequests) {
 		this.allEmployeesPendingRequests = allEmployeesPendingRequests;
 	}

@@ -11,6 +11,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
+/**
+ * Manages the data for an AddNewProfile controller
+ * 
+ * @author Team 3
+ * @version Sprint 2
+ */
 public class AddNewProfile {
 	@FXML
 	private TextField idTextField;
