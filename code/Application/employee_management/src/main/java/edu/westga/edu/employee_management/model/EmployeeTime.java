@@ -1,7 +1,11 @@
 package edu.westga.edu.employee_management.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Employee Time Class
@@ -142,9 +146,61 @@ public class EmployeeTime implements Comparable<EmployeeTime> {
 		return hours;
 	}
 
+	/**
+	 * Compares employee times
+	 * 
+	 * Preconditions: none 
+	 * Postconditions: none
+	 *
+	 * @return comparison
+	 */
 	@Override
 	public int compareTo(EmployeeTime other) {
 		return this.clockInTime.compareTo(other.clockInTime);
+	}
+
+	/**
+	 * Converts object to json
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the object as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		String clockout = this.clockOutTime == null ? null : this.clockOutTime.toString();
+
+		json.put("dayIndex", this.dayIndex);
+		json.put("clockin", this.clockInTime.toString());
+		json.putOpt("clockout", clockout);
+
+		return json;
+	}
+
+	/**
+	 * Converts JSON object into day sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param json the json to convert
+	 * @return the employee profile
+	 */
+	public static EmployeeTime fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		int dayIndex = json.getInt("dayIndex");
+		LocalDateTime clockin = LocalDateTime.parse(json.getString("clockin"));
+
+		EmployeeTime time = new EmployeeTime(dayIndex, clockin);
+
+		String clockoutString = json.optString("clockout");
+
+		if (!clockoutString.isEmpty()) {
+			LocalDateTime clockout = LocalDateTime.parse(clockoutString);
+			time.setClockOutTime(clockout);
+		}
+
+		return time;
 	}
 
 }

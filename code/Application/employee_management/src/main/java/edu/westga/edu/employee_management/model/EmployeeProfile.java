@@ -1,8 +1,17 @@
 package edu.westga.edu.employee_management.model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
 
 /**
  * Employee Profile Class
@@ -35,6 +44,7 @@ public class EmployeeProfile {
 	private String password;
 	private boolean hr;
 	private Map<LocalDate, TimeSheet> timesheets;
+	private List<EmployeeRequest> workRequests;
 
 	/**
 	 * The Employee Profile constructor
@@ -69,6 +79,7 @@ public class EmployeeProfile {
 		this.setPassword(password);
 		this.setUserName(userName);
 		this.timesheets = new HashMap<LocalDate, TimeSheet>();
+		this.workRequests = new ArrayList<EmployeeRequest>();
 	}
 
 	/**
@@ -296,6 +307,14 @@ public class EmployeeProfile {
 		return timeSheet;
 	}
 
+	/**
+	 * Returns the string representation of the EmployeeProfile
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return string representation of the EmployeeProfile
+	 */
 	@Override
 	public String toString() {
 		String type = "No";
@@ -358,6 +377,129 @@ public class EmployeeProfile {
 		}
 		this.userName = userName;
 
+	}
+
+	/**
+	 * Returns employee's list of work requests
+	 *
+	 * @precondition none
+	 * @postcondition none
+	 *
+	 * @return employee work requests
+	 */
+	public List<EmployeeRequest> getWorkRequests() {
+		return this.workRequests;
+	}
+
+	/**
+	 * Sets employee list of requests
+	 *
+	 * @precondition workRequests != null
+	 * @postcondition this.getWorkRequests == workRequests
+	 *
+	 * @param workRequests the list of all employee requests
+	 */
+	public void setWorkRequests(List<EmployeeRequest> workRequests) {
+		this.workRequests = workRequests;
+	}
+
+	/**
+	 * Converts profile to jsonObject
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return profile as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		JSONArray timesheets = new JSONArray();
+		JSONArray workRequests = new JSONArray();
+
+		for (TimeSheet sheet : this.timesheets.values()) {
+			timesheets.put(sheet.toJson());
+		}
+		
+		for (EmployeeRequest request : this.workRequests) {
+			workRequests.put(request.toJson());
+		}
+		
+		json.put("__profile__", true);
+		json.put("id", this.id);
+		json.put("firstname", this.firstName);
+		json.put("middlename", this.middleName);
+		json.put("lastname", this.lastName);
+		json.put("email", this.email);
+		json.put("phone", this.phone);
+		json.put("hr", this.hr);
+		json.put("timesheets", timesheets);
+		json.put("workRequests", workRequests);
+
+		return json;
+	}
+
+	/**
+	 * Converts json object into employee profile
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param json the json to convert
+	 * @return the employee profile
+	 */
+	public static EmployeeProfile fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
+		
+		String userName = json.getString("username");
+		String password = json.getString("password");
+		
+		JSONObject profile = (JSONObject) json.get("profile");
+		int id = profile.getInt("id");
+		String firstName = profile.getString("firstname");
+		String middleName = profile.getString("middlename");
+		String lastName = profile.getString("lastname");
+		String email = profile.getString("email");
+		String phone = profile.getString("phone");
+		boolean hr = profile.getBoolean("hr");
+		
+		EmployeeProfile employee = new EmployeeProfile(id, firstName, middleName, lastName, email, phone, hr, userName, password);
+		Map<LocalDate, TimeSheet> timesheets = new HashMap<LocalDate, TimeSheet>();
+		JSONArray sheets = profile.optJSONArray("timesheets");
+		JSONArray requests = profile.optJSONArray("workRequests");
+
+		if (sheets != null) {
+			for (Object obj : sheets) {
+				JSONObject sheet = (JSONObject) obj;
+				LocalDate startDate = LocalDate.parse(sheet.get("startDate").toString());
+				TimeSheet timesheet = TimeSheet.fromJson(sheet);
+				timesheets.put(startDate, timesheet);
+			}
+		
+			employee.setTime(timesheets);
+		}
+		
+		if (requests != null) {
+			for (Object obj : requests) {
+				JSONObject request = (JSONObject) obj;
+				
+				String type = request.getString("requestType");
+				String startDate = request.getString("requestStartDate");
+				String endDate = request.getString("requestEndDate");
+				String status = request.getString("requestStatus");
+				
+				EmployeeRequest workRequest = new EmployeeRequest(employee, type, startDate, endDate, status);
+				
+				requestManager.addEmployeeRequest(workRequest);
+				employee.workRequests.add(workRequest);
+			}
+		}
+
+		return employee;
+	}
+
+	private void setTime(Map<LocalDate, TimeSheet> timesheets) {
+		this.timesheets = timesheets;
 	}
 
 }

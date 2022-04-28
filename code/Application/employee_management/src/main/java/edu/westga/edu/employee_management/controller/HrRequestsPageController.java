@@ -1,7 +1,10 @@
 package edu.westga.edu.employee_management.controller;
 
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,11 +14,27 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Manages the data for an HrRequestsPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class HrRequestsPageController {
 	@FXML
-	private ListView<EmployeeRequest> listOfRequestsView;
+	private ListView<EmployeeRequest> pendingRequestsListView;
+
+	@FXML
+	private Text pendingRequestsText;
+
+	@FXML
+	private ListView<EmployeeRequest> confirmedRequestsListView;
+
+	@FXML
+	private Text confirmedRequestsText;
 
 	@FXML
 	private TextField requestTypeField;
@@ -42,24 +61,64 @@ public class HrRequestsPageController {
 	private Button submitBtn;
 
 	private EmployeeRequestManager requestManager;
+	private EmployeeManager employeeManager;
 
 	@FXML
 	void handleSubmitBtn(ActionEvent event) {
-		this.listOfRequestsView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+		if (this.pendingRequestsListView.getSelectionModel().getSelectedItem() != null) {
+			this.pendingRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+			this.requestManager.updateRequestsLists(this.pendingRequestsListView.getSelectionModel().getSelectedItem());
+			
+			RequestManager.updateUser(this.pendingRequestsListView.getSelectionModel().getSelectedItem().getEmployee());
+		}
+		else if (this.confirmedRequestsListView.getSelectionModel().getSelectedItem() != null) {
+			this.confirmedRequestsListView.getSelectionModel().getSelectedItem().setStatus(this.setStatus());
+			this.requestManager
+					.updateRequestsLists(this.confirmedRequestsListView.getSelectionModel().getSelectedItem());
+			
+			RequestManager.updateUser(this.confirmedRequestsListView.getSelectionModel().getSelectedItem().getEmployee());
+		}
 
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesPendingRequests()));
+		
+		
 	}
 
+	/**
+     * Initializes instance variables for the class
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
 	@FXML
 	public void initialize() {
+		this.employeeManager = EmployeeManager.getInstance();
 		this.requestManager = EmployeeRequestManager.getInstance();
-		this.listOfRequestsView.setItems(FXCollections.observableList(requestManager.getCurrentRequests()));
-		this.getInformation();
-	}
+		
+		this.requestManager.getAllEmployeesConfirmedRequests().clear();
+		this.requestManager.getAllEmployeesPendingRequests().clear();
+		
+		for (EmployeeProfile employee : this.employeeManager.getProfiles()) {
+			for (EmployeeRequest request : employee.getWorkRequests()) {
+				if (request.getStatus().equals("PENDING")) {
+					this.requestManager.getAllEmployeesPendingRequests().add(request);
+				} else {
+					this.requestManager.getAllEmployeesConfirmedRequests().add(request);
+				}
+			}
+		}
+		
+		this.confirmedRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesConfirmedRequests()));
+		this.pendingRequestsListView.setItems(FXCollections.observableList(requestManager.getAllEmployeesPendingRequests()));
 
-	private void getInformation() {
-		this.listOfRequestsView.getSelectionModel().selectedItemProperty()
+		this.confirmedRequestsListView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
+					
 					if (newValue != null) {
+						this.pendingRequestsListView.getSelectionModel().clearSelection();
+						
 						this.requestTypeField.setText(newValue.getType());
 						this.startDateField.setText(newValue.getStartDate());
 						this.endDateField.setText(newValue.getEndDate());
@@ -74,6 +133,27 @@ public class HrRequestsPageController {
 						}
 					}
 				});
+
+		this.pendingRequestsListView.getSelectionModel().selectedItemProperty()
+				.addListener((observable, oldValue, newValue) -> {
+					if (newValue != null) {
+						this.confirmedRequestsListView.getSelectionModel().clearSelection();
+						
+						this.requestTypeField.setText(newValue.getType());
+						this.startDateField.setText(newValue.getStartDate());
+						this.endDateField.setText(newValue.getEndDate());
+						this.statusField.setText(newValue.getStatus());
+						if (newValue.getStatus() == "APPROVED")
+							this.status.selectToggle(this.approvedRadioBtn);
+						else if (newValue.getStatus() == "DENIED") {
+							this.status.selectToggle(this.deniedRadioBtn);
+						} else {
+							this.approvedRadioBtn.setSelected(false);
+							this.deniedRadioBtn.setSelected(false);
+						}
+					}
+				});
+		
 	}
 
 	private String setStatus() {
@@ -86,7 +166,7 @@ public class HrRequestsPageController {
 			alert.setTitle("Success!");
 			alert.setHeaderText(null);
 			alert.setContentText("The request was updated!!");
-			
+
 			alert.showAndWait();
 
 		} else if (this.status.getSelectedToggle().equals(this.deniedRadioBtn)) {
@@ -95,7 +175,7 @@ public class HrRequestsPageController {
 			alert.setTitle("Success!");
 			alert.setHeaderText(null);
 			alert.setContentText("The request was updated!!");
-			
+
 			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -105,7 +185,7 @@ public class HrRequestsPageController {
 
 			alert.showAndWait();
 		}
-		
+
 		return status;
 
 	}

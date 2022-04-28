@@ -1,5 +1,6 @@
 package edu.westga.edu.employee_management.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +8,6 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -19,9 +19,10 @@ import java.util.stream.Stream;
  * @author Brianna Irie
  * @version Spring 2021
  */
-public class PayPeriod implements Iterable<LocalDate> {
+public class PayPeriod {
 
 	private static final String DATE_CANNOT_BE_NULL = "Date cannot be null";
+	private static final String PERIOD_CANNOT_BE_NULL = "Period cannot be null";
 	private LocalDate startDate;
 	private LocalDate endDate;
 
@@ -57,10 +58,15 @@ public class PayPeriod implements Iterable<LocalDate> {
 		}
 
 		int weekOfYear = date.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+
+		if (date.getDayOfWeek() == DayOfWeek.SATURDAY) {
+			--weekOfYear;
+		}
+
 		TemporalField defaultField = WeekFields.of(Locale.getDefault()).dayOfWeek();
 		LocalDate startOfWeek = date.with(defaultField, 1);
 		if (weekOfYear % 2 == 0) {
-			startOfWeek.minus(Period.ofWeeks(1));
+			startOfWeek = startOfWeek.minus(Period.ofWeeks(1));
 		}
 
 		return startOfWeek;
@@ -81,13 +87,45 @@ public class PayPeriod implements Iterable<LocalDate> {
 		}
 
 		LocalDate periodStart = getStartDate(date);
-		LocalDate lastWeekOfPeriod = periodStart.plus(Period.ofWeeks(1));
+		LocalDate lastWeekOfPeriod = periodStart.plusWeeks(1);
 		return lastWeekOfPeriod.with(getDayOfWeekField(), 7);
 
 	}
 
 	private static TemporalField getDayOfWeekField() {
 		return WeekFields.of(Locale.getDefault()).dayOfWeek();
+	}
+
+	/**
+	 * Get start date of next pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param period
+	 * @return the next pay period
+	 */
+	public static PayPeriod getNextPeriod(PayPeriod period) {
+		if (period == null) {
+			throw new IllegalArgumentException(PERIOD_CANNOT_BE_NULL);
+		}
+		return new PayPeriod(period.startDate.plusDays(14));
+	}
+
+	/**
+	 * Gets start date of previous pay period
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param period
+	 * @return the previous pay period
+	 */
+	public static PayPeriod getPreviousPeriod(PayPeriod period) {
+		if (period == null) {
+			throw new IllegalArgumentException(PERIOD_CANNOT_BE_NULL);
+		}
+		return new PayPeriod(period.startDate.minusDays(14));
 	}
 
 	/**
@@ -112,11 +150,6 @@ public class PayPeriod implements Iterable<LocalDate> {
 	 */
 	public LocalDate getEndDate() {
 		return this.endDate;
-	}
-
-	@Override
-	public Iterator<LocalDate> iterator() {
-		return this.stream().iterator();
 	}
 
 	/**
@@ -145,6 +178,14 @@ public class PayPeriod implements Iterable<LocalDate> {
 		return dates;
 	}
 
+	/**
+	 * Returns the string representation of the PayPeriod
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the string representation of the PayPeriod
+	 */
 	@Override
 	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd");

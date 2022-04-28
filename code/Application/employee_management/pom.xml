@@ -146,6 +146,56 @@
         			<mainClass>edu.westga.edu.employee_management.MainApp</mainClass>
     			</configuration>
             </plugin>
+			<plugin><!-- generates code coverage report and requires minimum code coverage when executing test command -->
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>jacoco-report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<!-- Add this checking to ensure code coverage minimum is met -->
+					<execution>
+						<id>jacoco-check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>PACKAGE</element>
+									<!--includes>
+										<include>edu.westga.edu.employee_management.model</include>
+									</includes-->
+									
+									<!-- Always skip Main and codebehind -->
+									<excludes>
+										<exclude>edu.westga.edu.employee_management.controller</exclude>
+										<exclude>edu.westga.edu.employee_management</exclude>
+									</excludes>
+									<limits>
+										<limit>
+											<counter>LINE</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.70</minimum>
+										</limit>
+									</limits>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+					
+				</executions>
+			</plugin>
         </plugins>
     </build>
 </project>

@@ -1,15 +1,22 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.server_communication;
 
 import org.json.JSONObject;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Context;
 import org.zeromq.ZMQ.Socket;
 
+import edu.westga.edu.employee_management.model.RequestType;
+
+/**
+ * Manages the data for a Response object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class Client extends Thread {
 
 	private RequestType type;
 	private String request;
-	private String response;
 	private static Context context = ZMQ.context(1);
 	private static Socket socket = context.socket(ZMQ.REQ);
 	private boolean responseRecevied;
@@ -29,17 +36,29 @@ public class Client extends Thread {
 			throw new IllegalArgumentException("Type cannot be null");
 		}
 
-		if (request == null || request.isEmpty()) {
-			throw new IllegalArgumentException("Request cannot be null or empty");
+		if (request == null) {
+			throw new IllegalArgumentException("Request cannot be null");
 		}
 
 		this.type = type;
 		this.request = request;
 	}
 
-	@Override
-	public void run() {
-		// this.sendRequest();
+	/**
+	 * Disconnects from python server socket
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 * 
+	 * @param server
+	 *
+	 */
+	public static void disconnectFromSocket(PythonServer server) {
+		if (!server.isAlive()) {
+			return;
+		}
+
+		disconnectFromSocket();
 	}
 
 	/**
@@ -67,7 +86,9 @@ public class Client extends Thread {
 	 *
 	 */
 	public static void connectToSocket() {
-		System.out.println("Connecting to hello world server");
+		context = ZMQ.context(1);
+		socket = context.socket(ZMQ.REQ);
+		System.out.println("Connecting to Employee Management Server");
 		socket.connect("tcp://127.0.0.1:5555");
 	}
 
@@ -93,18 +114,4 @@ public class Client extends Thread {
 		this.responseRecevied = true;
 		return response;
 	}
-
-	/**
-	 * Gets the response
-	 *
-	 * Preconditions: none
-	 * Postconditions: none
-	 *
-	 * @return the response
-	 */
-	public String getResponse() {
-
-		return this.response;
-	}
-
 }

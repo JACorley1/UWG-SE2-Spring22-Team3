@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
+<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="582.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.edu.employee_management.controller.LandingPageController">
    <children>
       <Button fx:id="clockInButton" layoutX="55.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockIn" text="Clock In" />
       <Button fx:id="clockOutButton" layoutX="160.0" layoutY="67.0" mnemonicParsing="false" onAction="#clockOut" text="Clock Out" />
@@ -20,7 +20,7 @@
          </font>
       </Text>
       <Button fx:id="hrViewButton" layoutX="496.0" layoutY="23.0" mnemonicParsing="false" onAction="#openHRView" text="Open HR View" visible="false" />
-      <Pane layoutX="17.0" layoutY="114.0" prefHeight="308.0" prefWidth="287.0">
+      <Pane layoutX="17.0" layoutY="114.0" prefHeight="326.0" prefWidth="287.0">
          <children>
             <TextField fx:id="idField" disable="true" layoutX="124.0" layoutY="40.0" />
             <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID:">
@@ -34,14 +34,14 @@
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" disable="true" layoutX="125.0" layoutY="212.0" />
+            <TextField fx:id="emailField" disable="true" layoutX="125.0" layoutY="212.0" styleClass="text-input" />
             <Text layoutX="14.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <TextField fx:id="phoneField" disable="true" layoutX="125.0" layoutY="247.0" />
-            <Text layoutX="15.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work Phone">
+            <TextField fx:id="phoneField" disable="true" layoutX="125.0" layoutY="247.0" styleClass="text-input" />
+            <Text layoutX="15.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Work Phone:">
                <font>
                   <Font size="15.0" />
                </font>
@@ -64,6 +64,9 @@
                </font>
             </Text>
             <Text fx:id="profileErrorText" fill="RED" layoutX="12.0" layoutY="303.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" visible="false" />
+            <Button fx:id="editButton" layoutX="221.0" layoutY="286.0" mnemonicParsing="false" onAction="#onEdit" prefWidth="55.0" text="Edit" />
+            <Button fx:id="doneButton" layoutX="153.0" layoutY="286.0" mnemonicParsing="false" onAction="#onDoneEdit" prefWidth="55.0" text="Done" visible="false" />
+            <Button fx:id="cancelButton" layoutX="221.0" layoutY="286.0" mnemonicParsing="false" onAction="#onCancelEdit" prefWidth="55.0" text="Cancel" visible="false" />
          </children>
       </Pane>
       <Pane layoutX="317.0" layoutY="114.0" prefHeight="461.0" prefWidth="287.0">
@@ -145,7 +148,7 @@
                   <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sat, Feb 27" GridPane.columnIndex="0" GridPane.rowIndex="6" />
                   <TextField disable="true" prefHeight="25.0" prefWidth="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                  <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button disable="true" mnemonicParsing="false" onAction="#openDailyTime" text="&gt;&gt;" GridPane.columnIndex="2" GridPane.rowIndex="3" />

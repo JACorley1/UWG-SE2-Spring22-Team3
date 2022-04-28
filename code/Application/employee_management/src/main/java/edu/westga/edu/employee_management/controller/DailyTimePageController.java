@@ -1,5 +1,7 @@
 package edu.westga.edu.employee_management.controller;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -12,6 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an DailyTimePageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class DailyTimePageController {
 
 	private Stage stage;
@@ -33,7 +41,9 @@ public class DailyTimePageController {
 	public void initializeUserData(Stage stage) {
 		this.stage = stage;
 		this.sheet = (DaySheet) this.stage.getUserData();
-		this.totalHoursLabel.textProperty().setValue("Hours: " + this.sheet.getHoursWorked());
+		double hours = this.sheet.getHoursWorked();
+		NumberFormat formatter = new DecimalFormat("#0.0");
+		this.totalHoursLabel.textProperty().setValue("Hours: " + formatter.format(hours));
 		this.createTimeTextFields();
 	}
 

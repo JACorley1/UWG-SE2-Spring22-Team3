@@ -1,13 +1,18 @@
 package edu.westga.edu.employee_management.model;
 
-import java.util.HashMap;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 
+/**
+ * Manages data for UserLogin object
+ * 
+ * @author Destiny Harper
+ * @version Sprint 1
+ */
 public class UserLogin {
 	private static final String PASSWORD_CANNOT_BE_NULL = "Password cannot be null.";
 	private static final String USERNAME_CANNOT_BE_NULL = "Username cannot be null.";
 	private String username;
 	private String password;
-	private HashMap<String, String> employeeCredentials;
 	
 	/**
 	* Manages the data of a User Login object
@@ -18,12 +23,6 @@ public class UserLogin {
 	public UserLogin() {
 		this.username = "";
 		this.password = "";
-		
-		this.employeeCredentials = new HashMap<String, String>();
-		this.employeeCredentials.put("destiny", "harper");
-        this.employeeCredentials.put("brianna", "irie");
-        this.employeeCredentials.put("miguel", "campos");
-        this.employeeCredentials.put("fernando", "dominguez");
 	}
 	
 	/**
@@ -46,12 +45,6 @@ public class UserLogin {
 		
 		this.username = username;
 		this.password = password;
-		
-		this.employeeCredentials = new HashMap<String, String>();
-		this.employeeCredentials.put("destiny", "harper");
-        this.employeeCredentials.put("brianna", "irie");
-        this.employeeCredentials.put("miguel", "campos");
-        this.employeeCredentials.put("fernando", "dominguez");
 	}
 	
 	/**
@@ -61,9 +54,9 @@ public class UserLogin {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
-	 * @return true if credentials are valid, false otherwise
+	 * @return the employee's profile if credentials are valid, null otherwise
 	 */
-	public boolean verifyLoginCredentials() {
+	public EmployeeProfile verifyLoginCredentials() {
 		return RequestManager.verifyPassword(this.username, this.password);
 	}
 
@@ -92,18 +85,4 @@ public class UserLogin {
 	public String getPassword() {
 		return this.password;
 	}
-
-	/**
-	 *
-	 * Gets the collection of employee credentials
-	 *
-	 * Preconditions: none
-	 * Postconditions: none
-	 *
-	 * @return the collection of employee credentials
-	 */
-	public HashMap<String, String> getEmployeeCredentials() {
-		return this.employeeCredentials;
-	}
-
 }

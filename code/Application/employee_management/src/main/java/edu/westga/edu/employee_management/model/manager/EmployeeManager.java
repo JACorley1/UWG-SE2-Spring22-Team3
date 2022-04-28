@@ -1,7 +1,9 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.manager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.westga.edu.employee_management.model.EmployeeProfile;
 
 /**
  * Employee manager class
@@ -38,7 +40,7 @@ public class EmployeeManager {
 		if (single_instance == null) {
 			single_instance = new EmployeeManager();
 		}
-		 return single_instance;
+		return single_instance;
 	}
 
 	/**
@@ -47,7 +49,11 @@ public class EmployeeManager {
 	 * @return the profiles on the list
 	 */
 	public List<EmployeeProfile> getProfiles() {
-		return getInstance().profiles;
+		if (this.profiles.isEmpty()) {
+			this.profiles = RequestManager.getProfiles();
+		}
+		
+		return this.profiles;
 	}
 
 	/**
@@ -94,7 +100,9 @@ public class EmployeeManager {
 		}
 		EmployeeProfile profile = this.getProfile(id);
 		if (profile == null) {
-			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee, userName, password));
+			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
+					userName, password);
+			return this.profiles.add(employee);
 		} else {
 			throw new IllegalStateException("This profile already exists.");
 		}
@@ -151,8 +159,9 @@ public class EmployeeManager {
 		} else if (!this.profiles.remove(newProfile)) {
 			return false;
 		} else {
-			return this.profiles.add(new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
-					userName, password));
+			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
+					userName, password);
+			return this.profiles.add(employee);
 		}
 	}
 
@@ -184,8 +193,22 @@ public class EmployeeManager {
 			return this.profiles.remove(newProfile);
 		}
 	}
-
-	private EmployeeProfile getProfile(int id) {
+	
+	/**
+	 * Get the profile with the specified id
+	 * 
+	 * @precondition id >= 0
+	 * 
+	 * @postcondition none
+	 * 
+	 * @param id the id of the profile
+	 * 
+	 * @return the profile specified by the id
+	 */
+	public EmployeeProfile getProfile(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException(CANNOT_BE_NULL_OR_EMPTY);
+		}
 		EmployeeProfile profile = null;
 
 		for (EmployeeProfile current : this.profiles) {

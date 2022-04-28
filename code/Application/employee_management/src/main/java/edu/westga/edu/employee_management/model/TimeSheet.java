@@ -3,8 +3,15 @@ package edu.westga.edu.employee_management.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Time Sheet Class
@@ -35,6 +42,10 @@ public class TimeSheet {
 		}
 		this.timeData = new HashMap<Integer, DaySheet>();
 		this.setPayPeriodRange(payPeriodDate);
+
+		for (int i = 0; i < 14; i++) {
+			this.timeData.put(i, new DaySheet(i));
+		}
 	}
 
 	private void setPayPeriodRange(LocalDate payPeriodDate) {
@@ -48,10 +59,10 @@ public class TimeSheet {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
+	 * @param time the time of clock in
 	 * @return true if successfully clocked in false otherwise
 	 */
-	public boolean clockIn() {
-		LocalDateTime time = LocalDateTime.now();
+	public boolean clockIn(LocalDateTime time) {
 		if (!this.withinTimeSheet(time)) {
 			return false;
 		}
@@ -76,7 +87,8 @@ public class TimeSheet {
 	}
 
 	private boolean withinTimeSheet(LocalDateTime time) {
-		return time.toLocalDate().isBefore(this.payPeriodEnd) && time.toLocalDate().isAfter(this.payPeriodStart);
+		return time.toLocalDate().isBefore(this.payPeriodEnd.plusDays(1))
+				&& time.toLocalDate().isAfter(this.payPeriodStart.minusDays(1));
 	}
 
 	/**
@@ -85,19 +97,14 @@ public class TimeSheet {
 	 * Preconditions: none
 	 * Postconditions: none
 	 *
+	 * @param time the time of clockout
 	 * @return true if successfully clocked out false otherwise
 	 */
-	public boolean clockOut() {
-		LocalDateTime time = LocalDateTime.now();
-
-		if (!this.withinTimeSheet(time)) {
-			return false;
-		}
-
+	public boolean clockOut(LocalDateTime time) {
 		if (this.hasOpenTime()) {
-			this.openTime.clockOut(time);
-			this.openTime = null;
-			return true;
+			boolean clocked = this.openTime.clockOut(time);
+			this.openTime = clocked ? null : this.openTime;
+			return clocked;
 		} else {
 			return false;
 		}
@@ -117,6 +124,18 @@ public class TimeSheet {
 	}
 
 	/**
+	 * Gets the time sheet's start date
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the payPeriodStart
+	 */
+	public LocalDate getStartDate() {
+		return this.payPeriodStart;
+	}
+
+	/**
 	 * Checks if there is a current clock in without a clock out
 	 * 
 	 * Preconditions: none Postconditions: none
@@ -124,7 +143,18 @@ public class TimeSheet {
 	 * @return if there is open time;
 	 */
 	public boolean hasOpenTime() {
-		return this.openTime != null;
+		if (this.openTime != null) {
+			return true;
+		} else {
+			for (DaySheet sheet : this.timeData.values()) {
+				if (sheet.hasOpenTime()) {
+					this.openTime = sheet;
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -147,5 +177,80 @@ public class TimeSheet {
 			sheet.add(time);
 		}
 
+	}
+
+	/**
+	 * Returns a list of day sheets
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return list of day sheets
+	 */
+	public List<DaySheet> daySheets() {
+		for (int i = 0; i < 14; i++) {
+			if (!this.timeData.containsKey(i)) {
+				this.timeData.put(i, new DaySheet(i));
+			}
+		}
+		return new ArrayList<DaySheet>(this.timeData.values());
+	}
+
+	/**
+	 * Converts object to json
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the object as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		JSONArray daysheets = new JSONArray();
+		for (DaySheet sheet : this.timeData.values()) {
+			daysheets.put(sheet.toJson());
+		}
+
+		json.put("startDate", this.payPeriodStart.toString());
+		json.put("daysheets", daysheets);
+
+		return json;
+	}
+
+	/**
+	 * Converts JSON object into time sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param json the json to convert
+	 * @return the employee profile
+	 */
+	public static TimeSheet fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		LocalDate startDate = LocalDate.parse(json.get("startDate").toString());
+		TimeSheet time = new TimeSheet(startDate);
+
+		Map<Integer, DaySheet> timeData = new HashMap<Integer, DaySheet>();
+
+		JSONArray sheets = json.optJSONArray("daysheets");
+
+		if (sheets != null) {
+			for (Object obj : sheets) {
+				JSONObject sheet = (JSONObject) obj;
+				int dayIndex = sheet.getInt("dayIndex");
+				DaySheet daysheet = DaySheet.fromJson(sheet);
+				timeData.put(dayIndex, daysheet);
+			}
+
+			time.setData(timeData);
+		}
+
+		return time;
+
+	}
+
+	private void setData(Map<Integer, DaySheet> timeData) {
+		this.timeData = timeData;
 	}
 }

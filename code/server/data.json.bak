@@ -1,0 +1,330 @@
+{
+    "brianna": {
+        "__user__": true,
+        "password": "irie",
+        "profile": {
+            "__profile__": true,
+            "email": "CarjotXX777@hotmail.com",
+            "firstname": "Brianna",
+            "hr": true,
+            "id": 1212,
+            "lastname": "Irie",
+            "middlename": "S",
+            "phone": "6678954563",
+            "timesheets": [
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T12:44:40.807570700",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 6
+                                },
+                                {
+                                    "clockin": "2022-04-23T14:48:51.783686800",
+                                    "dayIndex": 6
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 8,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 9,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-10"
+                }
+            ],
+            "workRequests": [
+                {
+                    "requestEndDate": "03/16/2022",
+                    "requestStartDate": "03/12/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Personal Time"
+                },
+                {
+                    "requestEndDate": "02/05/2022",
+                    "requestStartDate": "02/04/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Sick Leave"
+                },
+                {
+                    "requestEndDate": "04/26/2022",
+                    "requestStartDate": "04/21/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Vacation"
+                }
+            ]
+        },
+        "username": "brianna"
+    },
+    "destiny": {
+        "__user__": true,
+        "password": "harper",
+        "profile": {
+            "__profile__": true,
+            "email": "gomitagodoz666@hotmail.com",
+            "firstname": "Destiny",
+            "hr": true,
+            "id": 1213,
+            "lastname": "Harper",
+            "middlename": "D",
+            "phone": "7778542369",
+            "timesheets": [
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-24T17:35:11.390077700",
+                                    "clockout": "2022-04-24T17:36:29.389123300",
+                                    "dayIndex": 0
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 8,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 9,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-24"
+                }
+            ],
+            "workRequests": [
+                {
+                    "requestEndDate": "01/16/2022",
+                    "requestStartDate": "01/14/2022",
+                    "requestStatus": "PENDING",
+                    "requestType": "Sick Leave"
+                },
+				{
+                    "requestEndDate": "04/2/2022",
+                    "requestStartDate": "04/12/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Personal Time"
+                }
+            ]
+        },
+        "username": "destiny"
+    },
+    "fernando": {
+        "__user__": true,
+        "password": "dominguez",
+        "profile": {
+            "__profile__": true,
+            "email": "elverGaXXX89@hotmail.com",
+            "firstname": "Fernando",
+            "hr": true,
+            "id": 1312,
+            "lastname": "Dominguez",
+            "middlename": "J",
+            "phone": "8975462147",
+            "timesheets": [],
+            "workRequests": [
+                {
+                    "requestEndDate": "06/26/2022",
+                    "requestStartDate": "06/21/2022",
+                    "requestStatus": "APPROVED",
+                    "requestType": "Vacation"
+                }
+            ]
+        },
+        "username": "fernando"
+    },
+    "miguel": {
+        "__user__": true,
+        "password": "campos",
+        "profile": {
+            "__profile__": true,
+            "email": "elverGaXXX89@hotmail.com",
+            "firstname": "Miguel",
+            "hr": false,
+            "id": 1313,
+            "lastname": "Campos",
+            "middlename": "C",
+            "phone": "8975462147",
+            "timesheets": [
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 8,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 9,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-24"
+                }
+            ],
+            "workRequests": [
+                {
+                    "requestEndDate": "08/26/2021",
+                    "requestStartDate": "08/22/2021",
+                    "requestStatus": "DENIED",
+                    "requestType": "Personal Time"
+                },
+                {
+                    "requestEndDate": "12/06/2022",
+                    "requestStartDate": "12/01/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Vacation"
+                }, 
+				{
+                    "requestEndDate": "08/18/2022",
+                    "requestStartDate": "08/20/2022",
+                    "requestStatus": "PENDING",
+                    "requestType": "Vacation"
+                }
+            ]
+        },
+        "username": "miguel"
+    }
+}

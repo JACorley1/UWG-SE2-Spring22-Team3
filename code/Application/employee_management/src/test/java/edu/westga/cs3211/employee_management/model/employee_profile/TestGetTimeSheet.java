@@ -1,6 +1,7 @@
 package edu.westga.cs3211.employee_management.model.employee_profile;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,13 +22,18 @@ class TestGetTimeSheet {
 		this.employee = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
 				"user name", "password");
 	}
-
+	
+	@Test
+	void testNullDate() {
+		assertThrows(IllegalArgumentException.class, () -> this.employee.getTimeSheet(null));
+	}
+	
 	@Test
 	void testGetUncreatedWithEmptyProfile() {
 		LocalDate date = LocalDate.of(2022, 3, 3);
 		TimeSheet timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(0, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 
 	@Test
@@ -36,7 +42,7 @@ class TestGetTimeSheet {
 		this.employee.getTimeSheet(date.minusWeeks(2));
 		TimeSheet timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(0, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 
 	@Test
@@ -49,6 +55,6 @@ class TestGetTimeSheet {
 
 		timesheet = this.employee.getTimeSheet(date);
 
-		assertEquals(1, timesheet.getTimeSheet().size());
+		assertEquals(14, timesheet.getTimeSheet().size());
 	}
 }

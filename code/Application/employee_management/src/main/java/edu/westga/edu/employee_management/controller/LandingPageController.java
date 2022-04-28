@@ -1,23 +1,20 @@
 package edu.westga.edu.employee_management.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map.Entry;
+import java.util.ArrayList;
 
 import edu.westga.edu.employee_management.MainApp;
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.DaySheet;
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.EmployeeTime;
-import edu.westga.edu.employee_management.model.PayPeriod;
-import edu.westga.edu.employee_management.model.TimeSheet;
-import edu.westga.edu.employee_management.model.UserLogin;
+import edu.westga.edu.employee_management.model.EmployeeRequest;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.viewmodel.LandingPageViewModel;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,20 +22,21 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for an LandingPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class LandingPageController {
-
-	private static final int BUTTON_COL_INDEX = 2;
-
-	private static final int HOURS_COL_INDEX = 1;
-
-	private EmployeeProfile user;
-	private PayPeriod currentPayPeriod;
-	private TimeSheet currentTimeSheet;
 	
+	private LandingPageViewModel viewModel;
+
 	@FXML
 	private Button logOutButton;
 
@@ -65,9 +63,6 @@ public class LandingPageController {
 
 	@FXML
 	private TextField phoneField;
-
-	@FXML
-	private TextField dateStartedField;
 
 	@FXML
 	private TextField middleNameField;
@@ -101,13 +96,16 @@ public class LandingPageController {
 
 	@FXML
 	private Text profileErrorText;
-
-	private EmployeeManager manager;
 	
-	private EmployeeRequestManager requestManager;
+	@FXML
+	private Button editButton;
 
-	private UserLogin login;
-	
+	@FXML
+	private Button doneButton;
+
+	@FXML
+	private Button cancelButton;
+
 	@FXML
     void onViewRequestsButtonClick(ActionEvent event) {
 		try {
@@ -119,24 +117,29 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodBack(ActionEvent event) {
-
+		this.viewModel.decrementPayPeriod();
 	}
 
 	@FXML
 	void clockIn(ActionEvent event) {
-		this.user.getTimeSheet(LocalDate.now()).clockIn();
-		this.updatePage();
+		this.viewModel.clockIn();
 	}
 
 	@FXML
 	void clockOut(ActionEvent event) {
-		this.user.getTimeSheet(LocalDate.now()).clockOut();
-		this.updatePage();
+		this.viewModel.clockOut();
 	}
 	
 	@FXML
 	void logOut(ActionEvent event) {
 		try {
+			EmployeeRequestManager requestManager = EmployeeRequestManager.getInstance();
+			requestManager.setConfirmedRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setPendingRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setAllEmployeesConfirmedRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setAllEmployeesPendingRequests(new ArrayList<EmployeeRequest>());
+			requestManager.setNumberOfRequests(0);
+			
 			SceneController.changeScene(Scenes.LOGIN, (Stage) this.logOutButton.getScene().getWindow());
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -153,30 +156,63 @@ public class LandingPageController {
 
 	@FXML
 	void payPeriodForward(ActionEvent event) {
-		
+		this.viewModel.incrementPayPeriod();
 	}
 
 	@FXML
 	void openDailyTime(ActionEvent event) {
 		try {
-			Button button = (Button) event.getSource();
-			DaySheet sheet = this.getButtonDaySheet(button);
-
-			this.openDailyTimeWindow(sheet);
-
+			this.openDailyTimeWindow(event);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void openDailyTimeWindow(DaySheet sheet) throws IOException {
+	@FXML
+	void onCancelEdit(ActionEvent event) {
+		this.viewModel.resetProfileValues();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onDoneEdit(ActionEvent event) {
+		this.viewModel.setProfile();
+		this.setProfileMode(false);
+	}
+
+	@FXML
+	void onEdit(ActionEvent event) {
+		this.middleNameField.setDisable(false);
+		this.emailField.setDisable(false);
+		this.phoneField.setDisable(false);
+		this.setProfileMode(true);
+	}
+
+	private void setProfileMode(boolean isEditing) {
+		this.doneButton.setVisible(isEditing);
+		this.cancelButton.setVisible(isEditing);
+		this.editButton.setVisible(!isEditing);
+
+		this.middleNameField.setDisable(!isEditing);
+		this.emailField.setDisable(!isEditing);
+		this.phoneField.setDisable(!isEditing);
+	}
+
+	private void openDailyTimeWindow(ActionEvent event) throws IOException {
+		Button button = (Button) event.getSource();
+		int rowIndex = GridPane.getRowIndex(button);
+		int colIndex = LandingPageViewModel.BUTTON_COL_INDEX;
+		if (!(this.getNodeFromGridPane(colIndex, rowIndex) == button)) {
+			rowIndex += 7;
+		}
+
 		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/" + Scenes.DAILYTIMEPAGE + ".fxml"));
 		Scene scene = new Scene(loader.load());
 		Stage newWindow = new Stage();
 		newWindow.setScene(scene);
 		newWindow.setTitle("Daily Time");
 
-		newWindow.setUserData(sheet);
+		newWindow.setUserData(this.viewModel.getDailyTimeUserData(rowIndex));
 
 		DailyTimePageController controller = (DailyTimePageController) loader.getController();
 		controller.initializeUserData(newWindow);
@@ -184,67 +220,74 @@ public class LandingPageController {
 		newWindow.show();
 	}
 
-	private DaySheet getButtonDaySheet(Button button) {
-		int rowIndex = GridPane.getRowIndex(button);
-		var children = this.secondWeekGrid.getChildren();
-
-		if (children.contains(button)) {
-			rowIndex += 7;
-		}
-
-		DaySheet sheet = this.currentTimeSheet.getTimeSheet().get(rowIndex);
-		return sheet;
-	}
-
 	/**
-	 * Initializes Landing Page
+	 * Sets the login field and updates the user alongside
 	 *
-	 * Preconditions: none Postconditions: none
-	 *
+	 * @Preconditions: login != null
+	 * @Postconditions: none
+	 * 
+	 * @param user the user login
 	 */
-	public void initialize() {
-		this.manager = EmployeeManager.getInstance();
-		this.requestManager = EmployeeRequestManager.getInstance();
-		this.login = new UserLogin();
-		
-		this.numberOfRequestsText.setText(Integer.toString(this.requestManager.getNumberOfRequests()));
-
-	}
-
-	private void setUser() {
-		if (this.getProfile() != null) {
-			this.user = this.getProfile();
-		} else {
-			this.user = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com", "123-456-7890", true,
-					"user name", "password");
+	public void setLogin(EmployeeProfile user) {
+		if (user != null) {
+			this.bindUI(user);
+			this.setProfileMode(false);
+			this.setValidation();
 		}
 	}
 
-	private void updateClockButtons() {
-		if (this.currentTimeSheet.hasOpenTime()) {
-			this.clockInButton.setDisable(true);
-			this.clockOutButton.setDisable(false);
-		} else {
-			this.clockOutButton.setDisable(true);
-			this.clockInButton.setDisable(false);
+
+
+	private void bindUI(EmployeeProfile user) {
+		this.viewModel = new LandingPageViewModel(user);
+		this.hrViewButton.visibleProperty().bind(this.viewModel.getHrViewButtonVisibleProperty());
+		this.idField.textProperty().bindBidirectional(this.viewModel.getIdProperty());
+		this.firstNameField.textProperty().bind(this.viewModel.getFirstNameProperty());
+		this.middleNameField.textProperty().bindBidirectional(this.viewModel.getMiddleNameProperty());
+		this.lastNameField.textProperty().bind(this.viewModel.getLastNameProperty());
+		this.emailField.textProperty().bindBidirectional(this.viewModel.getEmailProperty());
+		this.phoneField.textProperty().bindBidirectional(this.viewModel.getPhoneProperty());
+		this.employeeNameLabel.textProperty().bind(this.viewModel.getEmployeeNameProperty());
+
+		this.clockInButton.disableProperty().bind(this.viewModel.getClockInDisabledProperty());
+		this.clockOutButton.disableProperty().bind(this.viewModel.getClockOutDisabledProperty());
+		this.payPeriodLabel.textProperty().bind(this.viewModel.getPayPeriodTextProperty());
+
+		this.numberOfRequestsText.textProperty().bind(this.viewModel.getNumberOfRequestsProperty());
+
+		this.bindDates();
+		this.bindHours();
+		this.bindButtons();
+	}
+
+	private void bindButtons() {
+		int column = LandingPageViewModel.BUTTON_COL_INDEX;
+		ListProperty<Object> buttons = this.viewModel.getTimeProperty().get(column);
+		for (int i = 0; i < 14; i++) {
+			Button button = (Button) this.getNodeFromGridPane(column, i);
+			BooleanProperty disabled = (BooleanProperty) buttons.get(i);
+			button.disableProperty().bind(disabled);
 		}
 	}
 
-	private void updateGrid() {
-		for (Entry<Integer, DaySheet> time : this.currentTimeSheet.getTimeSheet().entrySet()) {
-			int dayIndex = time.getKey();
-			this.setHoursTextField(dayIndex, HOURS_COL_INDEX, time.getValue().getHoursWorked());
-
-			Node node = this.getNodeFromGridPane(BUTTON_COL_INDEX, dayIndex);
-			node.setDisable(false);
+	private void bindHours() {
+		int column = LandingPageViewModel.HOURS_COL_INDEX;
+		ListProperty<Object> dayHours = this.viewModel.getTimeProperty().get(column);
+		for (int i = 0; i < 14; i++) {
+			TextField hourText = (TextField) this.getNodeFromGridPane(column, i);
+			DoubleProperty hours = (DoubleProperty) dayHours.get(i);
+			hourText.textProperty().bind(hours.asString("%.1f hrs"));
 		}
 	}
 
-	private void setHoursTextField(int dayIndex, int col, double hoursWorked) {
-		Node node = this.getNodeFromGridPane(col, dayIndex);
-		TextField field = (TextField) node;
-		DecimalFormat formatter = new DecimalFormat("###.##");
-		field.textProperty().set(formatter.format(hoursWorked) + " hr");
+	private void bindDates() {
+		int column = LandingPageViewModel.DATE_COL_INDEX;
+		ListProperty<Object> dates = this.viewModel.getTimeProperty().get(column);
+		for (int i = 0; i < 14; i++) {
+			Text dateLabel = (Text) this.getNodeFromGridPane(column, i);
+			ObjectProperty<LocalDate> date = (ObjectProperty<LocalDate>) dates.get(i);
+			dateLabel.textProperty().bind(date.asString("%1$ta %1$tb, %1$td"));
+		}
 	}
 
 	private Node getNodeFromGridPane(int col, int row) {
@@ -262,92 +305,12 @@ public class LandingPageController {
 		return null;
 	}
 
+	private void setValidation() {
+		this.phoneField.setTextFormatter(new TextFormatter<>(Validation.integerValidationFormatter()));
+		Validation.setEmailInputValidation(this.emailField);
 
-	private void updateGridPeriod() {
-		this.payPeriodLabel.textProperty().set(this.currentPayPeriod.toString());
-		List<LocalDate> dates = this.currentPayPeriod.toList();
-		for (int i = 0; i < dates.size(); i++) {
-			Node node = this.getNodeFromGridPane(0, i);
-			Text text = (Text) node;
-
-			LocalDate date = dates.get(i);
-			String formattedDate = this.formatDate(date);
-
-			text.textProperty().set(formattedDate);
-		}
+		this.doneButton.disableProperty().bind(this.emailField.borderProperty().isNotNull());
 	}
 
-	private String formatDate(LocalDate date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E, MMM d");
-		String dateString = date.format(formatter);
-		return dateString;
-	}
-
-	private void updatePage() {
-		this.updateClockButtons();
-		this.updateGrid();
-	}
-
-	private void setUpLandingPageProfileFields(EmployeeProfile profile) {
-		if (profile != null) {
-			this.idField.setText(String.valueOf(profile.getID()));
-			this.firstNameField.setText(profile.getFirstName());
-			this.middleNameField.setText(profile.getMiddleName());
-			this.lastNameField.setText(profile.getLastName());
-			this.emailField.setText(profile.getEmail());
-			this.phoneField.setText(profile.getPhone());
-			this.employeeNameLabel.setText(profile.getFirstName() + " " + profile.getLastName());
-		} else {
-			EmployeeProfile sampleProfile = new EmployeeProfile(1, "Sophie", "", "Atelier", "example@gmail.com",
-					"123-456-7890", true, "user name", "password");
-			this.profileErrorText
-					.setText("Profile could not be found," + System.lineSeparator() + "showing sample profile.");
-			this.profileErrorText.setVisible(true);
-			this.setUpLandingPageProfileFields(sampleProfile);
-		}
-	}
-
-	/**
-	 * Sets the login field and updates the user alongside
-	 *
-	 * @Preconditions: login != null
-	 * @Postconditions: none
-	 * 
-	 * @param login the user login
-	 */
-	public void setLogin(UserLogin login) {
-		if (login != null) {
-			this.login = login;
-			this.setUpLandingPageProfileFields(this.getProfile());
-			this.setUser();
-
-			if (this.user == null) {
-				return;
-			}
-
-			if (this.user.isHR()) {
-				this.hrViewButton.visibleProperty().set(true);
-			}
-
-			LocalDate today = LocalDate.now();
-			this.currentPayPeriod = new PayPeriod(today);
-			this.currentTimeSheet = this.user.getTimeSheet(today);
-
-			this.updatePage();
-			this.updateGridPeriod();
-		}
-	}
-
-	private EmployeeProfile getProfile() {
-		String userName = this.login.getUsername();
-		String pass = this.login.getPassword();
-		for (EmployeeProfile currProfile : this.manager.getProfiles()) {
-			if (currProfile.getUserName().equalsIgnoreCase(userName)
-					|| currProfile.getPassword().equalsIgnoreCase(pass)) {
-				return currProfile;
-			}
-		}
-		return null;
-	}
 }
 

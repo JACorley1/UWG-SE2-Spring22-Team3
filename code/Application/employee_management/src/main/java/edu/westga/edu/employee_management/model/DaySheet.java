@@ -1,10 +1,21 @@
 package edu.westga.edu.employee_management.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Manages the data for a DaySheet object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class DaySheet {
 
 	private static final String TIME_CANNOT_BE_NULL = "Time cannot be null";
@@ -78,7 +89,18 @@ public class DaySheet {
 	 * @return if there is open time;
 	 */
 	public boolean hasOpenTime() {
-		return this.openTime != null;
+		if (this.openTime != null) {
+			return true;
+		} else {
+			for (EmployeeTime time : this.times) {
+				if (time.getClockOutTime() == null) {
+					this.openTime = time;
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -109,6 +131,18 @@ public class DaySheet {
 	}
 
 	/**
+	 * Gets the dayIndex
+	 *
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the dayIndex
+	 */
+	public int getDayIndex() {
+		return this.dayIndex;
+	}
+
+	/**
 	 * Adds given time to DaySheet
 	 * 
 	 * Preconditions: time != null Postconditions: getTimes.size() ==
@@ -122,5 +156,74 @@ public class DaySheet {
 		}
 		this.times.add(time);
 		Collections.sort(this.times);
+	}
+
+	/**
+	 * Returns the number of clock times in the day sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the size
+	 */
+	public int size() {
+		return this.times.size();
+	}
+
+	/**
+	 * Converts object to json
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @return the object as a json
+	 */
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+
+		JSONArray times = new JSONArray();
+		for (EmployeeTime time : this.times) {
+			times.put(time.toJson());
+		}
+
+		json.put("dayIndex", this.dayIndex);
+		json.put("times", times);
+
+		return json;
+	}
+
+	/**
+	 * Converts JSON object into day sheet
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 * @param json the json to convert
+	 * @return the employee profile
+	 */
+	public static DaySheet fromJson(JSONObject json) throws JSONException, DateTimeParseException {
+		int dayIndex = json.getInt("dayIndex");
+		DaySheet day = new DaySheet(dayIndex);
+
+		List<EmployeeTime> data = new ArrayList<EmployeeTime>();
+
+		JSONArray times = json.optJSONArray("times");
+
+		if (times != null) {
+			for (Object obj : times) {
+				JSONObject time = (JSONObject) obj;
+				EmployeeTime employeeTime = EmployeeTime.fromJson(time);
+				data.add(employeeTime);
+			}
+
+			day.setTimes(data);
+		}
+
+		return day;
+
+	}
+
+	private void setTimes(List<EmployeeTime> times) {
+		this.times = times;
 	}
 }
