@@ -1,6 +1,7 @@
 package edu.westga.edu.employee_management.controller;
 
 import edu.westga.edu.employee_management.model.EmployeeManager;
+import edu.westga.edu.employee_management.model.RequestManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -61,6 +62,7 @@ public class AddNewProfile {
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
 					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
 					this.usernameTextField.getText(), this.passwordTextField.getText());
+			RequestManager.addUser(this.manager.getProfile(idValue));
 		} catch (Exception e) {
 			result = false;
 		}
@@ -110,7 +112,7 @@ public class AddNewProfile {
 			alert.showAndWait();
 		}
 	}
-	
+
 	private void setAllFieldsEmpty() {
 		this.idTextField.setText("");
 		this.firstNameTextField.setText("");

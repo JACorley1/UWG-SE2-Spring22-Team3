@@ -50,6 +50,7 @@ public class EmployeeManager {
 		if (this.profiles.isEmpty()) {
 			this.profiles = RequestManager.getProfiles();
 		}
+		
 		return this.profiles;
 	}
 
@@ -99,7 +100,6 @@ public class EmployeeManager {
 		if (profile == null) {
 			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
 					userName, password);
-			RequestManager.addUser(employee);
 			return this.profiles.add(employee);
 		} else {
 			throw new IllegalStateException("This profile already exists.");
@@ -159,7 +159,6 @@ public class EmployeeManager {
 		} else {
 			EmployeeProfile employee = new EmployeeProfile(id, firstName, midName, lastName, email, phone, hrEmployee,
 					userName, password);
-			RequestManager.updateUser(employee);
 			return this.profiles.add(employee);
 		}
 	}
@@ -189,12 +188,11 @@ public class EmployeeManager {
 		if (newProfile == null) {
 			throw new IllegalStateException(THAT_PROFILE_DOES_NOT_EXIST);
 		} else {
-			RequestManager.removeUser(newProfile.getUserName());
 			return this.profiles.remove(newProfile);
 		}
 	}
 
-	private EmployeeProfile getProfile(int id) {
+	public EmployeeProfile getProfile(int id) {
 		EmployeeProfile profile = null;
 
 		for (EmployeeProfile current : this.profiles) {

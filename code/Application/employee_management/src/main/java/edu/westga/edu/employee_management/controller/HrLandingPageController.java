@@ -6,6 +6,7 @@ import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
 import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -156,6 +157,7 @@ public class HrLandingPageController {
 		boolean result;
 		try {
 			result = this.manager.removeProfile(idValue, this.lastNameTextField.getText());
+			RequestManager.removeUser(this.manager.getProfile(idValue).getUserName());
 		} catch (Exception e) {
 			result = false;
 		}
@@ -176,6 +178,7 @@ public class HrLandingPageController {
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
 					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
 					this.usernameTextField.getText(), this.passwordTextField.getText());
+			RequestManager.updateUser(this.manager.getProfile(idValue));
 		} catch (Exception e) {
 			result = false;
 		}
