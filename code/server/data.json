@@ -15,6 +15,282 @@
                 {
                     "daysheets": [
                         {
+                            "dayIndex": 1,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-21T09:44:40.807570700",
+                                    "clockout": "2022-04-21T10:48:07.211646700",
+                                    "dayIndex": 1
+                                },
+                                {
+                                    "clockin": "2022-04-21T12:44:40.807570700",
+                                    "clockout": "2022-04-21T16:48:07.211646700",
+                                    "dayIndex": 1
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-22T12:44:40.807570700",
+                                    "clockout": "2022-04-22T18:48:07.211646700",
+                                    "dayIndex": 3
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T12:44:40.807570700",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 7
+                                },
+                                {
+                                    "clockin": "2022-04-23T14:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 7
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T12:44:40.807570700",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 10
+                                },
+                                {
+                                    "clockin": "2022-04-23T14:48:51.783686800",
+                                    "clockout": "2022-04-23T17:48:07.211646700",
+                                    "dayIndex": 10
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T02:44:40.807570700",
+                                    "clockout": "2022-04-23T09:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T10:48:51.783686800",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T15:44:40.807570700",
+                                    "clockout": "2022-04-23T16:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T17:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 11
+                                }
+                            ]
+                        }
+                    ],
+                    "startDate": "2022-03-27"
+                },
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 4,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-21T09:44:40.807570700",
+                                    "clockout": "2022-04-21T10:48:07.211646700",
+                                    "dayIndex": 4
+                                },
+                                {
+                                    "clockin": "2022-04-21T12:44:40.807570700",
+                                    "clockout": "2022-04-21T16:48:07.211646700",
+                                    "dayIndex": 4
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-22T12:44:40.807570700",
+                                    "clockout": "2022-04-22T18:48:07.211646700",
+                                    "dayIndex": 5
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T12:44:40.807570700",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 6
+                                },
+                                {
+                                    "clockin": "2022-04-23T14:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 6
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T12:44:40.807570700",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 10
+                                },
+                                {
+                                    "clockin": "2022-04-23T14:48:51.783686800",
+                                    "clockout": "2022-04-23T17:48:07.211646700",
+                                    "dayIndex": 10
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T02:44:40.807570700",
+                                    "clockout": "2022-04-23T09:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T10:48:51.783686800",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T15:44:40.807570700",
+                                    "clockout": "2022-04-23T16:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T17:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 11
+                                }
+                            ]
+                        }
+                    ],
+                    "startDate": "2022-04-10"
+                },
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T02:44:40.807570700",
+                                    "clockout": "2022-04-23T09:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T10:48:51.783686800",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T15:44:40.807570700",
+                                    "clockout": "2022-04-23T16:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T17:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 11
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T02:44:40.807570700",
+                                    "clockout": "2022-04-23T09:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T10:48:51.783686800",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T15:44:40.807570700",
+                                    "clockout": "2022-04-23T16:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T17:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 11
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-23T02:44:40.807570700",
+                                    "clockout": "2022-04-23T09:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T10:48:51.783686800",
+                                    "clockout": "2022-04-23T14:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T15:44:40.807570700",
+                                    "clockout": "2022-04-23T16:48:07.211646700",
+                                    "dayIndex": 11
+                                },
+                                {
+                                    "clockin": "2022-04-23T17:48:51.783686800",
+                                    "clockout": "2022-04-23T20:48:51.783686800",
+                                    "dayIndex": 11
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": [
+                                {
+                                    "clockin": "2022-04-28T00:32:04.972010200",
+                                    "clockout": "2022-04-28T00:32:09.373165200",
+                                    "dayIndex": 4
+                                },
+                                {
+                                    "clockin": "2022-04-28T01:22:23.564094300",
+                                    "dayIndex": 4
+                                }
+                            ]
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-24"
+                },
+                {
+                    "daysheets": [
+                        {
                             "dayIndex": 0,
                             "times": []
                         },
@@ -40,17 +316,7 @@
                         },
                         {
                             "dayIndex": 6,
-                            "times": [
-                                {
-                                    "clockin": "2022-04-23T12:44:40.807570700",
-                                    "clockout": "2022-04-23T14:48:07.211646700",
-                                    "dayIndex": 6
-                                },
-                                {
-                                    "clockin": "2022-04-23T14:48:51.783686800",
-                                    "dayIndex": 6
-                                }
-                            ]
+                            "times": []
                         },
                         {
                             "dayIndex": 7,
@@ -81,14 +347,14 @@
                             "times": []
                         }
                     ],
-                    "startDate": "2022-04-10"
+                    "startDate": "2022-05-08"
                 }
             ],
             "workRequests": [
                 {
                     "requestEndDate": "03/16/2022",
                     "requestStartDate": "03/12/2022",
-                    "requestStatus": "APPROVED",
+                    "requestStatus": "PENDING",
                     "requestType": "Personal Time"
                 },
                 {
@@ -100,6 +366,12 @@
                 {
                     "requestEndDate": "04/26/2022",
                     "requestStartDate": "04/21/2022",
+                    "requestStatus": "PENDING",
+                    "requestType": "Vacation"
+                },
+                {
+                    "requestEndDate": "04/30/2022",
+                    "requestStartDate": "04/27/2022",
                     "requestStatus": "APPROVED",
                     "requestType": "Vacation"
                 }
@@ -117,7 +389,7 @@
             "hr": true,
             "id": 1213,
             "lastname": "Harper",
-            "middlename": "A",
+            "middlename": "D",
             "phone": "7778542369",
             "timesheets": [
                 {
@@ -192,8 +464,14 @@
                 {
                     "requestEndDate": "01/16/2022",
                     "requestStartDate": "01/14/2022",
-                    "requestStatus": "APPROVED",
+                    "requestStatus": "PENDING",
                     "requestType": "Sick Leave"
+                },
+                {
+                    "requestEndDate": "04/2/2022",
+                    "requestStartDate": "04/12/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Personal Time"
                 }
             ]
         },
@@ -233,8 +511,71 @@
             "hr": false,
             "id": 1313,
             "lastname": "Campos",
-            "middlename": "A",
+            "middlename": "C",
             "phone": "8975462147",
+            "timesheets": [
+                {
+                    "daysheets": [
+                        {
+                            "dayIndex": 0,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 1,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 2,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 3,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 4,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 5,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 6,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 7,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 8,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 9,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 10,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 11,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 12,
+                            "times": []
+                        },
+                        {
+                            "dayIndex": 13,
+                            "times": []
+                        }
+                    ],
+                    "startDate": "2022-04-24"
+                }
+            ],
             "workRequests": [
                 {
                     "requestEndDate": "08/26/2021",
@@ -245,6 +586,12 @@
                 {
                     "requestEndDate": "12/06/2022",
                     "requestStartDate": "12/01/2022",
+                    "requestStatus": "DENIED",
+                    "requestType": "Vacation"
+                },
+                {
+                    "requestEndDate": "08/18/2022",
+                    "requestStartDate": "08/20/2022",
                     "requestStatus": "PENDING",
                     "requestType": "Vacation"
                 }

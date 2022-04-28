@@ -13,6 +13,12 @@ import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+/**
+ * Manages the data for a Validation object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class Validation {
 
 	public static final String EMAIL_REGEX = "^(.+)@(.+)$";

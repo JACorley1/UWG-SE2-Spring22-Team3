@@ -4,8 +4,9 @@ import java.io.IOException;
 
 import edu.westga.edu.employee_management.SceneController;
 import edu.westga.edu.employee_management.Scenes;
-import edu.westga.edu.employee_management.model.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,94 +25,43 @@ public class HrLandingPageController {
 	private ListView<EmployeeProfile> listOfEmployeesView;
 
 	@FXML
-    private TextField idTextField;
+	private TextField idTextField;
 
-    @FXML
-    private TextField firstNameTextField;
+	@FXML
+	private TextField firstNameTextField;
 
-    @FXML
-    private TextField middleNameTextField;
+	@FXML
+	private TextField middleNameTextField;
 
-    @FXML
-    private TextField lastNameTextField;
+	@FXML
+	private TextField lastNameTextField;
 
-    @FXML
-    private TextField emaiilTextField;
+	@FXML
+	private TextField emaiilTextField;
 
-    @FXML
-    private TextField phoneTextField;
+	@FXML
+	private TextField phoneTextField;
 
-    @FXML
-    private TextField usernameTextField;
+	@FXML
+	private TextField usernameTextField;
 
-    @FXML
-    private TextField passwordTextField;
+	@FXML
+	private TextField passwordTextField;
 
-    @FXML
-    private RadioButton hrEmployeeRadioBtn;
+	@FXML
+	private RadioButton hrEmployeeRadioBtn;
 
 	@FXML
 	private ToggleGroup type;
 
-    @FXML
-    private RadioButton normalEmployeeRadioBtn;
-
-    @FXML
-    private Button newEmployeeBtn;
-
-    @FXML
-    private Button removeEmployeeBtn;
-
-    @FXML
-    private TextField monStartTimeField;
-
-    @FXML
-    private TextField tueStartTimeField;
-
-    @FXML
-    private TextField wedStartTimeField;
-
-    @FXML
-    private TextField thuStartTimeField;
-
-    @FXML
-    private TextField friStartTimeField;
-
-    @FXML
-    private TextField satStartTimeField;
-
-    @FXML
-    private TextField sunStartTimeField;
-
-    @FXML
-    private TextField monEndTimeField;
-
-    @FXML
-    private TextField tueEndTimeField;
-
-    @FXML
-    private TextField wedEndTimeField;
-
-    @FXML
-    private TextField thuEndTimeField;
-
-    @FXML
-    private TextField friEndtimeField;
-
-    @FXML
-    private TextField satEndTimeField;
-
-    @FXML
-    private TextField sunEndTimeField;
-
-    @FXML
-    private TextField hrsWorkedTextField;
-
-    @FXML
-    private TextField PaymentTextField;
+	@FXML
+	private RadioButton normalEmployeeRadioBtn;
 
 	@FXML
-	private TextField paymentTextField;
+	private Button newEmployeeBtn;
+
+	@FXML
+	private Button removeEmployeeBtn;
 
 	@FXML
 	private Button editEmployeesInfBtn;
@@ -119,15 +69,14 @@ public class HrLandingPageController {
 	@FXML
 	private Button saveChangesBtn;
 
-    @FXML
-    private Text welcomeLabel;
-    
-    @FXML
-    private Button openRequestsBtn;
+	@FXML
+	private Text welcomeLabel;
+
+	@FXML
+	private Button openRequestsBtn;
 
 	private EmployeeManager manager;
 
-	
 	private void handleDiisplayList() {
 		if (!this.manager.getProfiles().isEmpty()) {
 			this.listOfEmployeesView.setItems(FXCollections.observableList(this.manager.getProfiles()));
@@ -140,26 +89,25 @@ public class HrLandingPageController {
 			alert.showAndWait();
 		}
 	}
-	
+
 	@FXML
 	void handleEditEmployeesInfo(ActionEvent event) {
 		this.changeEditableState(true);
-		this.idTextField.setEditable(false);
 
 	}
 
 	@FXML
 	void handleRemoveEmpoyee(ActionEvent event) {
-		int idValue = Integer.valueOf(this.idTextField.getText());
-		String positiveMessage = "The profile was removed!, refresh the list!";
+		String positiveMessage = "The profile was removed!!";
 		String negativeMessage = "The profile was not removed, Try later";
 		boolean result;
 		try {
+			int idValue = Integer.valueOf(this.idTextField.getText());
+			RequestManager.removeUser(this.manager.getProfile(idValue).getUserName());
 			result = this.manager.removeProfile(idValue, this.lastNameTextField.getText());
 		} catch (Exception e) {
 			result = false;
 		}
-
 		this.getAlert(result, positiveMessage, negativeMessage);
 		this.setAllFieldsEmpty();
 		this.refreshSystemNames();
@@ -167,43 +115,45 @@ public class HrLandingPageController {
 
 	@FXML
 	void handleSaveChanges(ActionEvent event) {
-		int idValue = Integer.valueOf(this.idTextField.getText());
-		String positiveMessage = "The profile was updated!, refresh the list!";
-		String negativeMessage = "The profile was not updated, Try later";
+		String positiveMessage = "The profile was updated!";
+		String negativeMessage = "The profile was not updated, Check your inputs and try again (ID and phone must numbers)";
 		boolean result;
 		try {
+			int idValue = Integer.valueOf(this.idTextField.getText());
 			result = this.manager.updateProfile(idValue, this.firstNameTextField.getText(),
 					this.middleNameTextField.getText(), this.lastNameTextField.getText(),
 					this.emaiilTextField.getText(), this.phoneTextField.getText(), this.radioButtonChanged(),
 					this.usernameTextField.getText(), this.passwordTextField.getText());
+			RequestManager.updateUser(this.manager.getProfile(idValue));
 		} catch (Exception e) {
 			result = false;
 		}
-
+		
 		this.getAlert(result, positiveMessage, negativeMessage);
+		this.changeEditableState(false);
 	}
-	
+
 	@FXML
 	void hnadleNewEmployee(ActionEvent event) {
 		try {
 			SceneController.openMiniWindow(Scenes.ADDNEWPROFILE, "Add Profile Page", event);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		this.refreshSystemNames();
 	}
-	
-    @FXML
-    void handleOpenRequests(ActionEvent event) {
-    	try {
-    		SceneController.openWindow(Scenes.HRREQUESTSPAGE, "HrRequestsPage");
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
 
-    }
+	@FXML
+	void handleOpenRequests(ActionEvent event) {
+		try {
+			SceneController.openWindow(Scenes.HRREQUESTSPAGE, "HrRequestsPage");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@FXML
 	void initialize() {
@@ -215,11 +165,11 @@ public class HrLandingPageController {
 		this.refreshSystemNames();
 
 	}
-	
+
 	private void refreshSystemNames() {
 		this.listOfEmployeesView.setItems(FXCollections.observableList(this.manager.getProfiles()));
-    }
-	
+	}
+
 	private void getInfoFromProfile() {
 		this.listOfEmployeesView.getSelectionModel().selectedItemProperty()
 				.addListener((observable, oldValue, newValue) -> {
@@ -262,11 +212,12 @@ public class HrLandingPageController {
 			alert.showAndWait();
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("FATAL!");
+			alert.setTitle("Error!");
 			alert.setHeaderText(null);
 			alert.setContentText(negativeMessage);
 
 			alert.showAndWait();
+			this.changeEditableState(true);
 		}
 	}
 
@@ -292,21 +243,5 @@ public class HrLandingPageController {
 		this.idTextField.setEditable(state);
 		this.usernameTextField.setEditable(state);
 		this.passwordTextField.setEditable(state);
-		this.PaymentTextField.setEditable(state);
-		this.hrsWorkedTextField.setEditable(state);
-		this.monStartTimeField.setEditable(state);
-		this.tueStartTimeField.setEditable(state);
-		this.wedStartTimeField.setEditable(state);
-		this.thuStartTimeField.setEditable(state);
-		this.friStartTimeField.setEditable(state);
-		this.satStartTimeField.setEditable(state);
-		this.sunStartTimeField.setEditable(state);
-		this.monEndTimeField.setEditable(state);
-		this.tueEndTimeField.setEditable(state);
-		this.wedEndTimeField.setEditable(state);
-		this.thuEndTimeField.setEditable(state);
-		this.friEndtimeField.setEditable(state);
-		this.satEndTimeField.setEditable(state);
-		this.sunEndTimeField.setEditable(state);
 	}
 }

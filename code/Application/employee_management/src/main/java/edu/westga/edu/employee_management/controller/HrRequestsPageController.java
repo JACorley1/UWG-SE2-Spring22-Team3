@@ -1,10 +1,10 @@
 package edu.westga.edu.employee_management.controller;
 
-import edu.westga.edu.employee_management.model.EmployeeManager;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
 import edu.westga.edu.employee_management.model.EmployeeRequest;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
-import edu.westga.edu.employee_management.model.RequestManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeManager;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +17,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.text.Text;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Manages the data for an HrRequestsPageController object
+ * 
+ * @author Team 3
+ * @version Sprint 3
+ */
 public class HrRequestsPageController {
 	@FXML
 	private ListView<EmployeeRequest> pendingRequestsListView;
@@ -79,6 +85,13 @@ public class HrRequestsPageController {
 		
 	}
 
+	/**
+     * Initializes instance variables for the class
+     * 
+     * @precondition none
+     * @postcondition none
+     * 
+     */
 	@FXML
 	public void initialize() {
 		this.employeeManager = EmployeeManager.getInstance();

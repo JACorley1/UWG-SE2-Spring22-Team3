@@ -188,6 +188,11 @@ public class TimeSheet {
 	 * @return list of day sheets
 	 */
 	public List<DaySheet> daySheets() {
+		for (int i = 0; i < 14; i++) {
+			if (!this.timeData.containsKey(i)) {
+				this.timeData.put(i, new DaySheet(i));
+			}
+		}
 		return new ArrayList<DaySheet>(this.timeData.values());
 	}
 

@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import edu.westga.edu.employee_management.model.PythonServer;
+import edu.westga.edu.employee_management.model.server_communication.PythonServer;
 
 class TestServerRun {
 	private static final String SERVER_PATH = "../../server/main.py";
@@ -15,9 +15,10 @@ class TestServerRun {
 	void testServerRun() {
 		PythonServer server = new PythonServer(SERVER_PATH);
 		server.start();
+		boolean serverRan = server.isAlive();
 		this.waitTest();
 
-		boolean serverRan = server.isAlive();
+		
 		server.exit();
 
 		this.waitTest();

@@ -74,7 +74,7 @@ class _RequestHandler:
         response: MutableMapping[str, Any]
         if ("requestType" not in request) :
             response = {"successCode": -1, "errorMessage": "Malformed Request, missing Request Type"}
-        if (request["requestType"] == "ping") :
+        elif (request["requestType"] == "ping") :
             response = {"successCode": 1}
         elif (request["requestType"] == "verifyPassword") :
             data = json.loads(request["request"])
@@ -154,13 +154,37 @@ class _DummyCredentialsManager (CredentialsManager):
     def __init__(self):
         pass
 
+    def addUser(self, username: str, password: str, profile: dict) -> bool:
+        return True
+
+    def getUserPassword(self, userName: str) -> str:
+        return "pass"
+
+    def removeUser(self, userName: str) -> bool:
+        return True
+
+    def updateUserPassword(self, username: str, password: str) -> bool:
+        return True
+
+    def updateUserProfile(self, username: str, profile: str) -> bool:
+        return True
+
+    def getUserNames(self) -> str:
+        return "pass"
+
+    def getUser(self, username: str):
+        return "pass"
+    
+    def getProfiles(self) -> str:
+        return "pass"
+
 '''
 Test Class for _RequestManager
 
 @author Team Three
 @version Spring 2022
 '''
-class Test_RequestManager (unittest.TestCase):
+class Test_RequestManager(unittest.TestCase):
     
     def test_unsupportedRequestType(self):
         request = {"requestType" : "not supported"}
@@ -169,6 +193,74 @@ class Test_RequestManager (unittest.TestCase):
         
         response = handler.handleRequest(request)
         
-        self.assertEquals(response["successCode"], -1, "checking success code")
-        self.assertEquals(response["errorMessage"], "Unsupported Request Type (not supported)", "checking error message")
+        self.assertEqual(response["successCode"], -1, "checking success code")
+        self.assertEqual(response["errorMessage"], "Unsupported Request Type (not supported)", "checking error message")
+
+    def test_malformedRequest(self):
+        request = {"other" : "not supported"}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], -1, "checking success code")
+        self.assertEqual(response["errorMessage"], "Malformed Request, missing Request Type", "checking error message")
+
+
+    def test_verifyPasswordRequest(self):
+        data = json.dumps({"username" : "", "password" : ""})
+        request = {"requestType" : "verifyPassword", "request": data}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], 1, "checking success code")
+        self.assertEqual(response["isValid"], "1", "checking response")
+    
+    def test_addUserRequest(self):
+        data = json.dumps({"username" : "", "password" : "", "profile" : ""})
+        request = {"requestType" : "addUser", "request": data}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], 1, "checking success code")
+        self.assertEqual(response["response"], "1", "checking response")
+
+    def test_updateUser(self):
+        data = json.dumps({"username" : "", "profile" : ""})
+        request = {"requestType" : "updateUser", "request": data}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], 1, "checking success code")
+        self.assertEqual(response["response"], "1", "checking response")
+
+    def test_getProfiles(self):
+        request = {"requestType" : "getProfiles"}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], 1, "checking success code")
+        self.assertEqual(response["response"], "1", "checking response")
+        self.assertEqual(response["users"], "pass", "checking response")
+    
+    def test_removeUser(self):
+        data = json.dumps({"username" : ""})
+        request = {"requestType" : "removeUser", "request": data}
+        manager = _DummyCredentialsManager()
+        handler = _RequestHandler(manager)
+        
+        response = handler.handleRequest(request)
+        
+        self.assertEqual(response["successCode"], 1, "checking success code")
+        self.assertEqual(response["response"], "1", "checking response")
+    
+        
 

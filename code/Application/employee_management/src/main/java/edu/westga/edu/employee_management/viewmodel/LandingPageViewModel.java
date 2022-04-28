@@ -5,14 +5,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import edu.westga.edu.employee_management.model.DaySheet;
 import edu.westga.edu.employee_management.model.EmployeeProfile;
-import edu.westga.edu.employee_management.model.EmployeeRequestManager;
 import edu.westga.edu.employee_management.model.PayPeriod;
-import edu.westga.edu.employee_management.model.RequestManager;
 import edu.westga.edu.employee_management.model.TimeSheet;
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+import edu.westga.edu.employee_management.model.manager.RequestManager;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ListProperty;
@@ -25,6 +24,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 
+/**
+ * Manages data for LandingPageViewModel object
+ * 
+ * @author Team 3
+ * @version Sprint 1
+ */
 public class LandingPageViewModel {
 
 	public static final int DATE_COL_INDEX = 0;
@@ -47,6 +52,7 @@ public class LandingPageViewModel {
 	private StringProperty profileErrorProperty;
 
 	private EmployeeProfile user;
+	private PayPeriod todayPeriod;
 	private PayPeriod currentPayPeriod;
 	private TimeSheet currentTimeSheet;
 	private EmployeeRequestManager requestManager;
@@ -190,6 +196,7 @@ public class LandingPageViewModel {
 
 		LocalDate today = this.getNow().toLocalDate();
 		this.currentPayPeriod = new PayPeriod(today);
+		this.todayPeriod = new PayPeriod(today);
 		this.currentTimeSheet = this.user.getTimeSheet(today);
 
 		this.payPeriodTextProperty.setValue(this.currentPayPeriod.toString());
@@ -209,8 +216,7 @@ public class LandingPageViewModel {
 	}
 
 	private void initializeHours() {
-		Map<Integer, DaySheet> timeSheet = this.currentTimeSheet.getTimeSheet();
-		Collection<DaySheet> daySheets = timeSheet.values();
+		Collection<DaySheet> daySheets = this.currentTimeSheet.daySheets();
 
 		List<DoubleProperty> timeProperties = new ArrayList<DoubleProperty>();
 		List<BooleanProperty> disabledProperties = new ArrayList<BooleanProperty>();
@@ -265,8 +271,7 @@ public class LandingPageViewModel {
 	}
 
 	private void updateHours() {
-		Map<Integer, DaySheet> timeSheet = this.currentTimeSheet.getTimeSheet();
-		List<DaySheet> daySheets = new ArrayList<DaySheet>(timeSheet.values());
+		List<DaySheet> daySheets = this.currentTimeSheet.daySheets();
 		ListProperty<Object> hours = this.timeProperty.get(1);
 		ListProperty<Object> disabled = this.timeProperty.get(2);
 		
@@ -283,7 +288,7 @@ public class LandingPageViewModel {
 
 	private void updateClockButtons() {
 		boolean hasOpenTime = this.currentTimeSheet.hasOpenTime();
-		this.clockInDisableProperty.setValue(hasOpenTime);
+		this.clockInDisableProperty.setValue(hasOpenTime || this.currentPayPeriod != this.todayPeriod);
 		this.clockOutDisableProperty.setValue(!hasOpenTime);
 	}
 

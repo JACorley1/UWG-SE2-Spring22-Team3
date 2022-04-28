@@ -1,8 +1,14 @@
-package edu.westga.edu.employee_management.model;
+package edu.westga.edu.employee_management.model.server_communication;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+/**
+ * Manages the data for the PythonServer object
+ * 
+ * @author Team 3
+ * @version Sprint 2
+ */
 public class PythonServer extends Thread {
 	private String path;
 	private volatile boolean exit;
@@ -24,6 +30,13 @@ public class PythonServer extends Thread {
 		this.path = path;
 	}
 	
+	/**
+	 * Runs the PythonServer
+	 * 
+	 * Preconditions: none
+	 * Postconditions: none
+	 *
+	 */
 	@Override
 	public void run() {
 		try {

@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.westga.edu.employee_management.model.manager.EmployeeRequestManager;
+
 /**
  * Employee Profile Class
  * 
@@ -305,6 +307,14 @@ public class EmployeeProfile {
 		return timeSheet;
 	}
 
+	/**
+	 * Returns the string representation of the EmployeeProfile
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @return string representation of the EmployeeProfile
+	 */
 	@Override
 	public String toString() {
 		String type = "No";

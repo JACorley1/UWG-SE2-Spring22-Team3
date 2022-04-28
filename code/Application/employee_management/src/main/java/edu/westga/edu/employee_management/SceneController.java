@@ -9,6 +9,12 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Manages the data for a SceneController object
+ * 
+ * @author Team 3
+ * @version Sprint 2
+ */
 public class SceneController {
 
 	private static Scene loadFXML(Scenes fxml) throws IOException {
