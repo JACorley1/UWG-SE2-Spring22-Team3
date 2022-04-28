@@ -193,6 +193,19 @@ public class EmployeeManager {
 			return this.profiles.remove(newProfile);
 		}
 	}
+<<<<<<< HEAD:code/Application/employee_management/src/main/java/edu/westga/edu/employee_management/model/EmployeeManager.java
+	
+	/**
+	 * Get the profile with the specified id
+	 * 
+	 * @precondition id >= 0
+	 * 
+	 * @postcondition none
+	 * 
+	 * @param id the id of the profile
+	 * 
+	 * @return the profile specified by the id
+=======
 
 	/**
 	 * Gets the EmployeeProfile associated with the given id
@@ -200,8 +213,12 @@ public class EmployeeManager {
 	 * @precondition id > 0
 	 * @postcondition none
 	 * 
+>>>>>>> c81079f6b986aa53ccd2187b7ae49321a3eb5560:code/Application/employee_management/src/main/java/edu/westga/edu/employee_management/model/manager/EmployeeManager.java
 	 */
 	public EmployeeProfile getProfile(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException(CANNOT_BE_NULL_OR_EMPTY);
+		}
 		EmployeeProfile profile = null;
 
 		for (EmployeeProfile current : this.profiles) {
